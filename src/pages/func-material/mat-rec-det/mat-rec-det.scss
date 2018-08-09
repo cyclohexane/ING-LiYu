@@ -1,0 +1,50 @@
+page-mat-rec-det {
+    font-size: 1.2rem;
+    .info {
+        color: $gray;
+        height: 2.7rem;
+        line-height: 2.7rem;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2.3rem;
+        font-weight: bold;
+    }
+    .det {
+        background: #fff;
+        color: $gray;
+        padding: 0 2.3rem 2.7rem;
+        li {
+            display: flex;
+            height: 4.2rem;
+            line-height: 4.2rem;
+        }
+        .label {
+            flex: 0 1 40vw;
+            font-weight: bold;
+        }
+        .content {
+            flex: 1;
+        }
+        .proof {
+            margin-top: 4.3rem;
+            display: block;
+            height: auto;
+            .proof-label {
+                font-weight: bold;
+            }
+            .proof-pic {
+                width: 15rem;
+                height: 8.2rem;
+                display: block;
+            }
+        }
+        .approval-status {
+            color: $green;
+        }
+    }
+    .approval {
+        height: 7.7rem;
+        padding: 1.3rem 2.7rem 0;
+        text-align: right;
+    }
+}

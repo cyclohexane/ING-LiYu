@@ -1,0 +1,92 @@
+page-pro-mat {
+    .pro-name {
+        padding: 0 2.4rem;
+        height: 5.5rem;
+        line-height: 5.5rem;
+        font-weight: bold;
+        font-size: 1.2rem;
+        display: flex;
+        color: $gray;
+        .pro-name-label {
+            flex: 0 1 11rem;
+        }
+        .name {
+            flex: 1 1;
+        }
+    }
+    .label {
+        padding: 0 2.4rem;
+        height: 2.7rem;
+        line-height: 2.7rem;
+        background: $bgGray;
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: $gray;
+    }
+    .tabel-header {
+        color: $gray;
+        font-size: 1rem;
+        display: flex;
+        padding: 0 .4rem;
+        height: 2.3rem;
+        line-height: 2.6rem;
+        span {
+            flex: 2;
+            @include clip
+        }
+        .mat {
+            flex: 3 0;
+        }
+        .type {
+            flex: 0 0 2.2rem;
+        }
+        .time {
+            flex: 0 0 6.6rem;
+        }
+    }
+    .mat-record {
+        li {
+            padding: 0 .4rem;
+            height: 3.2rem;
+            line-height: 3.2rem;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            border-bottom: 1px solid #fff;
+            display: flex;
+            span {
+                flex: 2;
+            }
+            .mat {
+                flex: 3 0;
+            }
+            .type {
+                flex: 0 0 2.2rem;
+            }
+            .time {
+                flex: 0 0 6.6rem;
+            }
+        }
+    }
+    .menu {
+        width: 76vw;
+        background-color: #fff;
+        box-shadow: 0 .4rem .8rem #555;
+        position: fixed;
+        top: 4.8rem;
+        right: 1.3rem;
+        z-index: 4;
+        li {
+            height: 6rem;
+            text-align: center;
+            line-height: 6rem;
+            color: $green;
+            font-size: 1.7rem;
+            border-bottom: 1px solid $green;
+            font-weight: normal;
+        }
+        li:last-child {
+            border: none;
+        }
+    }
+}

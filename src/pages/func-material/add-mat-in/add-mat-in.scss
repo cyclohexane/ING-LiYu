@@ -1,0 +1,20 @@
+page-add-mat-in {
+    .add-rec {
+        background: #fff;
+        height: 53.6rem;
+        padding: 4rem 2.5rem;
+        color: $gray;
+        li {
+            height: 3.2rem;
+            margin-top: 1.6rem;
+            border-bottom: 1px solid $gray;
+            line-height: 3.2rem;
+            .label {
+                font-weight: bold;
+            }
+        }
+        li:first-child {
+            margin-top: 0;
+        }
+    }
+}

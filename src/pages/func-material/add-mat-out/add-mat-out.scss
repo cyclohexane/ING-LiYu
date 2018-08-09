@@ -1,0 +1,31 @@
+page-add-mat-out {
+    .add-rec {
+        background: #fff;
+        height: 19.5rem;
+        padding: 4rem 2.5rem 2.4rem;
+        color: $gray;
+        li {
+            height: 3.2rem;
+            margin-top: 1.6rem;
+            border-bottom: 1px solid $gray;
+            line-height: 3.2rem;
+            .label {
+                font-weight: bold;
+            }
+        }
+        li:first-child {
+            margin-top: 0;
+        }
+    }
+    .add-proof {
+        .label {
+            height: 3rem;
+            line-height: 3rem;
+            padding-left: 2rem;
+        }
+        .pic {
+            height: 20.9rem;
+            background-color: #fff;
+        }
+    }
+}

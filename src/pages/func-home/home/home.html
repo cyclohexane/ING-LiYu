@@ -1,0 +1,26 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>主面板</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+    <div class="functional-area">
+        <div (click)="toCompany()" class="func">公司简介</div>
+        <div (click)="toPersonal()" class="func">个人中心</div>
+    </div>
+
+    <ul class="msg">
+        <li class="item" *ngFor="let i of list" (click)="toCompany()">
+            <span class="msg-icon"></span>
+            <div>{{i}}</div>
+            <span class="msg-time">2分钟前</span>
+        </li>
+    </ul>
+
+</ion-content>
+
+<project-preview></project-preview>

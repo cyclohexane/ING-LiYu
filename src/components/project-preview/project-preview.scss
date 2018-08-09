@@ -1,0 +1,15 @@
+project-preview {
+    .preview-btn {
+        width: 4.5rem;
+        height: 4.5rem;
+        border-radius: 50%;
+        background: $green;
+        opacity: .6;
+        color: #fff;
+        text-align: center;
+        line-height: 4.5rem;
+        box-shadow: 0 .4rem .8rem #555;
+        position: fixed;
+        z-index: 20;
+    }
+}
