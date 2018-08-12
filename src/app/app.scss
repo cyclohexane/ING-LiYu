@@ -35,6 +35,19 @@
     }
 }
 
+page-home,
+page-mat,
+page-fnc,
+page-pro,
+page-psnl {
+    ion-title.title {
+        padding-left: 0;
+        .toolbar-title {
+            text-align: center;
+        }
+    }
+}
+
 .tabbar {
     background: $green !important;
     a:hover {
@@ -79,10 +92,137 @@ li {
 
 /*自定义组件的公共样式*/
 
-.green {
+.item {
+    height: 3.2rem;
+    line-height: 3.2rem;
+    padding: 0 .4rem;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border-bottom: 1px solid #fff;
+    display: flex;
+}
+
+.item-lg {
+    display: flex;
+    height: 5rem;
+    line-height: 5rem;
+    border-bottom: 1px solid #fff;
+}
+
+.in {
     background-color: $itemGreen;
 }
 
-.red {
+.out {
     background-color: $itemRed;
+}
+
+.menu-icon {
+    position: fixed;
+    right: 6vw;
+    top: 1.4rem;
+    font-size: 3rem;
+    color: #fff;
+}
+
+.wide-btn {
+    width: 80vw;
+    height: 3.2rem;
+    background: $green;
+    color: #fff;
+    margin: 0 auto;
+    border-radius: .6rem;
+    text-align: center;
+    line-height: 3.2rem;
+    font-size: 1.7rem;
+}
+
+
+/*每个主页面的工具栏*/
+
+.functional-area {
+    height: 7.8rem;
+    display: flex;
+    .func {
+        flex: 1;
+        color: $deepGray;
+        text-align: center;
+        line-height: 7.8rem;
+    }
+}
+
+
+/*每个主页面的分割线*/
+
+.index-label {
+    height: 2.8rem;
+    background: $bgGray;
+    padding: 0 2rem;
+    font-weight: bold;
+    line-height: 2.8rem;
+    font-size: 1.2rem;
+    color: $deepGray;
+}
+
+.index-pro {
+    .pro-name {
+        height: 2.5rem;
+        padding: 0 2rem;
+        line-height: 2.5rem;
+    }
+    .pro-item {
+        padding: 0 2rem;
+        height: 3.2rem;
+        line-height: 3.2rem;
+        color: #fff;
+        font-weight: bold;
+        display: flex;
+        border-bottom: 1px solid #fff;
+    }
+}
+
+
+/*项目记录页的项目名称*/
+
+.pro-name {
+    padding: 0 2.4rem;
+    height: 5.5rem;
+    line-height: 5.5rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    color: $gray;
+    .pro-name-label {
+        flex: 0 1 11rem;
+    }
+    .name {
+        flex: 1 1;
+    }
+}
+
+
+/*项目记录页的区域分割线*/
+
+.rec-label {
+    height: 4.3rem;
+    border-top: .6rem solid $bgGray;
+    padding-left: 2.3rem;
+    line-height: 4.3rem;
+    color: $gray;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+
+/*记录详情页的分割线*/
+
+.proof-divider {
+    height: 3rem;
+    line-height: 3.6rem;
+    padding-left: 2rem;
+    font-size: 1.2rem;
+    color: $gray;
+    font-weight: bold;
+    background-color: $bgGray;
 }

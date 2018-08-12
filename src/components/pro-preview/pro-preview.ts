@@ -2,10 +2,10 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Gesture } from 'ionic-angular';
 
 @Component({
-  selector: 'project-preview',
-  templateUrl: 'project-preview.html'
+  selector: 'pro-preview',
+  templateUrl: 'pro-preview.html'
 })
-export class ProjectPreviewComponent {
+export class ProPreviewComponent {
 
   @ViewChild('btn') btn: ElementRef
   el: HTMLElement

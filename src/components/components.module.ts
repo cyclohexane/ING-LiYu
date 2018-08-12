@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
-import { ProjectPreviewComponent } from './project-preview/project-preview';
-import { ProLabelComponent } from './pro-label/pro-label';
+import { ProPreviewComponent } from './pro-preview/pro-preview';
 
 @NgModule({
-	declarations: [ProjectPreviewComponent,
-    ProLabelComponent,
+	declarations: [ProPreviewComponent,
 	],
 	imports: [],
-	exports: [ProjectPreviewComponent,
-    ProLabelComponent,
+	exports: [ProPreviewComponent,
 	]
 })
 export class ComponentsModule { }

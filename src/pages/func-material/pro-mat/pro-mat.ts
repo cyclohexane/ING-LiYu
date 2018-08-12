@@ -16,7 +16,7 @@ export class ProMatPage {
 
 
 
-/*路由*/
+  /*路由*/
 
   toPendingMatOut(): void {
     this.navCtrl.push("PendingMatOutPage");
@@ -39,7 +39,7 @@ export class ProMatPage {
   }
 
 
-  toMatRecDet():void{
+  toMatRecDet(): void {
     this.navCtrl.push("MatRecDetPage");
   }
 

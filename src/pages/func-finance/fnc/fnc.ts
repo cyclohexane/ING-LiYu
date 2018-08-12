@@ -3,16 +3,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-finance',
-  templateUrl: 'finance.html',
+  selector: 'page-fnc',
+  templateUrl: 'fnc.html',
 })
-export class FinancePage {
+export class FncPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FinancePage');
+  }
+
+  toAddFnc() {
+    this.navCtrl.push("AddFncPage");
   }
 
 }

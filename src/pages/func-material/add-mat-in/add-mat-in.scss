@@ -1,8 +1,7 @@
 page-add-mat-in {
     .add-rec {
         background: #fff;
-        height: 53.6rem;
-        padding: 4rem 2.5rem;
+        padding: 2.5rem 2rem;
         color: $gray;
         li {
             height: 3.2rem;
@@ -16,5 +15,14 @@ page-add-mat-in {
         li:first-child {
             margin-top: 0;
         }
+    }
+    .add-proof {
+        .proof-pic-con {
+            height: 20.9rem;
+            background-color: #fff;
+        }
+    }
+    .add-btn {
+        padding: 3.8rem 0;
     }
 }

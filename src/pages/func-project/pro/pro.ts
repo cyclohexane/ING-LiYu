@@ -3,10 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-company',
-  templateUrl: 'company.html',
+  selector: 'page-pro',
+  templateUrl: 'pro.html',
 })
-export class CompanyPage {
+export class ProPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -14,4 +14,7 @@ export class CompanyPage {
   ionViewDidLoad() {
   }
 
+  toAddPro(){
+    this.navCtrl.push("AddProPage");
+  }
 }

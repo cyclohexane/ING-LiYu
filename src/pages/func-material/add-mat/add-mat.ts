@@ -12,7 +12,6 @@ export class AddMatPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddMatPage');
   }
 
 }

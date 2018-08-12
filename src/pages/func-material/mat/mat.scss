@@ -1,42 +1,9 @@
 page-mat {
-    ion-title.title {
-        padding-left: 0;
-        .toolbar-title {
-            text-align: center;
+    .index-pro {
+        li {
+            border-bottom: 1.4rem solid $bgGray;
         }
-    }
-    .functional-area {
-        height: 7.9rem;
-        display: flex;
-        .func {
-            flex: 1;
-            color: $deepGray;
-            text-align: center;
-            line-height: 7.9rem;
-        }
-    }
-    .label {
-        height: 2.8rem;
-        background: $bgGray;
-        padding: 0 2rem;
-        font-size: bold;
-        line-height: 2.8rem;
-    }
-    ul {
-        .name {
-            height: 2.5rem;
-            padding: 0 2rem;
-            line-height: 2.5rem;
-        }
-        .item {
-            padding: 0 2rem;
-            border-bottom: 1px solid #fff;
-            background: $itemRed;
-            display: flex;
-            height: 3.3rem;
-            line-height: 3.3rem;
-            color: #fff;
-            font-weight: bold;
+        .pro-item {
             .type {
                 flex: 1 1 16rem;
             }

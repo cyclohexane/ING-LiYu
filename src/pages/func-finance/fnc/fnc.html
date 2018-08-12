@@ -1,0 +1,79 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>财务管理</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <div class="functional-area">
+        <div (click)="toAddFnc()" class="func">新建账单</div>
+        <div class="func">搜索历史账单</div>
+    </div>
+    <div class="index-label">非项目财务管理</div>
+    <div class="index-pro">
+        <div class="pro-item in">
+            <span class="type">收入</span>
+            <span class="spending">1000</span>
+        </div>
+        <div class="pro-item out">
+            <span class="type">支出</span>
+            <span class="spending">10000</span>
+        </div>
+        <div class="pro-item out">
+            <span class="type">差额</span>
+            <span class="spending">9000</span>
+        </div>
+    </div>
+    <div class="index-label">项目财务管理</div>
+    <ul class="index-pro">
+        <li (click)="toProMat()">
+            <div class="pro-name">荆州大桥</div>
+            <div class="pro-item in">
+                <span class="type">收入</span>
+                <span class="spending">1000</span>
+            </div>
+            <div class="pro-item out">
+                <span class="type">支出</span>
+                <span class="spending">10000</span>
+            </div>
+            <div class="pro-item out">
+                <span class="type">差额</span>
+                <span class="spending">9000</span>
+            </div>
+        </li>
+        <li>
+            <div class="pro-name">荆州大桥</div>
+            <div class="pro-item in">
+                <span class="type">收入</span>
+                <span class="spending">1000</span>
+            </div>
+            <div class="pro-item out">
+                <span class="type">支出</span>
+                <span class="spending">10000</span>
+            </div>
+            <div class="pro-item out">
+                <span class="type">差额</span>
+                <span class="spending">9000</span>
+            </div>
+        </li>
+        <li>
+            <div class="pro-name">荆州大桥</div>
+            <div class="pro-item in">
+                <span class="type">收入</span>
+                <span class="spending">1000</span>
+            </div>
+            <div class="pro-item out">
+                <span class="type">支出</span>
+                <span class="spending">10000</span>
+            </div>
+            <div class="pro-item out">
+                <span class="type">差额</span>
+                <span class="spending">9000</span>
+            </div>
+        </li>
+
+    </ul>
+</ion-content>

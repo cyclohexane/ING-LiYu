@@ -3,16 +3,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-personnel',
-  templateUrl: 'personnel.html',
+  selector: 'page-add-pro',
+  templateUrl: 'add-pro.html',
 })
-export class PersonnelPage {
+export class AddProPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PersonnelPage');
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
-import { ProjectPreviewComponent } from '../../../components/project-preview/project-preview';
+import { ProPreviewComponent } from '../../../components/pro-preview/pro-preview';
 
 
 @IonicPage()
@@ -10,7 +10,7 @@ import { ProjectPreviewComponent } from '../../../components/project-preview/pro
 })
 export class HomePage {
 
-  @ViewChild('btn') btn: ProjectPreviewComponent;
+  @ViewChild('btn') btn: ProPreviewComponent;
   @ViewChild(Content) content: Content;
   width: number
   height: number

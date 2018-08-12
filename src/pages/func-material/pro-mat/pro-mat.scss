@@ -1,19 +1,4 @@
 page-pro-mat {
-    .pro-name {
-        padding: 0 2.4rem;
-        height: 5.5rem;
-        line-height: 5.5rem;
-        font-weight: bold;
-        font-size: 1.2rem;
-        display: flex;
-        color: $gray;
-        .pro-name-label {
-            flex: 0 1 11rem;
-        }
-        .name {
-            flex: 1 1;
-        }
-    }
     .label {
         padding: 0 2.4rem;
         height: 2.7rem;
@@ -45,15 +30,7 @@ page-pro-mat {
         }
     }
     .mat-record {
-        li {
-            padding: 0 .4rem;
-            height: 3.2rem;
-            line-height: 3.2rem;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: bold;
-            border-bottom: 1px solid #fff;
-            display: flex;
+        .item {
             span {
                 flex: 2;
             }

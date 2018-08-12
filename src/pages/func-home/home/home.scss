@@ -1,19 +1,7 @@
 page-home {
-    ion-title.title {
-        padding-left: 0;
-        .toolbar-title {
-            text-align: center;
-        }
-    }
     .functional-area {
-        height: 10.5rem;
-        display: flex;
-        border-bottom: 2.6rem solid $bgGray;
         .func {
-            flex: 1;
             color: $green;
-            text-align: center;
-            line-height: 7.9rem;
         }
     }
     .msg {
@@ -24,7 +12,7 @@ page-home {
             display: flex;
             height: 5rem;
             line-height: 5rem;
-            border-bottom: 2px solid $bgGray;
+            border-bottom: 1px solid $bgGray;
             .msg-icon {
                 flex: 0 0 7.1rem;
             }

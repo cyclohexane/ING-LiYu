@@ -1,0 +1,13 @@
+page-fnc {
+    .index-pro {
+        li {
+            border-bottom: .6rem solid $bgGray;
+        }
+        .type {
+            flex: 1 1 16rem;
+        }
+        .spending {
+            flex: 0 2 10rem;
+        }
+    }
+}
