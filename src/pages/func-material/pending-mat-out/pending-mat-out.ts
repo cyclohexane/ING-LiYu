@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the PendingMatOutPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-pending-mat-out',
@@ -19,7 +12,9 @@ export class PendingMatOutPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PendingMatOutPage');
   }
 
+  toDeniedMatOut():void{
+    this.navCtrl.push("DeniedMatOutPage");
+  }
 }

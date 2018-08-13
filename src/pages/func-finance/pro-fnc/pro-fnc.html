@@ -1,0 +1,110 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>本项目财务详情页</ion-title>
+        <span class="menu-icon">
+                <ion-icon name="menu"></ion-icon>
+            </span>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ul class="menu">
+        <li (tap)="toAddFnc()">创建新的本项目下财务流水</li>
+        <li (tap)="toPendingFnc()">待审核本项目下财务流水</li>
+    </ul>
+    <div class="pro-name">
+        <span class="pro-name-label">项目名称</span>
+        <span class="name">xx大桥人防工程</span>
+    </div>
+    <div class="rec-label">项目财务总览</div>
+    <div class="item-lg in">
+        <span class="label">收入</span>
+        <span class="contnet">1000</span>
+    </div>
+    <div class="item-lg out">
+        <span class="label">支出</span>
+        <span class="contnet">10000</span>
+    </div>
+    <div class="item-lg out">
+        <span class="label">差额</span>
+        <span class="contnet">9000</span>
+    </div>
+    <div class="rec-label">项目财务流水</div>
+    <div class="tabel-header">
+        <span>经办</span>
+        <span>审核</span>
+        <span class="type">类型</span>
+        <span>金额</span>
+        <span class="fnc">开支项</span>
+        <span class="time">时间</span>
+    </div>
+    <ul class="fnc-record">
+        <li (tap)="tofncRecDet()" class="item in">
+            <span>王市</span>
+            <span>刘申通</span>
+            <span class="type">收</span>
+            <span>500</span>
+            <span class="fnc">项目二期结算</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+        <li class="item out">
+            <span>王市</span>
+            <span>刘申通</span>
+            <span class="type">支</span>
+            <span>500</span>
+            <span class="fnc">项目二期结算</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+        <li class="item in">
+            <span>王市</span>
+            <span>刘申通</span>
+            <span class="type">收</span>
+            <span>500</span>
+            <span class="fnc">项目二期结算</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+        <li class="item out">
+            <span>王市</span>
+            <span>刘申通</span>
+            <span class="type">支</span>
+            <span>500</span>
+            <span class="fnc">项目二期结算</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+        <li class="item in">
+            <span>王市</span>
+            <span>刘申通</span>
+            <span class="type">收</span>
+            <span>500</span>
+            <span class="fnc">项目二期结算</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+        <li class="item out">
+            <span>王市</span>
+            <span>刘申通</span>
+            <span class="type">支</span>
+            <span>500</span>
+            <span class="fnc">项目二期结算</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+        <li class="item in">
+            <span>王市</span>
+            <span>刘申通</span>
+            <span class="type">收</span>
+            <span>500</span>
+            <span class="fnc">项目二期结算</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+        <li class="item out">
+            <span>王市</span>
+            <span>刘申通</span>
+            <span class="type">支</span>
+            <span>500</span>
+            <span class="fnc">项目二期结算</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+    </ul>
+</ion-content>

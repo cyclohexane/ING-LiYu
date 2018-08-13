@@ -12,5 +12,52 @@
         <div (click)="toAddPro()" class="func">创建项目</div>
         <div (click)="toAddPro()" class="func"></div>
     </div>
-    <div class="index-label">项目的浏览与管理</div>
+    <div class="index-label">项目浏览与管理</div>
+    <div class="search">
+        <div class="search-icon"></div>
+        <div class="search-input">搜索项目</div>
+    </div>
+    <div class="label">日期进度</div>
+    <ul class="pro-list">
+        <li (click)="toProDet()">
+            <span class="progress-left">
+                <div class="text">
+                    <h2>xxx国道</h2>
+            <i>工期 2018.07.21--2018.08.05</i>
+            </div>
+            <progress-bar [percentage]="percentage[0]"></progress-bar>
+            </span>
+            <span class="progress-right">时间进度 50%</span>
+        </li>
+        <li>
+            <span class="progress-left">
+                    <div class="text">
+                        <h2>xxx大桥</h2>
+                <i>工期 2018.07.21--2018.08.05</i>
+                </div>
+                <progress-bar [percentage]="percentage[1]"></progress-bar>
+                </span>
+            <span class="progress-right">时间进度 75%</span>
+        </li>
+        <li>
+            <span class="progress-left">
+                    <div class="text">
+                        <h2>xx人防工程</h2>
+                <i>工期 2018.07.21--2018.08.05</i>
+                </div>
+                <progress-bar [percentage]="percentage[2]"></progress-bar>
+                </span>
+            <span class="progress-right">时间进度 25%</span>
+        </li>
+        <li>
+            <span class="progress-left">
+                        <div class="text">
+                            <h2>xxx楼</h2>
+                    <i>工期 2018.07.21--2018.08.05</i>
+                    </div>
+                    <progress-bar [percentage]="percentage[3]"></progress-bar>
+                    </span>
+            <span class="progress-right">时间进度 91%</span>
+        </li>
+    </ul>
 </ion-content>

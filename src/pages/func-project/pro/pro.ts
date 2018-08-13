@@ -8,6 +8,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProPage {
 
+  percentage:number[]  = [50,75,25,91];
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -16,5 +18,9 @@ export class ProPage {
 
   toAddPro(){
     this.navCtrl.push("AddProPage");
+  }
+
+  toProDet(){
+    this.navCtrl.push("ProDetPage");
   }
 }

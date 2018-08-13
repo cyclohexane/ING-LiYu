@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ProPage } from './pro';
+import { ComponentsModule } from '../../../components/components.module'
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { ProPage } from './pro';
   ],
   imports: [
     IonicPageModule.forChild(ProPage),
+    ComponentsModule
   ],
 })
-export class ProPageModule {}
+export class ProPageModule { }

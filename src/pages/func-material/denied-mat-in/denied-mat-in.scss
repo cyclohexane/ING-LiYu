@@ -1,1 +1,8 @@
-page-denied-mat-in {}
+page-denied-mat-in {
+    .mat-record {
+        .item {
+            color: $gray;
+            background: $bgGray;
+        }
+    }
+}

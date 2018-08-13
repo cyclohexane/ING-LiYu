@@ -22,7 +22,7 @@ page-home {
                 height: 5rem;
                 font-size: 1.4rem;
                 color: $deepGray;
-                @include clip
+                @include clip;
             }
             .msg-time {
                 color: $green;

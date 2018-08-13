@@ -15,4 +15,7 @@ export class DeniedMatInPage {
 
   }
 
+  toMatRecDet():void{
+    this.navCtrl.push("MatRecDetPage");
+  }
 }

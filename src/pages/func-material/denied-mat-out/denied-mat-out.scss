@@ -1,3 +1,11 @@
 page-denied-mat-out {
-
+    .mat-record {
+        .item {
+            color: $gray;
+            background: $bgGray;
+            .type {
+                color: $red;
+            }
+        }
+    }
 }

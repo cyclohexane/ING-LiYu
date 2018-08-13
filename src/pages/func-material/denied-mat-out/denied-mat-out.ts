@@ -12,7 +12,11 @@ export class DeniedMatOutPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DeniedMatOutPage');
+
+  }
+
+  toMatRecDet(): void {
+    this.navCtrl.push("MatRecDetPage");
   }
 
 }

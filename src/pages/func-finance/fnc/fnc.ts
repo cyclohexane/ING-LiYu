@@ -18,4 +18,8 @@ export class FncPage {
     this.navCtrl.push("AddFncPage");
   }
 
+  toProFnc() {
+    this.navCtrl.push("ProFncPage");
+  }
+
 }

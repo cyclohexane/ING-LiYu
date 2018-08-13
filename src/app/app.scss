@@ -72,10 +72,6 @@ button.button {
     margin-right: 2.8rem;
 }
 
-button.button:last-child {
-    margin-right: 0;
-}
-
 
 /*基础初始化*/
 
@@ -87,6 +83,21 @@ ul {
 
 li {
     padding: 0;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+    font-weight: bold;
+}
+
+b,
+i,
+strong,
+em {
+    font-style: normal;
+    font-weight: bold;
 }
 
 
@@ -103,11 +114,29 @@ li {
     display: flex;
 }
 
+.item:last-child {
+    border: none;
+}
+
 .item-lg {
     display: flex;
     height: 5rem;
     line-height: 5rem;
     border-bottom: 1px solid #fff;
+    padding-left: 2.4rem;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    .label {
+        flex: 0 0 40vw;
+    }
+    .content {
+        flex: 1;
+    }
+}
+
+.item-lg:last-child {
+    border: none;
 }
 
 .in {
@@ -116,6 +145,14 @@ li {
 
 .out {
     background-color: $itemRed;
+}
+
+.in-font {
+    color: $green;
+}
+
+.out-font {
+    color: $red;
 }
 
 .menu-icon {
@@ -205,10 +242,10 @@ li {
 /*项目记录页的区域分割线*/
 
 .rec-label {
-    height: 4.3rem;
+    height: 3.8rem;
     border-top: .6rem solid $bgGray;
-    padding-left: 2.3rem;
-    line-height: 4.3rem;
+    padding-left: 2.4rem;
+    line-height: 3.8rem;
     color: $gray;
     font-weight: bold;
     font-size: 1.2rem;
@@ -225,4 +262,88 @@ li {
     color: $gray;
     font-weight: bold;
     background-color: $bgGray;
+}
+
+.menu {
+    width: 76vw;
+    background-color: #fff;
+    box-shadow: 0 .4rem .8rem #555;
+    position: fixed;
+    top: 4.8rem;
+    right: 1.3rem;
+    z-index: 4;
+    li {
+        height: 6rem;
+        text-align: center;
+        line-height: 6rem;
+        color: $green;
+        font-size: 1.7rem;
+        border-bottom: 1px solid $green;
+        font-weight: normal;
+    }
+    li:last-child {
+        border: none;
+    }
+}
+
+.tabel-header {
+    color: $gray;
+    font-size: 1rem;
+    display: flex;
+    padding: 0 .4rem;
+    height: 2.3rem;
+    line-height: 2.6rem;
+    span {
+        flex: 2;
+        @include clip;
+    }
+    .fnc,
+    .mat {
+        flex: 3 0;
+    }
+    .type {
+        flex: 0 0 2.2rem;
+    }
+    .time {
+        flex: 0 0 6.6rem;
+    }
+}
+
+.fnc-record,
+.mat-record {
+    .item {
+        span {
+            flex: 2;
+            @include clip;
+        }
+        .fnc,
+        .mat {
+            flex: 3 0;
+        }
+        .type {
+            flex: 0 0 2.2rem;
+        }
+        .time {
+            flex: 0 0 6.6rem;
+        }
+    }
+}
+
+.approval {
+    text-align: right;
+}
+
+.search {
+    height: 5.7rem;
+    color: $deepGray;
+    font-weight: bold;
+    line-height: 5.7rem;
+    display: flex;
+    padding: 0 2.2rem;
+    .search-icon {
+        flex: 0 0 4.4rem;
+    }
+    .search-input {
+        flex: 1;
+    }
 }

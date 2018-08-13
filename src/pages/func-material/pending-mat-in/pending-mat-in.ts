@@ -15,4 +15,7 @@ export class PendingMatInPage {
 
   }
 
+  toDeniedMatIn(): void {
+    this.navCtrl.push("DeniedMatInPage");
+  }
 }
