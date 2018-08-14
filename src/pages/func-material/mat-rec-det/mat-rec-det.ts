@@ -13,11 +13,6 @@ export class MatRecDetPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewWillEnter(): void {
-    let bg = document.querySelector("page-mat-rec-det").querySelector(".scroll-content") as HTMLElement;
-    bg.style.background = "#e7e7e7";
-  }
-
 
 
 }

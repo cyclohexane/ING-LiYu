@@ -48,6 +48,14 @@ page-psnl {
     }
 }
 
+page-add-mat-in,
+page-add-mat-out,
+page-mat-rec-det {
+    .scroll-content {
+        background: #e7e7e7;
+    }
+}
+
 .tabbar {
     background: $green !important;
     a:hover {

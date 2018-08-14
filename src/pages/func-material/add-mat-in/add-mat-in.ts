@@ -15,9 +15,5 @@ export class AddMatInPage {
 
   }
 
-  ionViewWillEnter(): void {
-    let bg = document.querySelector("page-add-mat-in").querySelector(".scroll-content") as HTMLElement;
-    bg.style.background = "#e7e7e7";
-  }
 
 }
