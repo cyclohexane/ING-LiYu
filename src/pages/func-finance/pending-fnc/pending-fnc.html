@@ -2,7 +2,7 @@
 
     <ion-navbar>
         <ion-title>本项目待审财务</ion-title>
-        <span class="menu-icon">
+        <span class="menu-icon" (tap)="toggleMenu()">
                 <ion-icon name="menu"></ion-icon>
             </span>
     </ion-navbar>
@@ -11,7 +11,7 @@
 
 
 <ion-content>
-    <ul class="menu">
+    <ul class="menu" #menu>
         <li (tap)="toDeniedFnc()">查看被拒财务流水</li>
     </ul>
     <div class="pro-name">
@@ -38,7 +38,7 @@
         <span class="time">时间</span>
     </div>
     <ul class="fnc-record">
-        <li (tap)="tofncRecDet()" class="item in">
+        <li (tap)="toFncRecDet()" class="item in">
             <span>王市</span>
             <span>刘申通</span>
             <span class="type">收</span>
@@ -46,11 +46,11 @@
             <span class="fnc">项目二期结算</span>
             <span class="time">2017-1-1 5:00</span>
         </li>
-        <li class="approval">
+        <li (tap)="toFncRecDet()" class="approval">
             <button ion-button>过审</button>
             <button ion-button color="danger">拒绝</button>
         </li>
-        <li class="item out">
+        <li (tap)="toFncRecDet()" class="item out">
             <span>王市</span>
             <span>刘申通</span>
             <span class="type">支</span>
@@ -58,11 +58,11 @@
             <span class="fnc">项目二期结算</span>
             <span class="time">2017-1-1 5:00</span>
         </li>
-        <li class="approval">
+        <li (tap)="toFncRecDet()" class="approval">
             <button ion-button>过审</button>
             <button ion-button color="danger">拒绝</button>
         </li>
-        <li class="item in">
+        <li (tap)="toFncRecDet()" class="item in">
             <span>王市</span>
             <span>刘申通</span>
             <span class="type">收</span>
@@ -70,11 +70,11 @@
             <span class="fnc">项目二期结算</span>
             <span class="time">2017-1-1 5:00</span>
         </li>
-        <li class="approval">
+        <li (tap)="toFncRecDet()" class="approval">
             <button ion-button>过审</button>
             <button ion-button color="danger">拒绝</button>
         </li>
-        <li class="item out">
+        <li (tap)="toFncRecDet()" class="item out">
             <span>王市</span>
             <span>刘申通</span>
             <span class="type">支</span>
@@ -82,7 +82,7 @@
             <span class="fnc">项目二期结算</span>
             <span class="time">2017-1-1 5:00</span>
         </li>
-        <li class="approval">
+        <li (tap)="toFncRecDet()" class="approval">
             <button ion-button>过审</button>
             <button ion-button color="danger">拒绝</button>
         </li>

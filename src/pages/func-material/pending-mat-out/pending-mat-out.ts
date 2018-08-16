@@ -14,6 +14,10 @@ export class PendingMatOutPage {
   ionViewDidLoad() {
   }
 
+  toMatRecDet():void{
+    this.navCtrl.push("MatRecDetPage")
+  }
+  
   toDeniedMatOut():void{
     this.navCtrl.push("DeniedMatOutPage");
   }

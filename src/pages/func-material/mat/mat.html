@@ -9,12 +9,12 @@
 
 <ion-content>
     <div class="functional-area">
-        <div (click)="toAddMat()" class="func">自定义材料</div>
-        <div (click)="toMatProvider()" class="func">材料供应商管理</div>
+        <div (tap)="toAddMat()" class="func">自定义材料</div>
+        <div (tap)="toMatProvider()" class="func">材料供应商管理</div>
     </div>
     <div class="index-label">项目材料管理</div>
     <ul class="index-pro">
-        <li (click)="toProMat()">
+        <li (tap)="toProMat()">
             <div class="pro-name">荆州大桥</div>
             <div class="pro-item out">
                 <span class="type">材料当日开销（¥）</span>
@@ -29,7 +29,7 @@
                 <span class="spending">9000</span>
             </div>
         </li>
-        <li>
+        <li (tap)="toProMat()">
             <div class="pro-name">荆州大桥</div>
             <div class="pro-item out">
                 <span class="type">材料当日开销（¥）</span>
@@ -44,7 +44,7 @@
                 <span class="spending">90000</span>
             </div>
         </li>
-        <li>
+        <li (tap)="toProMat()">
             <div class="pro-name">荆州大桥</div>
             <div class="pro-item out">
                 <span class="type">材料当日开销（¥）</span>
@@ -61,3 +61,5 @@
         </li>
     </ul>
 </ion-content>
+
+<pro-preview></pro-preview>

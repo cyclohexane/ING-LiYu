@@ -8,5 +8,42 @@
 
 
 <ion-content>
+    <div class="functional-area">
+        <div class="func" (tap)="presentPrompt()">创建新材料</div>
+        <div class="func" (tap)="presentPrompt()"></div>
+    </div>
 
+    <div class="proof-divider">所有材料</div>
+    <div class="mat-stock-header">
+        <span class="name">材料名</span>
+        <span>总库存</span>
+        <span>总耗费</span>
+        <span class="time">创建时间</span>
+    </div>
+    <ul class="mat-stock">
+        <li class="item in" (tap)="toMatStockDet()">
+            <span class="name">石头（吨）</span>
+            <span>500</span>
+            <span>5000</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+        <li class="item out" (tap)="toMatStockDet()">
+            <span class="name">沙子（克）</span>
+            <span>0</span>
+            <span>5000</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+        <li class="item in" (tap)="toMatStockDet()">
+            <span class="name">石头（吨）</span>
+            <span>500</span>
+            <span>5000</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+        <li class="item in" (tap)="toMatStockDet()">
+            <span class="name">石头（吨）</span>
+            <span>500</span>
+            <span>5000</span>
+            <span class="time">2017-1-1 5:00</span>
+        </li>
+    </ul>
 </ion-content>

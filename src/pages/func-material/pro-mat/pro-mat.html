@@ -2,7 +2,7 @@
 
     <ion-navbar>
         <ion-title>本项目材料详情页</ion-title>
-        <span class="menu-icon">
+        <span class="menu-icon" (tap)="toggleMenu()">
                   <ion-icon name="menu"></ion-icon>
         </span>
     </ion-navbar>
@@ -11,7 +11,7 @@
 
 
 <ion-content>
-    <ul class="menu">
+    <ul class="menu" #menu>
         <li (tap)="toPendingMatOut()">待审核材料使用流水</li>
         <li (tap)="toPendingMatIn()">待审核材料收入流水</li>
         <li (tap)="toAddMatOut()">创建材料使用流水</li>
@@ -22,7 +22,7 @@
         <span class="pro-name-label">项目名称</span>
         <span class="name">xx大桥人防工程</span>
     </div>
-    <div class="label">最新材料流水（点击列表项查看详情）</div>
+    <div class="label">最新材料流水</div>
     <div class="tabel-header">
         <span>材料员</span>
         <span>审核员</span>
@@ -40,7 +40,7 @@
             <span class="mat">石头/吨</span>
             <span class="time">2017-1-1 5:00</span>
         </li>
-        <li class="item out">
+        <li (tap)="toMatRecDet()" class="item out">
             <span>王市</span>
             <span>刘欢</span>
             <span class="type">出</span>
@@ -48,7 +48,7 @@
             <span class="mat">石头/吨</span>
             <span class="time">2017-1-1 5:00</span>
         </li>
-        <li class="item in">
+        <li (tap)="toMatRecDet()" class="item in">
             <span>王市</span>
             <span>刘欢</span>
             <span class="type">入</span>
@@ -56,7 +56,7 @@
             <span class="mat">石头/吨</span>
             <span class="time">2017-1-1 5:00</span>
         </li>
-        <li class="item out">
+        <li (tap)="toMatRecDet()" class="item out">
             <span>王市</span>
             <span>刘欢</span>
             <span class="type">出</span>
@@ -64,7 +64,7 @@
             <span class="mat">石头/吨</span>
             <span class="time">2017-1-1 5:00</span>
         </li>
-        <li class="item in">
+        <li (tap)="toMatRecDet()" class="item in">
             <span>王市</span>
             <span>刘欢</span>
             <span class="type">入</span>
@@ -72,7 +72,7 @@
             <span class="mat">石头/吨</span>
             <span class="time">2017-1-1 5:00</span>
         </li>
-        <li class="item out">
+        <li (tap)="toMatRecDet()" class="item out">
             <span>王市</span>
             <span>刘欢</span>
             <span class="type">出</span>
@@ -80,7 +80,7 @@
             <span class="mat">石头/吨</span>
             <span class="time">2017-1-1 5:00</span>
         </li>
-        <li class="item in">
+        <li (tap)="toMatRecDet()" class="item in">
             <span>王市</span>
             <span>刘欢</span>
             <span class="type">入</span>
@@ -88,7 +88,7 @@
             <span class="mat">石头/吨</span>
             <span class="time">2017-1-1 5:00</span>
         </li>
-        <li class="item out">
+        <li (tap)="toMatRecDet()" class="item out">
             <span>王市</span>
             <span>刘欢</span>
             <span class="type">出</span>

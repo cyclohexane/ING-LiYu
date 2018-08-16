@@ -1,0 +1,27 @@
+page-add-psnl {
+    .new-psnl {
+        background: #fff;
+        li {
+            height: 7.5rem;
+            display: flex;
+            border-bottom: 1px solid $bgGray;
+        }
+        input {
+            text-align: left;
+        }
+        span:nth-child(1) {
+            flex: 0 0 11.5rem;
+            text-align: center;
+            line-height: 7.5rem;
+        }
+        span:nth-child(2) {
+            flex: 1;
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+    }
+    .wide-btn {
+        margin: 3.6rem auto;
+    }
+}

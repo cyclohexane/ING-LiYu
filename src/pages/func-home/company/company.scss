@@ -1,3 +1,36 @@
 page-company {
-
+    .bg {
+        height: 17.7rem;
+        position: relative;
+        .logo {
+            width: 8rem;
+            height: 8rem;
+            border-radius: 1rem;
+            position: absolute;
+            box-shadow: 0 .6rem 1.2rem #aaa;
+            bottom: 1rem;
+            left: 2rem;
+            z-index: 1;
+            background: #fff;
+        }
+        .name {
+            width: 100%;
+            height: 4.8rem;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid $bgGray;
+            border-bottom: 1px solid $bgGray;
+            padding-right: 30vw;
+            text-align: right;
+            font-size: 1.7rem;
+            color: $gray;
+            font-weight: bold;
+            line-height: 4.8rem;
+        }
+    }
+    .info {
+        padding: 1.3rem 2rem;
+        font-size: 1.7rem;
+        color: $gray;
+    }
 }

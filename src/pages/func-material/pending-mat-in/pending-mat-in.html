@@ -2,7 +2,7 @@
 
     <ion-navbar>
         <ion-title>本项目待审材料收入流水</ion-title>
-        <span class="menu-icon">
+        <span class="menu-icon" (tap)="toggleMenu()">
                 <ion-icon name="menu"></ion-icon>
             </span>
     </ion-navbar>
@@ -11,7 +11,7 @@
 
 
 <ion-content>
-    <ul class="menu">
+    <ul class="menu" #menu>
         <li (tap)="toDeniedMatIn()">查看被拒材料流水</li>
     </ul>
     <div class="pro-name">
@@ -49,7 +49,7 @@
             <button ion-button>过审</button>
             <button ion-button color="danger">拒绝</button>
         </li>
-        <li class="item in">
+        <li (tap)="toMatRecDet()" class="item in">
             <span>王市</span>
             <span>刘欢</span>
             <span class="type">入</span>
@@ -61,7 +61,7 @@
             <button ion-button>过审</button>
             <button ion-button color="danger">拒绝</button>
         </li>
-        <li class="item in">
+        <li (tap)="toMatRecDet()" class="item in">
             <span>王市</span>
             <span>刘欢</span>
             <span class="type">入</span>
@@ -73,7 +73,7 @@
             <button ion-button>过审</button>
             <button ion-button color="danger">拒绝</button>
         </li>
-        <li class="item in">
+        <li (tap)="toMatRecDet()" class="item in">
             <span>王市</span>
             <span>刘欢</span>
             <span class="type">入</span>

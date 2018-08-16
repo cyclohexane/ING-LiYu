@@ -9,17 +9,21 @@
 
 <ion-content>
     <div class="functional-area">
-        <div (click)="toAddPro()" class="func">创建项目</div>
-        <div (click)="toAddPro()" class="func"></div>
+        <div (tap)="toAddPro()" class="func">创建项目</div>
+        <div (tap)="toAddPro()" class="func"></div>
     </div>
     <div class="index-label">项目浏览与管理</div>
     <div class="search">
-        <div class="search-icon"></div>
-        <div class="search-input">搜索项目</div>
+        <div class="search-icon">
+            <ion-icon name="search"></ion-icon>
+        </div>
+        <div class="search-input">
+            <input type="text" placeholder="搜索项目">
+        </div>
     </div>
     <div class="label">日期进度</div>
     <ul class="pro-list">
-        <li (click)="toProDet()">
+        <li (tap)="toProDet()">
             <span class="progress-left">
                 <div class="text">
                     <h2>xxx国道</h2>
@@ -29,7 +33,7 @@
             </span>
             <span class="progress-right">时间进度 50%</span>
         </li>
-        <li>
+        <li (tap)="toProDet()">
             <span class="progress-left">
                     <div class="text">
                         <h2>xxx大桥</h2>
@@ -39,7 +43,7 @@
                 </span>
             <span class="progress-right">时间进度 75%</span>
         </li>
-        <li>
+        <li (tap)="toProDet()">
             <span class="progress-left">
                     <div class="text">
                         <h2>xx人防工程</h2>
@@ -49,7 +53,7 @@
                 </span>
             <span class="progress-right">时间进度 25%</span>
         </li>
-        <li>
+        <li (tap)="toProDet()">
             <span class="progress-left">
                         <div class="text">
                             <h2>xxx楼</h2>
@@ -60,4 +64,8 @@
             <span class="progress-right">时间进度 91%</span>
         </li>
     </ul>
+
+
 </ion-content>
+
+<pro-preview></pro-preview>

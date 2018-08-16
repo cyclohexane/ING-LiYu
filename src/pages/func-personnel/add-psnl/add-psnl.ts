@@ -3,16 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-add-pro',
-  templateUrl: 'add-pro.html',
+  selector: 'page-add-psnl',
+  templateUrl: 'add-psnl.html',
 })
-export class AddProPage {
-
-  startTime: string
-  endTime: string
-  responsibleStuff:string
-  materialStuff:string
-  approvalStuff:string
+export class AddPsnlPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

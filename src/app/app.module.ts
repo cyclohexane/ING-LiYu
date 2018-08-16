@@ -9,9 +9,10 @@ import { HttpUtilProvider } from '../providers/http-util/http-util';
 import { StorageUtilProvider } from '../providers/storage-util/storage-util';
 import { CookieUtilProvider } from '../providers/cookie-util/cookie-util';
 
+
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
   ],
   imports: [
     BrowserModule,
@@ -22,7 +23,7 @@ import { CookieUtilProvider } from '../providers/cookie-util/cookie-util';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
   ],
   providers: [
     StatusBar,

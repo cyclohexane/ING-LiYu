@@ -8,12 +8,8 @@
 
 
 <ion-content>
-    <div class="functional-area">
-        <div (click)="toAddFnc()" class="func">新建账单</div>
-        <div class="func">搜索历史账单</div>
-    </div>
     <div class="index-label">非项目财务管理</div>
-    <div class="index-pro">
+    <div class="index-pro" (tap)="toProFnc()">
         <div class="pro-item in">
             <span class="type">收入</span>
             <span class="spending">1000</span>
@@ -29,7 +25,7 @@
     </div>
     <div class="index-label">项目财务管理</div>
     <ul class="index-pro">
-        <li (click)="toProFnc()">
+        <li (tap)="toProFnc()">
             <div class="pro-name">荆州大桥</div>
             <div class="pro-item in">
                 <span class="type">收入</span>
@@ -44,7 +40,7 @@
                 <span class="spending">9000</span>
             </div>
         </li>
-        <li>
+        <li (tap)="toProFnc()">
             <div class="pro-name">荆州大桥</div>
             <div class="pro-item in">
                 <span class="type">收入</span>
@@ -59,7 +55,7 @@
                 <span class="spending">9000</span>
             </div>
         </li>
-        <li>
+        <li (tap)="toProFnc()">
             <div class="pro-name">荆州大桥</div>
             <div class="pro-item in">
                 <span class="type">收入</span>
@@ -77,3 +73,5 @@
 
     </ul>
 </ion-content>
+
+<pro-preview></pro-preview>

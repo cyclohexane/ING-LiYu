@@ -12,7 +12,10 @@ export class MatStockDetPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MatStockDetPage');
   }
+
+toMatRecDet():void{
+  this.navCtrl.push("MatRecDetPage");
+}
 
 }

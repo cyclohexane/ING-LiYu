@@ -15,6 +15,10 @@ export class PendingMatInPage {
 
   }
 
+  toMatRecDet():void{
+    this.navCtrl.push("MatRecDetPage")
+  }
+
   toDeniedMatIn(): void {
     this.navCtrl.push("DeniedMatInPage");
   }

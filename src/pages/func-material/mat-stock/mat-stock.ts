@@ -14,4 +14,8 @@ export class MatStockPage {
   ionViewDidLoad() {
   }
 
+
+  toMatStockDet():void{
+    this.navCtrl.push("MatStockDetPage");
+  }
 }

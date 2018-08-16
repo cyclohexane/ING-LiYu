@@ -7,5 +7,46 @@
 </ion-header>
 
 <ion-content>
+    <ion-list>
+        <ion-item>
+            <ion-label>流水名</ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item class="description">
+            <ion-label>流水描述</ion-label>
+            <textarea item-content></textarea>
+        </ion-item>
+        <!-- <ion-item>
+            <ion-label>经销商</ion-label>
+            <ion-select [(ngModel)]="type" placeholder="（请选择）">
+                <ion-option value="a">A</ion-option>
+                <ion-option value="b">B</ion-option>
+                <ion-option value="c">C</ion-option>
+                <ion-option value="d">D</ion-option>
+            </ion-select>
+        </ion-item> -->
+        <ion-item>
+            <ion-label>流水实际应付款</ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>流水预付款</ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>待付款</ion-label>
+            <ion-input value="0" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>报销卡号</ion-label>
+            <ion-input placeholder="默认为用户卡号"></ion-input>
+        </ion-item>
+    </ion-list>
 
+    <div class="proof-divider">添加凭证</div>
+    <div class="proof-pic-con"></div>
+
+    <div class="add-btn">
+        <div class="wide-btn">创建</div>
+    </div>
 </ion-content>
