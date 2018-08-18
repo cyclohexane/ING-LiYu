@@ -12,4 +12,26 @@ pro-preview {
         position: fixed;
         z-index: 20;
     }
+    .preview {
+        width: 266px;
+        height: 308px;
+        right: -2.25rem;
+        top: 17.2rem;
+        background-color: #fff;
+        position: fixed;
+        z-index: 20;
+        box-shadow: 0 .45rem .8rem #777;
+        .pro {
+            height: 6.1rem;
+            border-top: 1px solid $green;
+            padding: 1.2rem .8rem;
+        }
+        .pro:last-child {
+            border-bottom: 1px solid $green;
+        }
+        .info {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 }

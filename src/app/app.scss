@@ -5,6 +5,7 @@
     
     * {
         font-family: "Helvetica Neue", Helvetica, "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        color: $gray;
     }
     
     .toolbar {
@@ -250,7 +251,6 @@
         font-weight: bold;
         font-size: 1.2rem;
         display: flex;
-        color: $gray;
         .pro-name-label {
             flex: 0 1 11rem;
         }
@@ -265,7 +265,6 @@
         border-top: .6rem solid $bgGray;
         padding-left: 2.4rem;
         line-height: 3.8rem;
-        color: $gray;
         font-weight: bold;
         font-size: 1.2rem;
     }
@@ -276,7 +275,6 @@
         line-height: 3.6rem;
         padding-left: 2rem;
         font-size: 1.2rem;
-        color: $gray;
         font-weight: bold;
         background-color: $bgGray;
     }
@@ -305,7 +303,6 @@
     }
     
     .tabel-header {
-        color: $gray;
         font-size: 1rem;
         display: flex;
         padding: 0 .4rem;
@@ -374,7 +371,6 @@
         line-height: 2.5rem;
         display: flex;
         font-size: 1rem;
-        color: $gray;
         padding-left: 1.2rem;
         display: flex;
         span {

@@ -22,14 +22,12 @@ page-mat-provider {
         .content {
             flex: 1;
             text-align: center;
-            color: $gray;
         }
         .time {
             position: absolute;
             left: 1.1rem;
             bottom: .4rem;
             font-size: .9rem;
-            color: $gray;
         }
     }
     .approval {

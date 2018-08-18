@@ -1,14 +1,16 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Gesture } from 'ionic-angular';
 
 @Component({
   selector: 'pro-preview',
   templateUrl: 'pro-preview.html'
 })
-export class ProPreviewComponent {
+export class ProPreviewComponent implements OnInit {
 
   @ViewChild('btn') btn: ElementRef
+  @ViewChild('preview') preview: ElementRef
   el: HTMLElement
+  show: HTMLElement
   content: HTMLElement
   width: number
   height: number
@@ -26,6 +28,7 @@ export class ProPreviewComponent {
 
   ngOnInit(): void {
     this.el = this.btn.nativeElement;
+    this.show = this.preview.nativeElement;
     this.content = document.querySelector(".scroll-content") as HTMLElement;
     this.width = parseInt(this.getCss(this.el, "width"));
     this.height = parseInt(this.getCss(this.el, "height"));
@@ -66,6 +69,17 @@ export class ProPreviewComponent {
     this.el.style.right = X + "px";
     this.el.style.top = Y + "px";
     this.content.style.overflowY = "hidden";
+    if (X < this.screenWidth * 0.5) {
+      this.show.style.right = X + "px";
+    } else {
+      this.show.style.right = X - (266 - 45) + "px";
+      /*预览框宽度-悬浮球宽度*/
+    }
+    if (Y < this.screenHeight * 0.5) {
+      this.show.style.top = Y + (45 + 10) + "px";
+    } else {
+      this.show.style.top = Y - (308 + 10) + "px";
+    }
   }
 
   onPanEnd(e) {
@@ -75,7 +89,7 @@ export class ProPreviewComponent {
   }
 
   onTap(e) {
-
+    this.show.style.display = this.show.style.display === "none" ? "block" : "none";
   }
 
 }
