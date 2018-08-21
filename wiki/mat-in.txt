@@ -1,0 +1,16 @@
+1.购买材料
+/project/material/buymaterial.do
+
+request 
+categoryName,itemId,offerId,sellerName,(upload_file),unitPrice,number  //categoryName和offerId都是通过调用对于的list接口获得然后选择中传给后台，itemId直接在前台调用个人信息来获得
+
+response  //这个需要这个用户属于该项目的材料员权限
+ fail{
+"status": 1,
+"data": "权限不够"
+}
+ success
+ {
+ "status": 0,
+ "data": "权限不够"
+ }

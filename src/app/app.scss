@@ -5,7 +5,17 @@
     
     * {
         font-family: "Helvetica Neue", Helvetica, "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    }
+    
+    ion-content * {
         color: $gray;
+    }
+    
+    .item span,
+    .item-lg span,
+    .pro-item span,
+    .button-inner {
+        color: #fff;
     }
     
     .toolbar {
@@ -141,10 +151,6 @@
         display: flex;
     }
     
-    .item span {
-        color: #fff;
-    }
-    
     .item:last-child {
         border: none;
     }
@@ -155,7 +161,6 @@
         line-height: 5rem;
         border-bottom: 1px solid #fff;
         padding-left: 2.4rem;
-        color: #fff;
         font-weight: bold;
         font-size: 1.2rem;
         .label {
@@ -239,7 +244,6 @@
             padding: 0 2rem;
             height: 3.2rem;
             line-height: 3.2rem;
-            color: #fff;
             font-weight: bold;
             display: flex;
             border-bottom: 1px solid #fff;

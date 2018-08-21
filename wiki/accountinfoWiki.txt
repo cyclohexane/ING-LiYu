@@ -1,0 +1,241 @@
+1.获得所有项目信息
+/AccountInfo/getAllItem.do
+
+request6666666669
+{
+	//page为分页参数，传过来1表示第一页，查询前面10个记录，为2表示查询10-20的记录
+	page	
+} 
+
+response
+
+fail
+
+{
+    "status": 1,
+    "msg": "不存在任何项目"
+}
+success
+{
+  "status": 0,
+  "data": {
+    {
+    	"itemId": 1,
+        "itemName": "项目名",
+        "itemId":1
+		//项目总支出
+		"itemout":100
+		//项目总收入
+		"itemin":1000
+    },
+     {
+    	"itemId": 1,
+        "itemName": "项目名",
+        "itemId":1
+		//项目总支出
+		"itemout":100
+		//项目总收入
+		"itemin":1000
+    },
+  }
+}
+//建议加上一个项目截止时间，然后可以利用项目开始时间和项目截至时间计算工期，计算目前的时间进度，从而state项目状态字段能够根据工期进行变化。
+
+3.获得某内容财务详情内容
+/AccountInfo/getAccountinfoByid.do
+request
+
+{
+	//page为分页参数，传过来1表示第一页，查询前面10个记录，为2表示查询10-20的记录
+	page	
+	id(
+    	传入项目id
+    	当id为0时，表示获取非项目数据
+    	当id为具体数字时，表示获取对应项目id的数据
+	}
+} 
+
+response
+fail
+{
+	"status":1,
+	"msg":"项目id错误，不存在该项目"
+}
+success
+{
+	"status":0,
+	"data":{
+		{
+			"accountInfoId";
+        	"categoryName";
+        	"userId";
+        	"itemId";
+        	"accountImg";
+        	"prePrice";
+        	"accountRelPrice";
+        	"accountInfoDec";
+        	"state";
+        	"checkUserName";
+        	"createTime";
+        	"lastEditTime";
+		},
+		{
+			"accountInfoId";
+        	"categoryName";
+        	"userId";
+        	"itemId";
+        	"accountImg";
+        	"prePrice";
+        	"accountRelPrice";
+        	"accountInfoDec";
+        	"state";
+        	"checkUserName";
+        	"createTime";
+        	"lastEditTime":
+		},
+	}
+}
+
+4.根据用户id获得用户资料
+/User/getUserinfoByid.do
+request
+id(
+    传入用户id
+}
+
+response
+fail
+{
+	"status":1,
+	"msg":"用户id错误，不存在该用户"
+}
+success
+{
+	"status":0,
+	"data":{
+		{
+			"userId": 1,
+		    "userName": "王文超",
+		    "password": "147258",
+		    "phone": "15927287429",
+		    "state": 1,
+		    "userType": 0,
+		    "itemId": null,
+		    "createTime": 1532879000000,
+		    "lastEditTime": 1532887169000,
+		    "userImg": "111"
+		},
+	}
+}
+
+5.根据项目id获得项目资料
+/ItemUser/getIteminfoByid.do
+request
+id(
+    传入项目id
+}
+
+response
+fail
+{
+	"status":1,
+	"msg":"项目id错误，不存在该项目"
+}
+success
+{
+	"status":0,
+	"data":{
+    	"itemId": 1,
+        "itemName": "项目名",
+        "itemDec": "项目描述",
+        //"项目权重"
+        "prority": 1,
+        //项目负责人id
+        "userId": 1,
+        //项目状态
+        "state": 0,
+        //项目创建时间
+        "createTime": 1532879000000,
+        //项目最后更新时间
+        "lastEditTime": 1532887169000
+	}
+}
+6.创建财务流水接口
+/AccountInfo/createAccount.do
+request{
+        categoryName;
+        userId;
+        itemId;
+        //materialBuyInfoId这个属性是材料流水属性，如果传过来，则进行操作，没传过来，表示不是材料开销，不做操作
+        materialBuyInfoId;
+        accountImg;
+        prePrice;
+        accountRelPrice;
+        accountInfoDec;
+}
+
+response
+fail
+{
+	"status":1,
+	"msg":"创建财务流水出错"
+}
+success
+{
+	"status":0,
+	"msg":"创建财务流水成功"
+}
+7.根据项目id查询待创建账单的材料流水记录
+/MaterialBuyInfo/getAllMaterialBuyInfo.do
+request 
+{
+	//page为分页参数，传过来1表示第一页，查询前面10个记录，为2表示查询10-20的记录
+	page
+}
+
+response
+fail{
+	"status":1,
+	"msg":"没有待创建账单的材料流水记录"
+}
+success{
+	"status":0,
+	"data":{
+		{
+			"materialInfoId";
+        	"categoryName";
+        	"itemId";
+        	"userId";
+        	"accountInfoId";
+        	"offerId";
+        	"materialInfoImg";
+        	"sellerName";
+        	"unitPrice";
+        	"number";
+        	"totalPrice";
+        	"state";
+        	"checkUserName";
+        	"createTime";
+        	"lastEditTime";
+		},
+		{
+			"materialInfoId";
+        	"categoryName";
+        	"itemId";
+        	"userId";
+        	"accountInfoId";
+        	"offerId";
+        	"materialInfoImg";
+        	"sellerName";
+        	"unitPrice";
+        	"number";
+        	"totalPrice";
+        	"state";
+        	"checkUserName";
+        	"createTime";
+        	"lastEditTime";
+		}
+	}
+}
+
+
