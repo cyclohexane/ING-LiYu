@@ -2,16 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the HttpUtilProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class HttpUtilProvider {
 
-  base: string = "xxx";
+  base: string = "http://193.112.26.167:8080/project/";
 
   constructor(public http: HttpClient) {
   }
