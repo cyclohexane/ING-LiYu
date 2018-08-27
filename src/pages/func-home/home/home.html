@@ -9,12 +9,14 @@
 <ion-content>
 
     <div class="functional-area">
-        <div (tap)="toCompany()" class="func">公司简介</div>
+        <!--FIXME-->
         <div (tap)="toPersonal()" class="func">个人中心</div>
+        <div (tap)="toPersonal()" class="func"></div>
     </div>
-    <div class="index-label">事项记录</div>
+    <div class="index-label">待操作事项</div>
     <ul class="msg">
-        <li class="item" *ngFor="let i of list">
+        <!--FIXME（图标）-->
+        <li class="item" *ngFor="let i of undeal">
             <span class="msg-icon">
                 <ion-icon name="home"></ion-icon>
             </span>
@@ -24,5 +26,3 @@
     </ul>
 
 </ion-content>
-
-<pro-preview></pro-preview>

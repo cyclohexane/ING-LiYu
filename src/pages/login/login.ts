@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HttpUtilProvider } from '../../providers/http-util/http-util';
+import { CookieUtilProvider } from '../../providers/cookie-util/cookie-util';
+
 
 @IonicPage()
 @Component({
@@ -8,14 +11,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public user = {
+    userName: '',
+    password: ''
   }
 
-  ionViewDidLoad() {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpUtilProvider,public cookie:CookieUtilProvider) {
   }
 
   doLogin() {
-    this.navCtrl.push("TabsPage");
+    this.http.doPost('user/login.do', this.user, res => {
+      this.cookie.set('user',res.data)
+      this.navCtrl.push("TabsPage");
+    });
   }
 
 }

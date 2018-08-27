@@ -6,6 +6,10 @@ export class CookieUtilProvider {
   constructor() {
   }
 
+  getType():number {
+    return this.get('user').userType;
+  }
+
   get(name) {
     var cookieName = encodeURIComponent(name) + "=",
       cookieStart = document.cookie.indexOf(cookieName),
@@ -14,13 +18,13 @@ export class CookieUtilProvider {
     if (cookieStart > -1) {
       var cookieEnd = document.cookie.indexOf(";", cookieStart);
       if (cookieEnd == -1) cookieEnd = document.cookie.length;
-      cookieValue = decodeURIComponent(document.cookie.substring(cookieStart + cookieName.length, cookieEnd));
+      cookieValue = JSON.parse(decodeURIComponent(document.cookie.substring(cookieStart + cookieName.length, cookieEnd)));
     }
     return cookieValue;
   }
 
-  set(name, value, expires, path, domain, secure) {
-    var cookieText = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+  set(name, value, expires=null, path=null, domain=null, secure=null) {
+    var cookieText = encodeURIComponent(name) + "=" + encodeURIComponent(JSON.stringify(value));
 
     if (expires instanceof Date) {
       cookieText += "; expires=" + expires.toUTCString();

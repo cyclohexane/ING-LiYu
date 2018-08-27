@@ -1,7 +1,8 @@
 //api
 http://193.112.26.167:8080/project/
 
-//userType 通过下拉列表传过来int参数 BOSS(0, "老板"),
+//userType 通过下拉列表传过来int参数 
+BOSS(0, "老板"),
 MANAGER(1, "项目经理"),
 FINANCIAL(2, "公司财务管理员"),
 ACCOUNT_UPLOAD(3, "记账员"),
@@ -32,7 +33,7 @@ Cookie:
 【登录】user/login.do【userName, password】
 fail{
     "status": 1,
-    "msg": "账号或密码错误/账号未激活"
+    "msg": "请输入用户名或密码/账号或密码错误/账号未激活"
 }
 success {
     "status": 0,

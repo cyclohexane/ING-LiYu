@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
@@ -10,28 +10,62 @@ export class HttpUtilProvider {
   constructor(public http: HttpClient) {
   }
 
-  getData(url, callback) {
+  doGet(url, callback) {
 
     this.http.get(this.base + url).subscribe(res => {
 
-      callback(res);
+      if (0 === res['status']) {
+
+        callback(res);
+
+      } else {
+        alert(res['msg']);
+      }
 
     }, err => {
       console.log(err);
     });
   }
 
-  postData(url, param, callback) {
+  doPost(url: string, param: object, callback: Function, type: string = 'application/x-www-form-urlencoded') {
 
-    this.http.post(this.base + url, {}, {
-      params: new HttpParams().set(param[0], param[1])
+    this.http.post(this.base + url, this.transformRequest(param), {
+      headers: { "Content-Type": type },
+      // withCredentials :true
     }).subscribe(res => {
 
-      callback(res);
+      if (0 === res['status']) {
+
+        callback(res);
+
+      } else {
+        alert(res['msg']);
+      }
 
     }, err => {
       console.log(err);
     });
+
+    // let httpParam = new HttpParams();
+    // for (let i in param) {
+    //   httpParam = httpParam.set(i, param[i]);
+    // }
+
+
   }
+
+  transformRequest(data) {
+
+    let formData = '';
+    for (let item in data) {
+      formData +=
+        encodeURIComponent(item) +
+        "=" +
+        encodeURIComponent(data[item]) +
+        "&";
+    }
+    return formData.slice(0, formData.length - 1);
+
+  };
 
 }

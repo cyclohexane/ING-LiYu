@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
-import { ProPreviewComponent } from '../../../components/pro-preview/pro-preview';
-
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HttpUtilProvider } from '../../../providers/http-util/http-util';
+import { CookieUtilProvider } from '../../../providers/cookie-util/cookie-util';
 
 @IonicPage()
 @Component({
@@ -10,32 +10,32 @@ import { ProPreviewComponent } from '../../../components/pro-preview/pro-preview
 })
 export class HomePage {
 
-  @ViewChild('btn') btn: ProPreviewComponent;
-  @ViewChild(Content) content: Content;
-  width: number
-  height: number
-  list = []
+  type: number
+  undeal: string[] = []
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpUtilProvider, public cookie: CookieUtilProvider) {
   }
 
   ionViewDidLoad() {
-    this.mock();
+    this.type = this.cookie.getType();
+    this.getUndeal();
   }
 
-  toCompany(): void {
-    this.navCtrl.push('CompanyPage');
+  getUndeal(): void {
+    this.http.doGet('user/undeal.do', res => {
+
+      this.undeal = res.data;
+
+      //   if (value[i] == "您有财务记录需要审核") {
+      //     waitcheckaccount.html?itemId=itemId
+      //   }else if (value[i] == "存在项目相应负责人没有创建") {
+      //   object.html?itemId=itemId
+      // }
+    });
   }
 
   toPersonal(): void {
     this.navCtrl.push('PersonalPage');
   }
-
-  mock(): void {
-    for (let i = 0; i < 7; i++) {
-      this.list[i] = "员工1111被任命为材料记录员";
-    }
-  }
-
 
 }
