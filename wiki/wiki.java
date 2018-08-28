@@ -599,7 +599,7 @@ success { //这里返回的是ItemVo只封装了四个属性，根据开始时�
 
 【根据财务id获得财务流水详情】account/getaccountbyid.do【财务id】
 
-【获得所有的财务流水列表】account/getaccountitem.do
+【获得所有项目（包括公司）的入账和出账金额】account/getaccountitem.do
 
 【根据项目id获得财务流水列表】account/getaccountlist.do【pageSize, pageNum, itemId】
 //没有传id表示公司流水

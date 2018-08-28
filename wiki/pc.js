@@ -1645,7 +1645,7 @@ function getcompanyaccount() {
         success: function(data) {
             if (data.status == 0) {
                 console.log("获取公司财务信息成功");
-                //获得所有项目的财务信息，然后取其中的公司财务这一项，
+                //获得所有项目的财务信息，然后取其中的公司总财务这一项，
                 //并填充公司财务信息
                 for (var i = 0; i < data.data.list.length; i++) {
                     var value = data.data.list[i];
