@@ -8,22 +8,39 @@
 
 
 <ion-content>
-    <div class="index-label">公司财务</div>
-    <div class="index-pro" (tap)="toProFnc()">
+    <div *ngIf="type === 0 || type === 2" class="index-label">公司财务</div>
+    <div *ngIf="type === 0 || type === 2" class="index-pro">
         <div class="pro-item in">
             <span class="type">公司总入账</span>
-            <span class="spending">1000</span>
+            <span class="spending">{{companyFnc.in}}</span>
         </div>
         <div class="pro-item out">
             <span class="type">公司总出账</span>
-            <span class="spending">10000</span>
+            <span class="spending">{{companyFnc.out}}</span>
         </div>
-        <div class="pro-item out">
+        <div class="pro-item" [ngClass]="{'in' : companyFnc.profit >= 0 ,'out' : companyFnc.profit < 0 }">
             <span class="type">公司净利润</span>
-            <span class="spending">9000</span>
+            <span class="spending">{{companyFnc.profit}}</span>
         </div>
     </div>
-    <div class="index-label">项目财务</div>
+    <div class="index-label">流水记录</div>
+    <div class="tabel-header ">
+        <span>经办人</span>
+        <span>预付</span>
+        <span>应付</span>
+        <span>过审时间</span>
+    </div>
+    <ul class="fnc-record ">
+        <li (tap)="toFncRecDet() " class="item in">
+            <span>刘申通</span>
+            <span>1312</span>
+            <span>100000</span>
+            <span>2017-01-01 14:10:39</span>
+        </li>
+
+    </ul>
+
+    <!-- <div class="index-label">项目财务</div>
     <ul class="index-pro">
         <li (tap)="toProFnc()">
             <div class="pro-name">荆州大桥</div>
@@ -40,36 +57,6 @@
                 <span class="spending">9000</span>
             </div>
         </li>
-        <li (tap)="toProFnc()">
-            <div class="pro-name">荆州大桥</div>
-            <div class="pro-item in">
-                <span class="type">收入</span>
-                <span class="spending">1000</span>
-            </div>
-            <div class="pro-item out">
-                <span class="type">支出</span>
-                <span class="spending">10000</span>
-            </div>
-            <div class="pro-item out">
-                <span class="type">差额</span>
-                <span class="spending">9000</span>
-            </div>
-        </li>
-        <li (tap)="toProFnc()">
-            <div class="pro-name">荆州大桥</div>
-            <div class="pro-item in">
-                <span class="type">收入</span>
-                <span class="spending">1000</span>
-            </div>
-            <div class="pro-item out">
-                <span class="type">支出</span>
-                <span class="spending">10000</span>
-            </div>
-            <div class="pro-item out">
-                <span class="type">差额</span>
-                <span class="spending">9000</span>
-            </div>
-        </li>
+    </ul> -->
 
-    </ul>
 </ion-content>

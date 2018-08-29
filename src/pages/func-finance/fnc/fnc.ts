@@ -11,7 +11,9 @@ import { CookieUtilProvider } from '../../../providers/cookie-util/cookie-util';
 export class FncPage {
 
   type: number
-  companyFnc = []//仅总监和公司财务管理员有权限查看
+  companyFnc: object = { incomeAccount: '加载中', payAccount: '加载中', profit: '加载中' }
+  //仅总监和公司财务管理员有权限查看
+  NormalRec
 
   /*本页职责：
   0：查看非项目金额和所有项目进出额
@@ -27,16 +29,34 @@ export class FncPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpUtilProvider, public cookie: CookieUtilProvider) {
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.type = this.cookie.getType();
-    this.getCompanyFnc();
+    if (this.type === 0 || this.type === 2) this.getCompanyFnc();
+    this.getNormalRec();
   }
 
   getCompanyFnc(): void {
-    this.http.doGet('account/getaccountlist.do?pageNum=1&pageSize=10', res => {
+    this.http.doGet('account/getaccountitem.do', res => {
 
-      this.companyFnc = res.data;
-      console.log(this.companyFnc);
+      this.companyFnc['in'] = res.data.list[0].incomeAccount;
+      this.companyFnc['out'] = res.data.list[0].payAccount;
+      this.companyFnc['profit'] = this.companyFnc['in'] + this.companyFnc['out'];
+
+    });
+  }
+
+  getNormalRec(): void {
+    this.http.doGet('account/userlist.do?pageSize=10&pageNum=1', res => {
+
+console.log(res);
+//       if(this.type === 0 || this.type === 2){
+// this.
+//       }else{
+//         this.
+//       }
+//       this.companyFnc['in'] = res.data.list[0].incomeAccount;
+//       this.companyFnc['out'] = res.data.list[0].payAccount;
+//       this.companyFnc['profit'] = this.companyFnc['in'] + this.companyFnc['out'];
 
     });
   }

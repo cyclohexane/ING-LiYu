@@ -316,18 +316,8 @@
         height: 2.3rem;
         line-height: 2.6rem;
         span {
-            flex: 2;
+            flex: 1;
             @include clip;
-        }
-        .fnc,
-        .mat {
-            flex: 3 0;
-        }
-        .type {
-            flex: 0 0 2.2rem;
-        }
-        .time {
-            flex: 0 0 6.6rem;
         }
     }
     
@@ -335,18 +325,8 @@
     .mat-record {
         .item {
             span {
-                flex: 2;
+                flex: 1;
                 @include clip;
-            }
-            .fnc,
-            .mat {
-                flex: 3 0;
-            }
-            .type {
-                flex: 0 0 2.2rem;
-            }
-            .time {
-                flex: 0 0 6.6rem;
             }
         }
     }

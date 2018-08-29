@@ -10,4 +10,8 @@ page-fnc {
             flex: 0 2 10rem;
         }
     }
+    .tabel-header span:last-child,
+    .fnc-record span:last-child {
+        flex: 0 0 10rem;
+    }
 }

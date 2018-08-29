@@ -504,12 +504,15 @@ success {
 
 //项目、财务
 
+//prePrice：预付，作为收入时与应付相同
+//accountRelPrice:应付
+
 【未审核列表】account/unchecklist.do【pageSize, pageNum, itemId】
 //不传itemId时表示公司未审核的财务列表
 
 【审核】account/checkconfirm.do【accountInfoId】
 
-【未确认列表】account / userlist.do【pageSize, pageNum, itemId】
+【未确认列表】account/userlist.do【pageSize, pageNum, itemId】
 //只有支出需要确认， 也就是accountRelPrice为负
 //不传项目时表示该用户的需要确认的列表
 
@@ -540,7 +543,7 @@ success { //（返回的是一个list集合，封装的UserVo,只包含id和name
     }]
 }
 
-【新建项目】item / additem.do【userId, accountUserId, accountCheckUserId, materialUserId, materialCheckUserId, itemDec, itemName, endTime】
+【新建项目】item/additem.do【userId, accountUserId, accountCheckUserId, materialUserId, materialCheckUserId, itemDec, itemName, endTime】
 fail {
     "status": 1,
     "msg"："参数错误/权限不够"
@@ -605,3 +608,19 @@ success { //这里返回的是ItemVo只封装了四个属性，根据开始时�
 //没有传id表示公司流水
 
 【根据时间查询财务流水】account/getaccountlistbytime.do【startTime,endTime】
+
+account/userlist.do
+返回的是什么个人的财务记录.传项目id了就是项目的个人财务记录,没传就是公司的个人财务记录
+
+
+
+
+
+<label>用户类型</label>
+/user/getcuruser.do
+王文超 2018-08-29 13:40:27
+1.材料查询  /category/getcategorybyname.do  request categoryName
+王文超 2018-08-29 13:40:56查看前后消息
+2.供货商查询 /offerer/getoffererbyname.do request offerCompany
+王文超 2018-08-29 13:41:26
+3.项目查询 /item/getitembyname.do request itemName

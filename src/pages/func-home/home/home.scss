@@ -31,10 +31,10 @@ page-home {
                 color: $deepGray;
                 @include clip;
             }
-            .msg-time {
-                color: $green;
-                padding-right: 2.3rem;
-            }
+            // .msg-time {
+            //     color: $green;
+            //     padding-right: 2.3rem;
+            // }
         }
     }
 }
