@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { HttpUtilProvider } from '../../../providers/http-util/http-util';
 import { CookieUtilProvider } from '../../../providers/cookie-util/cookie-util';
+import { TimeFormatterProvider } from '../../../providers/time-formatter/time-formatter'
 
 @IonicPage()
 @Component({
@@ -26,7 +27,7 @@ export class FncPage {
   7（未分配）：可查看财务。
   */
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpUtilProvider, public cookie: CookieUtilProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpUtilProvider, public cookie: CookieUtilProvider, public time: TimeFormatterProvider, public actionSheetCtrl: ActionSheetController) {
   }
 
   ionViewWillEnter() {
@@ -46,27 +47,39 @@ export class FncPage {
   }
 
   getNormalRec(): void {
-    this.http.doGet('account/userlist.do?pageSize=10&pageNum=1', res => {
 
-console.log(res);
-//       if(this.type === 0 || this.type === 2){
-// this.
-//       }else{
-//         this.
-//       }
-//       this.companyFnc['in'] = res.data.list[0].incomeAccount;
-//       this.companyFnc['out'] = res.data.list[0].payAccount;
-//       this.companyFnc['profit'] = this.companyFnc['in'] + this.companyFnc['out'];
+    let url = this.type === 0 || this.type === 2 ? 'getaccountlist.do' : 'getuseraccountlist.do';
+
+    this.http.doGet(`account/${url}?pageSize=10&pageNum=1`, res => {
+
+      let arr = res.data.list;
+      arr.forEach(i => i.createTime = this.time.parseSecond(i.createTime));
+      this.NormalRec = arr;
 
     });
   }
 
   toAddFnc() {
-    this.navCtrl.push("AddFncPage");
+    const addFnc = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: '创建支出流水',
+          handler: () => {
+            this.navCtrl.push("AddFncOutPage");
+          }
+        }, {
+          text: '创建收入流水',
+          handler: () => {
+            this.navCtrl.push("AddFncInPage");
+          }
+        }
+      ]
+    });
+    addFnc.present();
   }
 
-  toProFnc() {
-    this.navCtrl.push("ProFncPage");
+  toPendingFnc() {
+    this.navCtrl.push("PendingFncPage");
   }
 
 }

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { AddFncPage } from './add-fnc';
+import { AddFncInPage } from './add-fnc-in';
 
 @NgModule({
   declarations: [
-    AddFncPage,
+    AddFncInPage,
   ],
   imports: [
-    IonicPageModule.forChild(AddFncPage),
+    IonicPageModule.forChild(AddFncInPage),
   ],
 })
-export class AddFncPageModule {}
+export class AddFncInPageModule {}

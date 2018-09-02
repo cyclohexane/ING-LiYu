@@ -11,6 +11,7 @@ import { HttpUtilProvider } from '../providers/http-util/http-util';
 import { StorageUtilProvider } from '../providers/storage-util/storage-util';
 import { CookieUtilProvider } from '../providers/cookie-util/cookie-util';
 import { ToasterProvider } from '../providers/toaster/toaster';
+import { TimeFormatterProvider } from '../providers/time-formatter/time-formatter';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { ToasterProvider } from '../providers/toaster/toaster';
     StorageUtilProvider,
     CookieUtilProvider,
     ToasterProvider,
+    TimeFormatterProvider,
   ]
 })
 export class AppModule { }

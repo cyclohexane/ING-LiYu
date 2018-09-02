@@ -614,13 +614,11 @@ account/userlist.do
 
 
 
-
-
-<label>用户类型</label>
-/user/getcuruser.do
-王文超 2018-08-29 13:40:27
 1.材料查询  /category/getcategorybyname.do  request categoryName
-王文超 2018-08-29 13:40:56查看前后消息
+
 2.供货商查询 /offerer/getoffererbyname.do request offerCompany
-王文超 2018-08-29 13:41:26
+
 3.项目查询 /item/getitembyname.do request itemName
+
+account/getuseraccountlist.do
+request itemId(如果不传就是公司个人，传就是项目个人)

@@ -3,12 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-add-fnc',
-  templateUrl: 'add-fnc.html',
+  selector: 'page-add-fnc-in',
+  templateUrl: 'add-fnc-in.html',
 })
-export class AddFncPage {
-
-  type:string = "geren"
+export class AddFncInPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

@@ -8,6 +8,10 @@
 
 
 <ion-content>
+    <div class="functional-area">
+        <div (tap)="toAddFnc()" class="func">创建财务流水</div>
+        <div *ngIf="type === 0 || type === 2" (tap)="toPendingFnc()" class="func">待审核财务流水</div>
+    </div>
     <div *ngIf="type === 0 || type === 2" class="index-label">公司财务</div>
     <div *ngIf="type === 0 || type === 2" class="index-pro">
         <div class="pro-item in">
@@ -31,11 +35,11 @@
         <span>过审时间</span>
     </div>
     <ul class="fnc-record ">
-        <li (tap)="toFncRecDet() " class="item in">
-            <span>刘申通</span>
-            <span>1312</span>
-            <span>100000</span>
-            <span>2017-01-01 14:10:39</span>
+        <li *ngFor="let i of NormalRec" (tap)="toFncRecDet() " class="item" [ngClass]="{'in' : i.accountRelPrice >= 0 ,'out' : i.accountRelPrice < 0 }">
+            <span>{{i.userId}}</span>
+            <span>{{i.prePrice}}</span>
+            <span>{{i.accountRelPrice}}</span>
+            <span>{{i.createTime}}</span>
         </li>
 
     </ul>

@@ -1,0 +1,37 @@
+page-add-fnc-in {}
+
+ion-list.list {
+    padding: 0 2rem;
+    .item-block:last-child .item-inner,
+    .item-block,
+    .item-block .item-inner {
+        border-bottom: none !important;
+    }
+    .input-has-value,
+    .input-has-focus,
+    .item-input-has-focus {
+        border: none !important;
+    }
+}
+
+.description {
+    height: 5rem;
+    textarea {
+        width: 62vw;
+        height: 4.3rem;
+        line-height: 1.4rem;
+        border: 1px solid $gray;
+        border-radius: 1rem;
+        padding: .6rem;
+        resize: none;
+    }
+}
+
+.select-icon {
+    margin-top: .6rem;
+    margin-left: 2rem;
+}
+
+.proof-pic-con {
+    height: 16.5rem;
+}
