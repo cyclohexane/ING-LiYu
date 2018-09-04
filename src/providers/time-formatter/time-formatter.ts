@@ -7,11 +7,11 @@ export class TimeFormatterProvider {
 
   }
 
-  parseDay(timestamp) {
+  parseDay(timestamp) {//???????
     return new Date(timestamp).toLocaleDateString();
   }
 
-  parseSecond(timestamp) {
+  parseSecond(timestamp) {//??????????
     let t = new Date(timestamp);
     let month = t.getMonth();
     let M = (month + 1 < 10 ? '0' : '') + (month + 1);//月份补零
