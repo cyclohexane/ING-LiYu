@@ -20,10 +20,11 @@ export class LoginPage {
   }
 
   doLogin() {
-    this.http.doPost('user/login.do', this.user, res => {
-      this.cookie.set('user',res.data)
-      this.navCtrl.push("TabsPage");
-    });
+    // this.http.doPost('user/login.do', this.user, res => {
+    //   this.cookie.set('user',res.data)
+    //   this.navCtrl.push("TabsPage");
+    // });
+    this.navCtrl.push("TabsPage");
   }
 
 }

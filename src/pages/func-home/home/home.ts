@@ -17,8 +17,8 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.type = this.cookie.getType();
-    this.getUndeal();
+    //this.type = this.cookie.getType();
+    //this.getUndeal();
   }
 
   getUndeal(): void {

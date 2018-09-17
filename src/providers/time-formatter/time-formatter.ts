@@ -7,7 +7,7 @@ export class TimeFormatterProvider {
 
   }
 
-  parseDay(timestamp) {//???????
+  parseDay(timestamp) {//??????????
     return new Date(timestamp).toLocaleDateString();
   }
 

@@ -9,7 +9,8 @@
                   <span class="label">账号</span>
                 </span>
                 <span class="con">
-              <input [(ngModel)]="user.userName" type="text" />
+              <!--input [(ngModel)]="user.userName" type="text" /-->
+              <input type="text" />
               </span>
             </div>
             <div class="psw">
@@ -17,7 +18,8 @@
                     <span class="label">密码</span>
                 </span>
                 <span class="con">
-                  <input [(ngModel)]="user.password" type="password" />
+                  <!--input [(ngModel)]="user.password" type="password" /-->
+                  <input  type="password" />
                 </span>
             </div>
             <div (tap)="doLogin()" class="login-btn">登录</div>
