@@ -1,0 +1,53 @@
+$font-path: "../assets/fonts";
+$app-direction: ltr;
+@import "ionic.globals";
+$colors: ( primary: #32b16c, secondary: #ade9bc, danger: #fc5e5d, light: #787878, dark: #5e5e5e);
+@import "ionic.theme.default";
+@import "ionic.ionicons";
+@import "roboto";
+@import "noto-sans";
+
+/*常用颜色*/
+
+$green: #32b16c;
+$itemGreen:#72c8ab;
+$red: #fc5e5d;
+$itemRed: #f09c9c;
+$gray: #7e7e7e;
+$deepGray: #5e5e5e;
+$bgGray: #e7e7e7;
+
+/*常用数据*/
+
+
+/*覆盖官方样式*/
+
+//导航条
+$toolbar-ios-background: $green;
+$toolbar-md-background: $green;
+//Tab
+$tabs-ios-border: none;
+$tabs-ios-tab-font-size: 1rem;
+$tabs-md-tab-font-size: 1rem;
+$tabs-ios-tab-font-weight: bold;
+$tabs-md-tab-font-weight: bold;
+$tabs-ios-tab-min-height: 4.8rem;
+$tabs-md-tab-min-height: 4.8rem;
+$tabs-ios-tab-text-color: #fff;
+$tabs-md-tab-text-color: #fff;
+$tabs-ios-tab-text-color-active: #fff;
+$tabs-md-tab-text-color-active: #fff;
+$tabs-ios-tab-icon-color: #fff;
+$tabs-md-tab-icon-color: #fff;
+$tabs-ios-tab-icon-color-active: #fff;
+$tabs-md-tab-icon-color-active: #fff;
+$item-md-detail-push-show :true;
+$item-wp-detail-push-show:true;
+
+/*混合器*/
+
+@mixin clip {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

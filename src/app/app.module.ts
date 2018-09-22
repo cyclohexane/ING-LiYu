@@ -1,44 +1,30 @@
-import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
-import { StatusBar } from '@ionic-native/status-bar';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 
-//注意下面的引入
-import { HttpClientModule } from '@angular/common/http';
-import { HttpUtilProvider } from '../providers/http-util/http-util';
-import { StorageUtilProvider } from '../providers/storage-util/storage-util';
-import { CookieUtilProvider } from '../providers/cookie-util/cookie-util';
-import { ToasterProvider } from '../providers/toaster/toaster';
-import { TimeFormatterProvider } from '../providers/time-formatter/time-formatter';
-
+import { MyApp } from './app.component';
+import { HomePage } from '../pages/home/home';
 
 @NgModule({
   declarations: [
     MyApp,
+    HomePage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp, {
-      tabsHideOnSubPages: "true",
-      backButtonText: ""
-    }),
-    HttpClientModule//注意引入！
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    HomePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    HttpUtilProvider,
-    StorageUtilProvider,
-    CookieUtilProvider,
-    ToasterProvider,
-    TimeFormatterProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule { }
+export class AppModule {}
