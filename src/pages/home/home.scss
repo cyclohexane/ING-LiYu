@@ -25,9 +25,10 @@ page-home {
     .func {
         margin-top: 1rem;
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         li {
-            flex: 1 0 32vw;
+            border: 1px solid $green;
+            box-shadow: 0 4px 1.4rem #def7ee;
             margin: 2rem .8rem 0;
             padding: 0 2rem;
             display: flex;
@@ -35,14 +36,15 @@ page-home {
             text-align: right;
             height: 6rem;
             border-radius: .4rem;
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.8rem;
             ion-icon,
             span {
                 line-height: 6rem;
+                color: $green;
             }
             ion-icon {
                 font-size: 3rem;
+                color: $green;
             }
         }
         // li:nth-child(n+1) {
