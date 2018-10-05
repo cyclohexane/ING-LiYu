@@ -1,0 +1,89 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>我的员工</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-list inset>
+        <ion-item>
+            <ion-label>
+                头像
+            </ion-label>
+            <div item-content>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                姓名
+            </ion-label>
+            <div item-content>
+                王磊
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                性别
+            </ion-label>
+            <div item-content>
+                男
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                电话
+            </ion-label>
+            <div item-content>
+                123456789
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                地区
+            </ion-label>
+            <div item-content>
+                湖北省黄冈市xx路xx号
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                用户名
+            </ion-label>
+            <div item-content>
+                452840
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                密码
+            </ion-label>
+            <div item-content>
+                ******
+            </div>
+        </ion-item>
+    </ion-list>
+    <ion-list inset>
+        <ion-item (tap)="alterPro()" detail-push>
+            <ion-label>
+                所属项目
+            </ion-label>
+            <div item-content>
+                项目一
+            </div>
+        </ion-item>
+    </ion-list>
+    <ion-list inset>
+        <ion-item (tap)="alterRole()" detail-push>
+            <ion-label>
+                用户类型
+            </ion-label>
+            <div item-content>
+                项目经理
+            </div>
+        </ion-item>
+    </ion-list>
+    <div (tap)="removePsnl()" class="wide-btn">删除该员工</div>
+</ion-content>

@@ -15,62 +15,41 @@ export class MatProviderPage {
   }
 
   alterProvider() {
-    let alert = this.alertCtrl.create({
-      title: '更新供应商信息',
-      inputs: [
-        {
-          name: 'name',
-          placeholder: '公司名'
-        },
-        {
-          name: 'address',
-          placeholder: '地址'
-        },
-        {
-          name: 'tel',
-          placeholder: '联系电话'
-        },
-      ],
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel',
-          handler: data => {
+      let alert = this.alertCtrl.create({
+        title: '更新供货商信息',
+        inputs: [
+          {
+            name: 'offerCompany',
+            placeholder: '请输入供货商名'
+          },
+          {
+            name: 'offerPhone',
+            placeholder: '请输入供货商电话'
+          },
+          {
+            name: 'address',
+            placeholder: '请输入单位地址'
+          },
+        ],
+        buttons: [
+          {
+            text: '取消',
+            role: 'cancel',
+            handler: data => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: '确定',
+            handler: data => {
+              console.log("添加了新材料");
+              //return false;
+            }
           }
-        },
-        {
-          text: '确定',
-          handler: data => {
-            //return false;
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-
-  removeProvider() {
-    let alert = this.alertCtrl.create({
-      title: '确认',
-      message: '确定删除本供应商吗？',
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: '确定',
-          handler: () => {
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
+        ]
+      });
+      alert.present();
+    }
 
 
 

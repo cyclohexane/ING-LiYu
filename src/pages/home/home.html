@@ -1,37 +1,70 @@
-<ion-content padding>
-    <div class="identity">
-        <div class="avater"></div>
-        <div class="info">
-            <div class="name">罗文林</div>
-            <div class="msg">当前职位：总监</div>
+<ion-header>
+
+    <div class="banner">
+        <div class="icon">
+            <ion-icon ios="ios-alert-outline" md="ios-alert-outline"></ion-icon>
+            <span>工程财务管理系统</span>
+            <ion-icon ios="ios-search-outline" md="ios-search-outline"></ion-icon>
         </div>
     </div>
+
+</ion-header>
+
+<div class="identity">
+    <div class="basic">
+        <div class="avater"></div>
+        <div class="info">
+            <h1>罗文林</h1>
+            <i>总监</i>
+        </div>
+    </div>
+    <div class="link">
+        <span>个人资料</span>
+        <span>个人财务</span>
+    </div>
+</div>
+
+<ion-content>
     <ul class="func">
         <li>
-            <ion-icon ios="md-person" md="md-person"></ion-icon>
-            <span>人事管理</span>
+            <ion-icon ios="md-done-all" md="md-done-all"></ion-icon>
+            <span>已过审财务记录</span>
         </li>
         <li>
-            <ion-icon ios="md-person-add" md="md-person-add"></ion-icon>
-            <span>创建员工</span>
+            <ion-icon ios="md-eye" md="md-eye"></ion-icon>
+            <span>待审核财务记录</span>
         </li>
-        <li>
-            <ion-icon ios="md-pricetags" md="md-pricetags"></ion-icon>
-            <span>材料定义</span>
+        <li (tap)="toPro()">
+            <ion-icon ios="md-list-box" md="md-list-box"></ion-icon>
+            <span>项目管理</span>
         </li>
-        <li>
-            <ion-icon ios="md-happy" md="md-happy"></ion-icon>
-            <span>供货商定义</span>
-        </li>
-        <li>
+        <li (tap)="toAddPro()">
             <ion-icon ios="md-add" md="md-add"></ion-icon>
             <span>创建项目</span>
         </li>
-        <li>
-            <ion-icon ios="md-menu" md="md-menu"></ion-icon>
-            <span>项目管理</span>
+        <li (tap)="toPsnl()">
+            <ion-icon ios="md-person" md="md-person"></ion-icon>
+            <span>人事管理</span>
         </li>
-        <!-- <li>审核记录</li>
-        <li>待审核记录</li> -->
+        <li (tap)="toAddPsnl()">
+            <ion-icon ios="md-person-add" md="md-person-add"></ion-icon>
+            <span>创建职员</span>
+        </li>
+        <li (tap)="toMatProvider()">
+            <ion-icon ios="md-happy" md="md-happy"></ion-icon>
+            <span>供货商管理</span>
+        </li>
+        <li (tap)="addProvider()">
+            <ion-icon ios="md-add" md="md-add"></ion-icon>
+            <span>创建供货商</span>
+        </li>
+        <li (tap)="toMatStock()">
+            <ion-icon ios="md-pricetags" md="md-pricetags"></ion-icon>
+            <span>材料管理</span>
+        </li>
+        <li (tap)="addMat()">
+            <ion-icon ios="md-add" md="md-add"></ion-icon>
+            <span>创建材料</span>
+        </li>
     </ul>
 </ion-content>

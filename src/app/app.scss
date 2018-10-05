@@ -30,7 +30,7 @@ i,
 strong,
 em {
     font-style: normal;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 input {
@@ -45,13 +45,12 @@ ion-content * {
     color: $gray;
 }
 
-.item span,
-.item-lg span,
-.pro-item span,
-.button-inner {
-    color: #fff;
-}
-
+// .item span,
+// .item-lg span,
+// .pro-item span,
+// .button-inner {
+//     color: #fff;
+// }
 .toolbar {
     height: 4.8rem;
     font-weight: normal;
@@ -84,8 +83,55 @@ ion-content * {
     }
 }
 
-page-login {
+button.button {
+    width: 4.5rem;
+    height: 3.2rem;
+    font-size: .9rem;
+    border-radius: .5rem;
+    box-shadow: none;
+    margin-right: 2.8rem;
+    .button-inner {
+        color: #fff;
+    }
+}
+
+.action-sheet-group .button-inner {
+    color: $green;
+}
+
+.action-sheet-group-cancel .action-sheet-cancel .button-inner {
+    color: $red;
+}
+
+page-home,
+page-mat-provider {
     .scroll-content {
-        background: #ade9bc;
+        background: #eee;
+    }
+}
+
+.tabel-header {
+    background: #eee;
+    font-size: 1rem;
+    display: flex;
+    padding: 0 1rem;
+    height: 2.3rem;
+    line-height: 2.6rem;
+    span {
+        flex: 1;
+        @include clip;
+    }
+}
+
+.item {
+    height: 3.2rem;
+    line-height: 3.2rem;
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-bottom: 1px solid $gray;
+    display: flex;
+    span {
+        flex: 1;
     }
 }

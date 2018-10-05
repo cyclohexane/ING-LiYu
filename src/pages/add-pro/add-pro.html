@@ -1,0 +1,74 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>创建项目</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <div class="basic-info">
+        <div class="name">
+            <div class="label">项目名称</div>
+            <div class="name-input">xxx人防工程</div>
+        </div>
+        <div class="time">
+            <div class="start">
+                <span class="start-time-label">开始时间</span>
+                <span class="datepicker-con">
+                    <ion-datetime displayFormat="YYYY-MM-DD" 
+                    [(ngModel)]="startTime" 
+                    placeholder="（请选择）" 
+                    cancelText="取消" 
+                    doneText="确定" 
+                    min="2018"
+                    max="2200"></ion-datetime>
+                </span>
+            </div>
+            <div class="end">
+                <span class="end-time-label">结束时间</span>
+                <span class="datepicker-con">
+                    <ion-datetime displayFormat="YYYY-MM-DD" 
+                    [(ngModel)]="endTime" 
+                    placeholder="（请选择）" 
+                    cancelText="取消" 
+                    doneText="确定" 
+                    min="2018"
+                    max="2200"></ion-datetime>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="stuff">
+        <ion-item class="responsible-stuff">
+            <ion-label>负责人</ion-label>
+            <ion-select [(ngModel)]="responsibleStuff" placeholder="（请选择）">
+                <ion-option value="wl">王磊</ion-option>
+                <ion-option value="lst">刘申通</ion-option>
+                <ion-option value="llc">李力持</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="material-stuff">
+            <ion-label>材料员</ion-label>
+            <ion-select [(ngModel)]="materialStuff" placeholder="（请选择）">
+                <ion-option value="wl">王磊</ion-option>
+                <ion-option value="lst">刘申通</ion-option>
+                <ion-option value="llc">李力持</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="approval-stuff">
+            <ion-label>材料审核员</ion-label>
+            <ion-select [(ngModel)]="approvalStuff" placeholder="（请选择）">
+                <ion-option value="wl">王磊</ion-option>
+                <ion-option value="lst">刘申通</ion-option>
+                <ion-option value="llc">李力持</ion-option>
+            </ion-select>
+        </ion-item>
+    </div>
+    <div class="description">
+        <div class="label">项目描述</div>
+        <textarea placeholder="添加项目描述"></textarea>
+    </div>
+    <div class="wide-btn">发布项目</div>
+</ion-content>

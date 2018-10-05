@@ -1,51 +1,97 @@
-page-home {
-    .identity {
-        height: 8rem;
-        padding-bottom: 2rem;
-        display: flex;
-        border-bottom: 1px solid #eee;
-        .avater {
-            flex: 0 0 6rem;
-            height: 6rem;
-            background: #eee;
-            border-radius: 50%;
-            margin: 0 2rem;
-        }
-        .info {
-            flex: 1;
-            padding-top: 1.2rem;
-        }
-        .name {
-            font-size: 2rem;
-            padding-bottom: .4rem;
-            color: #555;
-            font-weight: bold;
-        }
-    }
-    .func {
-        margin-top: 1rem;
-        display: flex;
-        flex-direction: column;
-        li {
-            border: 1px solid $green;
-            box-shadow: 0 4px 1.4rem #def7ee;
-            margin: 2rem .8rem 0;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            text-align: right;
-            height: 6rem;
-            border-radius: .4rem;
-            font-size: 1.8rem;
-            ion-icon,
-            span {
-                line-height: 6rem;
-                color: $green;
+        page-home {
+            .banner {
+                background-color: $green;
+                width: 100vw;
+                height: 14rem;
+                .icon {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0 4vw;
+                    height: 6rem;
+                    line-height: 6rem;
+                    span {
+                        color: #e8fde4;
+                        font-size: 1.8rem;
+                        letter-spacing: 1px;
+                    }
+                    ion-icon {
+                        font-size: 3rem;
+                        color: #e8fde4;
+                    }
+                }
             }
-            ion-icon {
-                font-size: 3rem;
-                color: $green;
+            .identity {
+                position: absolute;
+                top: 6rem;
+                z-index: 12;
+                width: 94vw;
+                margin: 0 3vw;
+                padding: 2rem 2vw;
+                height: 14rem;
+                background-color: #fff;
+                border-radius: 1rem;
+                box-shadow: 0 4px 1rem #deefe6;
+                .basic {
+                    display: flex;
+                }
+                .avater {
+                    flex: 0 0 6rem;
+                    height: 6rem;
+                    background: #eee;
+                    border-radius: 50%;
+                    margin: 0 2rem;
+                }
+                .info {
+                    flex: 1;
+                    padding-top: 1.2rem;
+                    h1 {
+                        font-size: 2rem;
+                        padding-bottom: .4rem;
+                        color: #555;
+                        font-weight: bold;
+                    }
+                }
+                .link {
+                    margin-top: 2rem;
+                    display: flex;
+                    justify-content: space-around;
+                    span {
+                        padding: .4rem 1.4rem;
+                        border-radius: 4rem;
+                        border: 1px solid $green;
+                        color: $green;
+                    }
+                }
+            }
+            .func {
+                background-color: #fff;
+                padding-top: 8rem;
+                display: flex;
+                flex-direction: column;
+                li {
+                    display: flex;
+                    height: 6.8rem;
+                    border-radius: .4rem;
+                    border-bottom: .8rem solid #eee;
+                    &::before {
+                        content: '';
+                        /*不写content就不会出现*/
+                        width: 6px;
+                        background: $green;
+                    }
+                    span {
+                        font-size: 1.5rem;
+                        flex: 1;
+                        line-height: 6rem;
+                        color: $deepGray;
+                    }
+                    ion-icon {
+                        text-align: center;
+                        flex: 0 0 8rem;
+                        font-size: 3rem;
+                        line-height: 6rem;
+                        color: $green;
+                    }
+                }
             }
         }
-    }
-}

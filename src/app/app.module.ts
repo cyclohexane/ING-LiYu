@@ -3,28 +3,40 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+
+//注意下面的引入
+import { HttpClientModule } from '@angular/common/http';
+import { HttpUtilProvider } from '../providers/http-util/http-util';
+import { StorageUtilProvider } from '../providers/storage-util/storage-util';
+import { CookieUtilProvider } from '../providers/cookie-util/cookie-util';
+import { ToasterProvider } from '../providers/toaster/toaster';
+import { TimeFormatterProvider } from '../providers/time-formatter/time-formatter';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {
+      backButtonText: ""
+    }),
+    HttpClientModule//注意引入！
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage
+    MyApp
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    HttpUtilProvider,
+    StorageUtilProvider,
+    CookieUtilProvider,
+    ToasterProvider,
+    TimeFormatterProvider,
   ]
 })
 export class AppModule {}

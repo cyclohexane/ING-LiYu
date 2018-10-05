@@ -1,0 +1,17 @@
+page-psnl {
+    .psnl-header,
+    .psnl-record li {
+        padding: 0 1rem;
+        display: flex;
+        font-size: 1rem;
+        span {
+            flex: 2;
+            @include clip;
+        }
+    }
+    .psnl-record li {
+        height: 4.9rem;
+        line-height: 4.9rem;
+        border-bottom: 1px solid $bgGray;
+    }
+}
