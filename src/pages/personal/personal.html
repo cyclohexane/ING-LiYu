@@ -1,0 +1,91 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>个人中心</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <ion-list inset>
+        <ion-item>
+            <ion-label>
+                头像
+            </ion-label>
+            <div item-content>
+            </div>
+        </ion-item>
+        <ion-item (tap)="alterName()" detail-push>
+            <ion-label>
+                姓名
+            </ion-label>
+            <div item-content>
+                王磊
+            </div>
+        </ion-item>
+        <ion-item (tap)="alterSex()" detail-push>
+            <ion-label>
+                性别
+            </ion-label>
+            <div item-content>
+                男
+            </div>
+        </ion-item>
+        <ion-item (tap)="alterTel()" detail-push>
+            <ion-label>
+                电话
+            </ion-label>
+            <div item-content>
+                123456789
+            </div>
+        </ion-item>
+        <ion-item (tap)="alterDistrict()" detail-push>
+            <ion-label>
+                地区
+            </ion-label>
+            <div item-content>
+                湖北省黄冈市xx路xx号
+            </div>
+        </ion-item>
+        <ion-item (tap)="alterUsername()" detail-push>
+            <ion-label>
+                用户名
+            </ion-label>
+            <div item-content>
+                452840
+            </div>
+        </ion-item>
+        <ion-item (tap)="alterPassword()" detail-push>
+            <ion-label>
+                密码
+            </ion-label>
+            <div item-content>
+                ******
+            </div>
+        </ion-item>
+    </ion-list>
+    <ion-list inset>
+        <ion-item (tap)="alterPro()" detail-push>
+            <ion-label>
+                所属项目
+            </ion-label>
+            <div item-content>
+                项目一
+            </div>
+        </ion-item>
+    </ion-list>
+    <ion-list inset>
+        <ion-item (tap)="alterRole()" detail-push>
+            <ion-label>
+                用户类型
+            </ion-label>
+            <div item-content>
+                项目经理
+            </div>
+        </ion-item>
+    </ion-list>
+    <div class="wide-btn" (tap)="logout()">退出登录</div>
+
+</ion-content>

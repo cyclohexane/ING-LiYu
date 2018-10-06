@@ -1,0 +1,70 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>财务记录详情</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+    <ion-list>
+        <ion-item>
+            <ion-label>财务记录编号</ion-label>
+            <ion-input value="10025" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>流水名</ion-label>
+            <ion-input value="王鑫" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>提交记录时间</ion-label>
+            <ion-input value="2017-1-1 4:00" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item class="description">
+            <ion-label>流水描述</ion-label>
+            <textarea value="xxx" item-content readonly="true"></textarea>
+        </ion-item>
+        <!-- <ion-item>
+                    <ion-label>经销商</ion-label>
+                    <ion-select [(ngModel)]="type" placeholder="（请选择）">
+                        <ion-option value="a">A</ion-option>
+                        <ion-option value="b">B</ion-option>
+                        <ion-option value="c">C</ion-option>
+                        <ion-option value="d">D</ion-option>
+                    </ion-select>
+                </ion-item> -->
+        <ion-item>
+            <ion-label>流水实际应付款</ion-label>
+            <ion-input value="500" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>流水预付款</ion-label>
+            <ion-input value="500" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>待付款</ion-label>
+            <ion-input value="0" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>审核员</ion-label>
+            <ion-input value="待定" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-item>
+                <ion-label>审核时间</ion-label>
+                <ion-input value="待定" readonly="true"></ion-input>
+            </ion-item>
+            <ion-label>报销卡号</ion-label>
+            <ion-input placeholder="默认为用户卡号"></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <div class="proof-divider">凭证</div>
+    <div class="proof-pic-con"></div>
+
+    <div class="approval">
+        <button ion-button>过审</button>
+        <button ion-button color="danger">拒绝</button>
+    </div>
+</ion-content>

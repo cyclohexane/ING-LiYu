@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HttpUtilProvider } from '../../providers/http-util/http-util';
+import { HttpUtilProvider } from '../../../providers/http-util/http-util';
 
 @IonicPage()
 @Component({
@@ -15,18 +15,18 @@ export class MatPage {
   }
 
   ionViewDidLoad() {
-        //this.getMat();
+        this.getMat();
   }
 
   getMat(): void {
-    this.http.doGet('boss/category/categorylist.do?pageSize=10&pageNum=1', res => {
+    this.http.doGet('boss/category/categorylist.do?pageSize=30&pageNum=1', res => {
 
-      this.mat = res.data;
+      this.mat = res.data.list;
       console.log(this.mat);
     });
   }
 
-  toMatStockDet():void{
-    this.navCtrl.push("MatStockDetPage");
+  toMatDet():void{
+    this.navCtrl.push("MatDetPage");
   }
 }

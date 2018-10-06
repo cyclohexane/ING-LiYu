@@ -86,9 +86,16 @@ export class HomePage {
     alert.present();
   }
 
+toPersonal():void{
+  this.navCtrl.push("PersonalPage");
+}
+
+toPersonalFnc():void{
+  this.navCtrl.push("PersonalFncPage");
+}
+
   toPro():void{
     this.navCtrl.push("ProPage");
-
   }
 
   toAddPro():void{

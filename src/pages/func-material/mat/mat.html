@@ -1,0 +1,25 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>材料管理</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <div class="tabel-header">
+        <span>材料名</span>
+        <span>规格</span>
+        <span>单位</span>
+        <span>操作</span>
+    </div>
+    <ul class="mat-stock">
+        <li *ngFor="let i of mat" class="item" (tap)="toMatDet()">
+            <span>{{i.categoryName || "无"}}</span>
+            <span>{{i.specifications || "无"}}</span>
+            <span>{{i.unit || "无"}}</span>
+            <span><ion-icon ios="md-close" md="md-close"></ion-icon></span>
+        </li>
+    </ul>
+</ion-content>
