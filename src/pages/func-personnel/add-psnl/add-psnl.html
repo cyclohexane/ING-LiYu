@@ -1,7 +1,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>创建新员工号</ion-title>
+        <ion-title>创建职员</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -30,19 +30,14 @@
             <span>用户类型</span>
             <span>
                   <ion-select [(ngModel)]="type" placeholder="（请选择）">
-                  <ion-option value="a">总监</ion-option>
-                  <ion-option value="b">项目经理</ion-option>
-                  <ion-option value="c">公司财务记录员</ion-option>
-                  <ion-option value="d">项目财务记账员</ion-option>
-                  <ion-option value="e">项目财务审核员</ion-option>
-                  <ion-option value="f">项目材料员</ion-option>
-                  <ion-option value="g">项目材料审核员</ion-option>
-                  <ion-option value="h">公司普通员工</ion-option>
+                  <ion-option value="1">公司财务管理员</ion-option>
+                  <ion-option value="2">项目经理</ion-option>
+                  <ion-option value="3">项目记录员</ion-option>
                 </ion-select>
             </span>
         </li>
     </ul>
-    <div class="wide-btn">创建新员工号</div>
+    <div class="wide-btn">创建职员</div>
 
 
 </ion-content>

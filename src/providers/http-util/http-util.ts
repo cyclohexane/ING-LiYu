@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class HttpUtilProvider {
 
+  // base: string = "/project/";
   base: string = "http://liyu.upupgogogo.cn/project/";
 
   constructor(public http: HttpClient) {

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { AlertController,IonicPage,NavController } from 'ionic-angular';
+import { AlertController, IonicPage, NavController } from 'ionic-angular';
+import { HttpUtilProvider } from '../../providers/http-util/http-util';
+import { ToasterProvider } from '../../providers/toaster/toaster';
+
 
 @IonicPage()
 @Component({
@@ -8,8 +11,7 @@ import { AlertController,IonicPage,NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(private alertCtrl: AlertController,public navCtrl: NavController) {
-
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public http: HttpUtilProvider, public toaster: ToasterProvider) {
   }
 
   addProvider() {
@@ -34,14 +36,23 @@ export class HomePage {
           text: '取消',
           role: 'cancel',
           handler: data => {
-            console.log('Cancel clicked');
           }
         },
         {
           text: '确定',
           handler: data => {
-            console.log("添加了新材料");
-            //return false;
+            if (!data.offerCompany) {
+              this.toaster.show('供货商名为必填项！');
+              return false;
+            }
+            this.http.doPost('boss/offer/addofferer.do',
+              {
+                offerCompany: data.offerCompany,
+                offerPhone: data.offerPhone,
+                address: data.address
+              }, res => {
+                this.toaster.show('添加供货商成功！');
+              });
           }
         }
       ]
@@ -71,14 +82,23 @@ export class HomePage {
           text: '取消',
           role: 'cancel',
           handler: data => {
-            console.log('Cancel clicked');
           }
         },
         {
           text: '确定',
           handler: data => {
-            console.log("添加了新材料");
-            //return false;
+            if (!data.categoryName) {
+              this.toaster.show('材料名为必填项！');
+              return false;
+            }
+            this.http.doPost('boss/category/addcategory.do',
+              {
+                categoryName: data.categoryName,
+                specifications: data.specifications,
+                unit: data.unit
+              }, res => {
+                this.toaster.show('添加材料成功！');
+              });
           }
         }
       ]
@@ -86,37 +106,37 @@ export class HomePage {
     alert.present();
   }
 
-toPersonal():void{
-  this.navCtrl.push("PersonalPage");
-}
+  toPersonal(): void {
+    this.navCtrl.push("PersonalPage");
+  }
 
-toPersonalFnc():void{
-  this.navCtrl.push("PersonalFncPage");
-}
+  toPersonalFnc(): void {
+    this.navCtrl.push("PersonalFncPage");
+  }
 
-  toPro():void{
+  toPro(): void {
     this.navCtrl.push("ProPage");
   }
 
-  toAddPro():void{
+  toAddPro(): void {
     this.navCtrl.push("AddProPage");
 
   }
 
-  toPsnl():void{
+  toPsnl(): void {
     this.navCtrl.push("PsnlPage");
 
   }
 
-  toAddPsnl():void{
+  toAddPsnl(): void {
     this.navCtrl.push("AddPsnlPage");
   }
 
-  toMatProvider():void{
+  toMatProvider(): void {
     this.navCtrl.push("MatProviderPage");
   }
-  
-  toMatStock():void{
+
+  toMatStock(): void {
     this.navCtrl.push("MatPage");
   }
 

@@ -15,11 +15,14 @@
         <span>操作</span>
     </div>
     <ul class="mat-stock">
-        <li *ngFor="let i of mat" class="item" (tap)="toMatDet()">
+        <li *ngFor="let i of mat" class="item">
             <span>{{i.categoryName || "无"}}</span>
             <span>{{i.specifications || "无"}}</span>
             <span>{{i.unit || "无"}}</span>
-            <span><ion-icon ios="md-close" md="md-close"></ion-icon></span>
+            <span>
+                <ion-icon (tap)="alterMat(i.categoryName,i.specifications,i.unit)" ios="md-build" md="md-build"></ion-icon>
+                <ion-icon (tap)="removeMat(i.categoryId)" ios="md-close" md="md-close"></ion-icon>
+            </span>
         </li>
     </ul>
 </ion-content>

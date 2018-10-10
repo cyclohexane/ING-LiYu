@@ -7,21 +7,11 @@ export class ToasterProvider {
   constructor(private toastCtrl: ToastController) {
   }
 
-  presentToast(message, position, cssclass) {
+  show(message) {
     let toast = this.toastCtrl.create({
       message: message,
-      closeButtonText: "OK",
-      showCloseButton: true,
-      cssClass: cssclass,
-      position: position
-    });
-    toast.present();
-  }
-  presentSimpleToast(message, position) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      position: position
+      duration: 1000,
+      position:'middle'
     });
     toast.present();
   }

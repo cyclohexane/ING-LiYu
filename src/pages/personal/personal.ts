@@ -218,7 +218,6 @@ export class PersonalPage {
         {
           text: '确定',
           handler: data => {
-            //console.log(data.myValue);
           }
         }
       ]
@@ -290,7 +289,7 @@ export class PersonalPage {
         {
           text: '确定',
           handler: data => {
-            //console.log(data.myValue);
+
           }
         }
       ]
@@ -308,7 +307,6 @@ export class PersonalPage {
           text: '取消',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         },
         {

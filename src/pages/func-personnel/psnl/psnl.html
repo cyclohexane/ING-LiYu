@@ -14,20 +14,10 @@
         <span>职位</span>
     </div>
     <ul class="psnl-record">
-        <li (tap)="toPsnlDet()">
-            <span>姓名</span>
-            <span>手机号</span>
-            <span>总监</span>
-        </li>
-        <li (tap)="toPsnlDet()">
-            <span>姓名</span>
-            <span>手机号</span>
-            <span>项目记录员</span>
-        </li>
-        <li (tap)="toPsnlDet()">
-            <span>姓名</span>
-            <span>手机号</span>
-            <span>职位</span>
+        <li *ngFor="let i of user" (tap)="toPsnlDet()">
+            <span>{{i.userName || "无"}}</span>
+            <span>{{i.phone || "无"}}</span>
+            <span>{{transformType(i.userType) || "无"}}</span>
         </li>
     </ul>
 </ion-content>

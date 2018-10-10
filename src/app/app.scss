@@ -95,6 +95,18 @@ button.button {
     }
 }
 
+.wide-btn {
+    width: 80vw;
+    height: 3.2rem;
+    background: $green;
+    color: #fff;
+    margin: 0 auto;
+    border-radius: .6rem;
+    text-align: center;
+    line-height: 3.2rem;
+    font-size: 1.7rem;
+}
+
 .action-sheet-group .button-inner {
     color: $green;
 }

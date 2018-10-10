@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HttpUtilProvider } from '../../../providers/http-util/http-util';
+import { ToasterProvider } from '../../../providers/toaster/toaster';
 
 @IonicPage()
 @Component({
@@ -8,27 +10,42 @@ import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angu
 })
 export class MatProviderPage {
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams) {
+  provider: string[] = []
+
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,public http: HttpUtilProvider, public toaster: ToasterProvider) {
   }
 
   ionViewDidLoad() {
+    this.getProvider();
   }
 
-  alterProvider() {
+  getProvider(){
+
+      this.http.doGet('boss/offer/offererlist.do?pageSize=30&pageNum=1', res => {
+  
+        this.provider = res.data.list;
+        console.log(this.provider);
+      });
+  }
+
+  alterProvider(offerCompany,offerPhone,address) {
     let alert = this.alertCtrl.create({
-      title: '更新供应商信息',
+      title: '更新供货商',
       inputs: [
         {
-          name: 'name',
-          placeholder: '公司名'
+          name: 'offerCompany',
+          placeholder: '请输入供货商电话',
+          value:offerCompany
+        },
+        {
+          name: 'offerPhone',
+          placeholder: '请输入供货商电话',
+          value:offerPhone
         },
         {
           name: 'address',
-          placeholder: '地址'
-        },
-        {
-          name: 'tel',
-          placeholder: '联系电话'
+          placeholder: '请输入单位地址',
+          value:address
         },
       ],
       buttons: [
@@ -41,7 +58,19 @@ export class MatProviderPage {
         {
           text: '确定',
           handler: data => {
-            //return false;
+            if (!data.offerCompany) {
+              this.toaster.show('供货商名为必填项！');
+              return false;
+            }
+            this.http.doPost('boss/offer/updateofferer.do',
+              {
+                offerCompany: data.offerCompany,
+                offerPhone: data.offerPhone,
+                address: data.address
+              }, res => {
+                this.toaster.show('更新供货商成功！');
+                this.getProvider();
+              });
           }
         }
       ]
@@ -49,22 +78,27 @@ export class MatProviderPage {
     alert.present();
   }
 
-
-  removeProvider() {
+  removeProvider(offerId) {
     let alert = this.alertCtrl.create({
       title: '确认',
-      message: '确定删除本供应商吗？',
+      message: '确定删除本供货商吗？',
       buttons: [
         {
           text: '取消',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         },
         {
           text: '确定',
           handler: () => {
+            this.http.doPost('boss/offer/deleteofferer.do',
+            {
+              offerId: offerId
+            }, res => {
+              this.toaster.show('删除供货商成功！');
+              this.getProvider();
+            });
           }
         }
       ]

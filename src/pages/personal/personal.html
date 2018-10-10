@@ -19,50 +19,34 @@
         </ion-item>
         <ion-item (tap)="alterName()" detail-push>
             <ion-label>
-                姓名
+                用户名
             </ion-label>
             <div item-content>
-                王磊
+                boss
             </div>
         </ion-item>
-        <ion-item (tap)="alterSex()" detail-push>
+        <ion-item (tap)="alterRole()" detail-push>
             <ion-label>
-                性别
+                用户类型
             </ion-label>
             <div item-content>
-                男
+                项目经理
             </div>
         </ion-item>
         <ion-item (tap)="alterTel()" detail-push>
             <ion-label>
-                电话
+                联系电话
             </ion-label>
             <div item-content>
                 123456789
             </div>
         </ion-item>
-        <ion-item (tap)="alterDistrict()" detail-push>
+        <ion-item (tap)="alterAccount()">
             <ion-label>
-                地区
+                银行卡号
             </ion-label>
             <div item-content>
-                湖北省黄冈市xx路xx号
-            </div>
-        </ion-item>
-        <ion-item (tap)="alterUsername()" detail-push>
-            <ion-label>
-                用户名
-            </ion-label>
-            <div item-content>
-                452840
-            </div>
-        </ion-item>
-        <ion-item (tap)="alterPassword()" detail-push>
-            <ion-label>
-                密码
-            </ion-label>
-            <div item-content>
-                ******
+                123456789
             </div>
         </ion-item>
     </ion-list>
@@ -79,13 +63,14 @@
     <ion-list inset>
         <ion-item (tap)="alterRole()" detail-push>
             <ion-label>
-                用户类型
+                用户状态
             </ion-label>
             <div item-content>
-                项目经理
+                已激活
             </div>
         </ion-item>
     </ion-list>
+    <div class="wide-btn" (tap)="alterTel()">修改密码</div>
     <div class="wide-btn" (tap)="logout()">退出登录</div>
 
 </ion-content>

@@ -8,25 +8,25 @@
 
 
 <ion-content>
-    <div>
-        <div class="provider">
+    <div *ngFor="let i of provider" class="provider">
+        <div class="provider-main">
             <div class="row">
                 <span class="label">公司名</span>
-                <span class="content">公司一</span>
+                <span class="content">{{i.offerCompany || "无"}}</span>
             </div>
             <div class="row">
                 <span class="label">地址</span>
-                <span class="content">地址一</span>
+                <span class="content">{{i.offerPhone || "无"}}</span>
             </div>
             <div class="row">
                 <span class="label">联系电话</span>
-                <span class="content">123456789</span>
+                <span class="content">{{i.address || "无"}}</span>
             </div>
-            <div class="time">2018-09-26 11:28:42</div>
+            <!-- <div class="time">{{i.categoryName || "无"}}</div> -->
         </div>
         <div class="approval">
-            <button (tap)="alterProvider()" ion-button>更新</button>
-            <button (tap)="removeProvider()" ion-button color="danger">删除</button>
+            <button (tap)="alterProvider(i.offerCompany,i.offerPhone,i.address)" ion-button>更新</button>
+            <button (tap)="removeProvider(i.offerId)" ion-button color="danger">删除</button>
         </div>
     </div>
 </ion-content>
