@@ -14,6 +14,10 @@ export class HomePage {
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public http: HttpUtilProvider, public toaster: ToasterProvider) {
   }
 
+  presentInfo(){
+
+  }
+
   addProvider() {
     let alert = this.alertCtrl.create({
       title: '新增供货商',
