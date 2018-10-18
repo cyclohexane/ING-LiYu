@@ -1,0 +1,163 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>财务记录详情</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+    <ion-item-group>
+        <ion-item-divider>基本信息</ion-item-divider>
+        <ion-item>
+            <ion-label>
+                财务编号
+            </ion-label>
+            <div item-content>
+                {{rec?.recordId}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                所属项目
+            </ion-label>
+            <div item-content>
+                {{rec?.itemName}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                财务类别
+            </ion-label>
+            <div item-content>
+                {{transformRecType(rec?.recordType)}}
+            </div>
+        </ion-item>
+        <ion-item *ngIf="rec?.unitPrice">
+            <ion-label>
+                单价
+            </ion-label>
+            <div item-content>
+                {{rec?.unitPrice}}
+            </div>
+        </ion-item>
+        <ion-item *ngIf="rec?.number">
+            <ion-label>
+                数量
+            </ion-label>
+            <div item-content>
+                {{rec?.number}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                总价
+            </ion-label>
+            <div item-content>
+                {{rec?.sumPrice}}
+            </div>
+        </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+        <ion-item-divider>财务描述</ion-item-divider>
+        <ion-item *ngFor="let i of rec?.recordDec">
+            <ion-label>
+                {{i[0]}}
+            </ion-label>
+            <div item-content>
+                {{i[1]}}
+            </div>
+        </ion-item>
+        <ion-item *ngIf="rec?.offerName">
+            <ion-label>
+                供货商名
+            </ion-label>
+            <div item-content>
+                {{rec?.offerName}}
+            </div>
+        </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+        <ion-item-divider>附加信息</ion-item-divider>
+        <ion-item>
+            <ion-label>
+                财务上传人
+            </ion-label>
+            <div item-content>
+                {{rec?.userName}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                当前状态
+            </ion-label>
+            <div item-content>
+                {{transformState(rec?.state)}}
+            </div>
+        </ion-item>
+        <ion-item *ngIf="rec?.recordRefuse">
+            <ion-label>
+                {{rec?.recordRefuse[0].split("：")[0]}}
+            </ion-label>
+            <div item-content>
+                {{rec?.recordRefuse[0].split("：")[1]}}
+            </div>
+        </ion-item>
+        <ion-item *ngIf="rec?.recordRefuse">
+            <ion-label>
+                {{rec?.recordRefuse[1].split("：")[0]}}
+            </ion-label>
+            <div item-content>
+                {{rec?.recordRefuse[1].split("：")[1]}}
+            </div>
+        </ion-item>
+        <ion-item *ngIf="rec?.recordRefuse">
+            <ion-label>
+                拒绝理由
+            </ion-label>
+            <div item-content>
+                {{rec?.recordRefuse[2]}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                财务上报时间
+            </ion-label>
+            <div item-content>
+                {{dateFormat(rec?.createTime,'Y-m-d H:i:s')}}
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                最后更新时间
+            </ion-label>
+            <div item-content>
+                {{dateFormat(rec?.lastEditTime,'Y-m-d H:i:s')}}
+            </div>
+        </ion-item>
+    </ion-item-group>
+
+
+    <ion-item-group>
+        <ion-item-divider>
+            财务凭证
+            <!--<input multiple item-end class="choose-file" type="file" (change)="addFile($event)">-->
+            <button class="upload-file" item-end outline ion-button>上传附件</button>
+        </ion-item-divider>
+        <ion-item *ngIf="!file.length">
+            （暂无凭证）
+        </ion-item>
+        <ion-item *ngFor="let i of file">
+            {{i[0]}}
+            <a [href]="i[1]" target="_blank" class="download-file" item-end outline ion-button>查看</a>
+            <!--<button (tap)="deleteFile(i)" class="download-file" item-end outline ion-button>删除</button>-->
+        </ion-item>
+    </ion-item-group>
+
+    <div class="approval">
+        <button *ngIf="canBeChecked" ion-button (tap)="passFnc()">通过</button>
+        <button *ngIf="canBeChecked" ion-button color="danger" (tap)="refuseFnc()">拒绝</button>
+        <button *ngIf="userType !== 1" ion-button color="danger" (tap)="deleteFnc()">删除</button>
+    </div>
+</ion-content>

@@ -1,23 +1,15 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>个人中心</ion-title>
+        <ion-title>个人资料</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-
     <ion-list inset>
-        <ion-item>
-            <ion-label>
-                头像
-            </ion-label>
-            <div item-content>
-            </div>
-        </ion-item>
-        <ion-item (tap)="alterName()" detail-push>
+        <ion-item (tap)="alterUserName()" detail-push>
             <ion-label>
                 用户名
             </ion-label>
@@ -25,15 +17,7 @@
                 {{user?.userName}}
             </div>
         </ion-item>
-        <ion-item (tap)="alterRole()" detail-push>
-            <ion-label>
-                用户类型
-            </ion-label>
-            <div item-content>
-                {{transformType(user?.userType)}}
-            </div>
-        </ion-item>
-        <ion-item (tap)="alterTel()" detail-push>
+        <ion-item (tap)="alterPhone()" detail-push>
             <ion-label>
                 联系电话
             </ion-label>
@@ -41,12 +25,12 @@
                 {{user?.phone || "未填写"}}
             </div>
         </ion-item>
-        <ion-item (tap)="alterAccount()">
+        <ion-item>
             <ion-label>
-                银行卡号
+                用户类型
             </ion-label>
             <div item-content>
-                {{user?.accountInfoCode || "未填写"}}
+                {{transformType(user?.userType)}}
             </div>
         </ion-item>
     </ion-list>
@@ -56,7 +40,7 @@
                 所属项目
             </ion-label>
             <div item-content>
-                项目一
+                {{user?.itemName || "无"}}
             </div>
         </ion-item>
     </ion-list>
@@ -70,7 +54,7 @@
             </div>
         </ion-item>
     </ion-list>
-    <div class="wide-btn" (tap)="alterTel()">修改密码</div>
+    <div class="wide-btn" (tap)="alterPassword()">修改密码</div>
     <div class="wide-btn" (tap)="logout()">退出登录</div>
 
 </ion-content>

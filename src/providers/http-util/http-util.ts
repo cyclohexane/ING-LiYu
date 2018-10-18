@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
+import { ToasterProvider } from '../toaster/toaster';
 
 @Injectable()
 export class HttpUtilProvider {
 
-  // base: string = "/project/";
-  base: string = "http://liyu.upupgogogo.cn/project/";
+  base: string = "/project/";
+  //base: string = "http://liyu.upupgogogo.cn/project/";
 
-  constructor(public http: HttpClient) {
+  constructor(public toaster: ToasterProvider, public http: HttpClient) {
   }
 
   doGet(url, callback?) {
@@ -28,23 +28,20 @@ export class HttpUtilProvider {
     });
   }
 
-  doPost(url: string, param: object, callback?: Function, type?: string) {
+  doPost(url: string, param?, callback?: Function, type?: string) {
 
-    this.http.post(this.base + url, this.transformRequest(param), {
+    this.http.post(this.base + url, param, {
       headers: { "Content-Type": type || 'application/x-www-form-urlencoded' },
       // withCredentials :true
     }).subscribe(res => {
-
       if (0 === res['status']) {
-
         if (callback) callback(res);
-
       } else {
-        alert(res['msg']);
+        this.toaster.show(res['msg']);
       }
-
     }, err => {
       console.log(err);
+      this.toaster.show('网络错误');
     });
 
     // let httpParam = new HttpParams();
@@ -55,18 +52,45 @@ export class HttpUtilProvider {
 
   }
 
-  transformRequest(data) {
+  toURL(origin) {
 
-    let formData = '';
-    for (let item in data) {
-      formData +=
-        encodeURIComponent(item) +
-        "=" +
-        encodeURIComponent(data[item]) +
-        "&";
+    let param = '';
+    for (let item in origin) {
+      if (origin[item]) {
+        param +=
+          encodeURIComponent(item) +
+          "=" +
+          encodeURIComponent(origin[item]) +
+          "&";
+      }
     }
-    return formData.slice(0, formData.length - 1);
+    return param.slice(0, param.length - 1);
 
   };
+
+  doUpload(url: string, param?, callback?: Function) {
+
+    this.http.post(this.base + url, param).subscribe(res => {
+      if (0 === res['status']) {
+        if (callback) callback(res);
+      } else {
+        this.toaster.show(res['msg']);
+      }
+    }, err => {
+      console.log(err);
+    });
+
+  }
+
+
+  toMultipart(origin) {
+    let param = new FormData();
+    for (let item in origin) {
+      if (origin[item]) {
+        param.append(item, origin[item]);
+      }
+    }
+    return param;
+  }
 
 }

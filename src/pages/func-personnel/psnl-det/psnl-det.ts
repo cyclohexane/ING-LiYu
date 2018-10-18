@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HttpUtilProvider } from '../../../providers/http-util/http-util';
+import { ToasterProvider } from '../../../providers/toaster/toaster';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
@@ -8,116 +10,76 @@ import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angu
 })
 export class PsnlDetPage {
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams) {
+  userId: number
+  user
+
+  constructor(public toaster: ToasterProvider, public http: HttpUtilProvider, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams) {
+    this.userId = navParams.get('userId');
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
+    this.getInfo();
   }
 
-  alterPro() {
-    let alert = this.alertCtrl.create({
-      title: '修改所属项目',
-      inputs: [
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目一',
-          value: '1'
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目二',
-          value: '2',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目三',
-          value: '3',
-        }
-      ],
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: '确定',
-          handler: data => {
-          }
-        }
-      ]
+  transformType(i) {
+    switch (i) {
+      case 0:
+        return "总监";
+      case 1:
+        return "公司财务";
+      case 2:
+        return "项目经理";
+      case 3:
+        return "项目记录员";
+    }
+  }
+
+  getInfo() {
+    this.http.doGet('boss/user/getuserinfo.do?userId=' + this.userId, res => {
+      this.user = res.data;
     });
-    alert.present();
   }
-
 
   alterRole() {
     let alert = this.alertCtrl.create({
       title: '修改角色',
       inputs: [
         {
-          name: "role",
           type: 'radio',
           label: '总监',
-          value: '1'
+          value: '0'
         },
         {
-          name: "pro",
+          type: 'radio',
+          label: '公司财务',
+          value: '1',
+        },
+        {
           type: 'radio',
           label: '项目经理',
           value: '2',
         },
         {
-          name: "pro",
           type: 'radio',
-          label: '公司财务记录员',
+          label: '项目记录员',
           value: '3',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目财务记账员',
-          value: '4',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目财务审核员',
-          value: '5',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目材料员',
-          value: '6',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目材料审核员',
-          value: '7',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '公司普通员工',
-          value: '8',
         }
       ],
       buttons: [
         {
           text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
+          role: 'cancel'
         },
         {
           text: '确定',
           handler: data => {
+            let param = {
+              userId:this.userId,
+              userType:data
+            };
+            this.http.doPost('boss/user/updateuser.do',this.http.toURL(param), res => {
+                this.toaster.show('更新职员成功！');
+              });
           }
         }
       ]
@@ -128,22 +90,29 @@ export class PsnlDetPage {
   removePsnl() {
     let alert = this.alertCtrl.create({
       title: '确认',
-      message: '确定要删除该员工吗？',
+      message: '确定要删除该职员吗？',
       buttons: [
         {
           text: '取消',
-          role: 'cancel',
-          handler: () => {
-          }
+          role: 'cancel'
         },
         {
           text: '确定',
           handler: () => {
+            let param = {
+              userId:this.userId,
+              state: '0'
+            };
+            this.http.doPost('boss/user/updateuser.do',this.http.toURL(param), res => {
+                this.toaster.show('删除职员成功！');
+                this.navCtrl.pop();
+              });
           }
         }
       ]
     });
     alert.present();
   }
+
 
 }

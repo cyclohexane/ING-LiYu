@@ -10,67 +10,82 @@ import { ToasterProvider } from '../../../providers/toaster/toaster';
 })
 export class MatProviderPage {
 
+  page = 1
+  public hasMoreData = true
   provider: string[] = []
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,public http: HttpUtilProvider, public toaster: ToasterProvider) {
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public http: HttpUtilProvider, public toaster: ToasterProvider) {
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
+    this.page = 1;
     this.getProvider();
   }
 
-  getProvider(){
+  getProvider(scroll?) {
 
-      this.http.doGet('boss/offer/offererlist.do?pageSize=30&pageNum=1', res => {
-  
+    this.http.doGet(`boss/offer/offererlist.do?pageSize=30&pageNum=${this.page}`, res => {
+      if (this.page === 1) {
         this.provider = res.data.list;
-
-      });
+      } else {
+        this.provider = this.provider.concat(res.data.list);
+      }
+      if (scroll) {
+        scroll.complete();
+        if (res.data.list.length < 30) {
+          this.hasMoreData = false;
+        }
+      }
+      this.page++;
+    });
   }
 
-  alterProvider(offerCompany,offerPhone,address) {
+  doLoadMore(scroll) {
+    this.getProvider(scroll);
+  }
+
+  alterProvider(offerId, offerCompany, offerPhone, address) {
     let alert = this.alertCtrl.create({
-      title: '更新供货商',
+      title: '修改供货商',
       inputs: [
         {
           name: 'offerCompany',
           placeholder: '请输入供货商电话',
-          value:offerCompany
+          value: offerCompany
         },
         {
           name: 'offerPhone',
           placeholder: '请输入供货商电话',
-          value:offerPhone
+          value: offerPhone
         },
         {
           name: 'address',
           placeholder: '请输入单位地址',
-          value:address
+          value: address
         },
       ],
       buttons: [
         {
           text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
+          role: 'cancel'
         },
         {
           text: '确定',
           handler: data => {
-            if (!data.offerCompany) {
+            if (!data.offerCompany || !data.offerCompany.trim()) {
               this.toaster.show('供货商名为必填项！');
               return false;
             }
-            this.http.doPost('boss/offer/updateofferer.do',
-              {
-                offerCompany: data.offerCompany,
-                offerPhone: data.offerPhone,
-                address: data.address
-              }, res => {
-                this.toaster.show('更新供货商成功！');
-                this.getProvider();
-              });
+            let param = {
+              offerId: offerId,
+              offerCompany: data.offerCompany,
+              offerPhone: data.offerPhone,
+              address: data.address
+            };
+            this.http.doPost('boss/offer/updateofferer.do', this.http.toURL(param), res => {
+              this.toaster.show('修改供货商成功！');
+              this.getProvider();
+            });
           }
         }
       ]
@@ -85,17 +100,15 @@ export class MatProviderPage {
       buttons: [
         {
           text: '取消',
-          role: 'cancel',
-          handler: () => {
-          }
+          role: 'cancel'
         },
         {
           text: '确定',
           handler: () => {
-            this.http.doPost('boss/offer/deleteofferer.do',
-            {
+            let param = {
               offerId: offerId
-            }, res => {
+            }
+            this.http.doPost('boss/offer/deleteofferer.do', this.http.toURL(param), res => {
               this.toaster.show('删除供货商成功！');
               this.getProvider();
             });
@@ -106,10 +119,14 @@ export class MatProviderPage {
     alert.present();
   }
 
+  toSearchProvider() {
+    this.navCtrl.push("SearchProviderPage");
+  }
 
-
-  toAddProvider(): void {
-    this.navCtrl.push("AddProviderPage");
+  toProviderFnc(offerId) {
+    this.navCtrl.push("ProviderFncPage", {
+      offerId: offerId
+    });
   }
 
 }

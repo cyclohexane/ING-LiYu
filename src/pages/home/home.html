@@ -26,45 +26,77 @@
 
 <ion-content>
     <ul class="func">
-        <li>
+        <li (tap)="toAllFnc()">
+            <ion-icon ios="md-list" md="md-list"></ion-icon>
+            <span>所有财务记录</span>
+        </li>
+        <li (tap)="toPassedFnc()">
             <ion-icon ios="md-done-all" md="md-done-all"></ion-icon>
-            <span>已过审财务记录</span>
+            <span>完全过审财务记录</span>
         </li>
-        <li>
+        <li *ngIf="type !== 0" (tap)="toPendingFinancialFnc()">
+            <ion-icon ios="md-checkmark" md="md-checkmark"></ion-icon>
+            <span>{{type === 1?'待本人审核财务记录':'待财务审核员审核财务记录'}}</span>
+        </li>
+        <li *ngIf="type === 2 || type === 3" (tap)="toPendingManagerFnc()">
             <ion-icon ios="md-eye" md="md-eye"></ion-icon>
-            <span>待审核财务记录</span>
+            <span>{{type === 2?'待本人审核财务记录':'待项目经理审核财务记录'}}</span>
         </li>
-        <li (tap)="toPro()">
+        <li *ngIf="type === 2 || type === 3" (tap)="toRefusedFnc()">
+            <ion-icon ios="md-close" md="md-close"></ion-icon>
+            <span>被驳回财务记录</span>
+        </li>
+        <li *ngIf="type === 0 || type === 1" (tap)="toPro()">
             <ion-icon ios="md-list-box" md="md-list-box"></ion-icon>
-            <span>项目管理</span>
+            <span>项目列表</span>
         </li>
-        <li (tap)="toAddPro()">
+        <li *ngIf="type === 0" (tap)="toAddPro()">
             <ion-icon ios="md-add" md="md-add"></ion-icon>
             <span>创建项目</span>
         </li>
-        <li (tap)="toPsnl()">
+        <li *ngIf="(type === 2 && user.itemId) || (type === 3 && user.itemId)" (tap)="toProDetBasic()">
+            <ion-icon ios="md-list-box" md="md-list-box"></ion-icon>
+            <span>我的项目</span>
+        </li>
+        <li *ngIf="type === 0" (tap)="toPsnl()">
             <ion-icon ios="md-person" md="md-person"></ion-icon>
             <span>人事管理</span>
         </li>
-        <li (tap)="toAddPsnl()">
+        <li *ngIf="type === 0" (tap)="toAddPsnl()">
             <ion-icon ios="md-person-add" md="md-person-add"></ion-icon>
             <span>创建职员</span>
         </li>
-        <li (tap)="toMatProvider()">
+        <li *ngIf="type === 0" (tap)="toMatProvider()">
             <ion-icon ios="md-happy" md="md-happy"></ion-icon>
             <span>供货商管理</span>
         </li>
-        <li (tap)="addProvider()">
+        <li *ngIf="type === 0" (tap)="addProvider()">
             <ion-icon ios="md-add" md="md-add"></ion-icon>
             <span>创建供货商</span>
         </li>
-        <li (tap)="toMatStock()">
+        <li *ngIf="type === 0" (tap)="toMatStock()">
             <ion-icon ios="md-pricetags" md="md-pricetags"></ion-icon>
             <span>材料管理</span>
         </li>
-        <li (tap)="addMat()">
+        <li *ngIf="type === 0" (tap)="addMat()">
             <ion-icon ios="md-add" md="md-add"></ion-icon>
             <span>创建材料</span>
+        </li>
+        <li *ngIf="type === 2 || type === 3" (tap)="toUploadMat()">
+            <ion-icon ios="md-add" md="md-add"></ion-icon>
+            <span>上传材料开销</span>
+        </li>
+        <li *ngIf="type === 2 || type === 3" (tap)="toUploadMachine()">
+            <ion-icon ios="md-add" md="md-add"></ion-icon>
+            <span>上传机械完工费开销</span>
+        </li>
+        <li *ngIf="type == 2 || type === 3" (tap)="toUploadLabor()">
+            <ion-icon ios="md-add" md="md-add"></ion-icon>
+            <span>上传人工完工费开销</span>
+        </li>
+        <li *ngIf="type === 2 || type === 3" (tap)="toUploadOther()">
+            <ion-icon ios="md-add" md="md-add"></ion-icon>
+            <span>上传其他开销</span>
         </li>
     </ul>
 </ion-content>

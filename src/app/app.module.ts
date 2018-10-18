@@ -12,6 +12,8 @@ import { StorageUtilProvider } from '../providers/storage-util/storage-util';
 import { CookieUtilProvider } from '../providers/cookie-util/cookie-util';
 import { ToasterProvider } from '../providers/toaster/toaster';
 import { TimeFormatterProvider } from '../providers/time-formatter/time-formatter';
+import { FileTransfer} from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
@@ -31,12 +33,14 @@ import { TimeFormatterProvider } from '../providers/time-formatter/time-formatte
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpUtilProvider,
     StorageUtilProvider,
     CookieUtilProvider,
     ToasterProvider,
     TimeFormatterProvider,
+    FileTransfer,
+    File
   ]
 })
-export class AppModule {}
+export class AppModule { }

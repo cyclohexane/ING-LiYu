@@ -1,0 +1,14 @@
+page-search-mat {
+    .tabel-header,
+    .item {
+        span:last-child {
+            flex: 0 0 3rem;
+            text-align: center;
+        }
+    }
+    .item {
+        span:last-child {
+            font-size: 1.4rem;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar>
+        <ion-searchbar (ionInput)="getSearchList()" [(ngModel)]="keywords" placeholder="输入材料名"></ion-searchbar>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <div class="tabel-header" *ngIf="list.length">
+        <span>材料名</span>
+        <span>规格</span>
+        <span>单位</span>
+        <span>操作</span>
+    </div>
+
+    <ul class="mat-stock">
+        <li *ngFor="let i of list" class="item">
+            <span>{{i.categoryName || "无"}}</span>
+            <span>{{i.specifications || "无"}}</span>
+            <span>{{i.unit || "无"}}</span>
+            <span>
+            <ion-icon (tap)="alterMat(i.categoryName,i.specifications,i.unit)" ios="md-build" md="md-build"></ion-icon>
+            <ion-icon (tap)="removeMat(i.categoryId)" ios="md-close" md="md-close"></ion-icon>
+        </span>
+        </li>
+    </ul>
+
+    <ion-infinite-scroll (ionInfinite)="doLoadMore($event)" *ngIf="hasMoreData">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

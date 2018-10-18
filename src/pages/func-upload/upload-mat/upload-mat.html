@@ -1,0 +1,48 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>上传材料开销</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-list>
+        <ion-item>
+            <ion-label color="primary" fixed>供货商</ion-label>
+            <ion-select [(ngModel)]="offerId" placeholder="（请选择）" okText="确定" cancelText="取消">
+                <ion-option *ngFor="let i of provider" [value]="i.offerId">{{i.offerCompany}}</ion-option>
+                <ion-option *ngIf="!provider?.length" disabled>（暂无）</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" fixed>材料</ion-label>
+            <ion-select [(ngModel)]="recordDec" placeholder="（请选择）" okText="确定" cancelText="取消">
+                <ion-option *ngFor="let i of mat" [value]="i.longDec">{{i.shortDec}}</ion-option>
+                <ion-option *ngIf="!mat?.length" disabled>（暂无）</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" fixed>单价</ion-label>
+            <ion-input type="number" [(ngModel)]="unitPrice"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" fixed>数量</ion-label>
+            <ion-input type="number" [(ngModel)]="number"></ion-input>
+        </ion-item>
+        <ion-item-divider>
+            财务凭证
+            <input item-end class="choose-file" type="file" accept="image/*" (change)="addFile($event)">
+            <button class="upload-file" item-end outline ion-button>选择文件</button>
+        </ion-item-divider>
+        <ion-item *ngIf="!file.length">
+            （暂无凭证）
+        </ion-item>
+        <ion-item *ngFor="let i of file; let p = index">
+            {{i.name}}
+            <button class="download-file" (tap)="deleteFile(p)" item-end outline ion-button>删除</button>
+        </ion-item>
+        <div (tap)="uploadRec()" class="wide-btn">提交</div>
+    </ion-list>
+</ion-content>

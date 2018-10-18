@@ -1,0 +1,36 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-toolbar>
+            <ion-title>所有财务记录</ion-title>
+            <ion-buttons end>
+                <button ion-button icon-only (tap)="toSearchFnc()">
+                            <ion-icon name="search"></ion-icon>
+                        </button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <div class="tabel-header">
+        <span>项目</span>
+        <span>类型</span>
+        <span>总价</span>
+        <span>审核状态</span>
+    </div>
+    <ul class="fnc-record">
+        <li *ngFor="let i of fnc" (tap)="toFncDet(i.recordId)" class="item">
+            <span>{{i.itemName}}</span>
+            <span>{{transformRecType(i.recordType)}}</span>
+            <span>{{i.sumPrice}}</span>
+            <span>{{transformState(i.state)}}</span>
+        </li>
+    </ul>
+
+    <ion-infinite-scroll (ionInfinite)="doLoadMore($event)" *ngIf="hasMoreData">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

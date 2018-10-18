@@ -12,10 +12,11 @@ import { CookieUtilProvider } from '../../providers/cookie-util/cookie-util';
 export class HomePage {
 
   public user
+  public type
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public http: HttpUtilProvider, public toaster: ToasterProvider, public cookie: CookieUtilProvider) {
     this.user = this.cookie.get('user');
-
+    this.type = this.user.userType;
   }
 
 
@@ -24,7 +25,7 @@ export class HomePage {
       case 0:
         return "总监";
       case 1:
-        return "公司财务记录员";
+        return "公司财务";
       case 2:
         return "项目经理";
       case 3:
@@ -52,9 +53,7 @@ export class HomePage {
       buttons: [
         {
           text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
+          role: 'cancel'
         },
         {
           text: '确定',
@@ -63,14 +62,14 @@ export class HomePage {
               this.toaster.show('供货商名为必填项！');
               return false;
             }
-            this.http.doPost('boss/offer/addofferer.do',
-              {
-                offerCompany: data.offerCompany,
-                offerPhone: data.offerPhone,
-                address: data.address
-              }, res => {
-                this.toaster.show('添加供货商成功！');
-              });
+            let param = {
+              offerCompany: data.offerCompany,
+              offerPhone: data.offerPhone,
+              address: data.address
+            }
+            this.http.doPost('boss/offer/addofferer.do', this.http.toURL(param), res => {
+              this.toaster.show('添加供货商成功！');
+            });
           }
         }
       ]
@@ -98,31 +97,50 @@ export class HomePage {
       buttons: [
         {
           text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
+          role: 'cancel'
         },
         {
           text: '确定',
           handler: data => {
-            if (!data.categoryName) {
+            if (!data.categoryName || !data.categoryName.trim()) {
               this.toaster.show('材料名为必填项！');
               return false;
             }
-            this.http.doPost('boss/category/addcategory.do',
-              {
-                categoryName: data.categoryName,
-                specifications: data.specifications,
-                unit: data.unit
-              }, res => {
-                this.toaster.show('添加材料成功！');
-              });
+            let param = {
+              categoryName: data.categoryName,
+              specifications: data.specifications,
+              unit: data.unit
+            }
+            this.http.doPost('boss/category/addcategory.do', this.http.toURL(param), res => {
+              this.toaster.show('添加材料成功！');
+            });
           }
         }
       ]
     });
     alert.present();
   }
+
+  toAllFnc() {
+    this.navCtrl.push("AllFncPage");
+  }
+
+  toPassedFnc() {
+    this.navCtrl.push("PassedFncPage");
+  }
+
+  toPendingFinancialFnc() {
+    this.navCtrl.push("PendingFinancialFncPage");
+  }
+
+  toPendingManagerFnc() {
+    this.navCtrl.push("PendingManagerFncPage");
+  }
+
+  toRefusedFnc() {
+    this.navCtrl.push("RefusedFncPage");
+  }
+
 
   toPersonal(): void {
     this.navCtrl.push("PersonalPage", {
@@ -140,7 +158,10 @@ export class HomePage {
 
   toAddPro(): void {
     this.navCtrl.push("AddProPage");
+  }
 
+  toProDetBasic(): void {
+    this.navCtrl.push("ProDetBasicPage");
   }
 
   toPsnl(): void {
@@ -159,5 +180,23 @@ export class HomePage {
   toMatStock(): void {
     this.navCtrl.push("MatPage");
   }
+
+  toUploadMat() {
+    this.navCtrl.push("UploadMatPage");
+  }
+
+  toUploadMachine() {
+    this.navCtrl.push("UploadMachinePage");
+  }
+
+  toUploadLabor() {
+    this.navCtrl.push("UploadLaborPage");
+  }
+
+
+  toUploadOther() {
+    this.navCtrl.push("UploadOtherPage");
+  }
+
 
 }

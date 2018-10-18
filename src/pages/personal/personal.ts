@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpUtilProvider } from '../../providers/http-util/http-util';
 import { ToasterProvider } from '../../providers/toaster/toaster';
+import { CookieUtilProvider } from '../../providers/cookie-util/cookie-util';
 
 @IonicPage()
 @Component({
@@ -10,14 +11,16 @@ import { ToasterProvider } from '../../providers/toaster/toaster';
 })
 export class PersonalPage {
 
-  userId: number
+  userId
+  userType
   user
 
-  constructor(public toaster: ToasterProvider, public http: HttpUtilProvider, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private app: App) {
+  constructor(public cookie: CookieUtilProvider, public toaster: ToasterProvider, public http: HttpUtilProvider, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams) {
     this.userId = navParams.get('userId');
+    this.userType = this.cookie.get('user')['userType'];
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.getInfo();
   }
 
@@ -26,7 +29,7 @@ export class PersonalPage {
       case 0:
         return "总监";
       case 1:
-        return "公司财务记录员";
+        return "公司财务";
       case 2:
         return "项目经理";
       case 3:
@@ -35,147 +38,76 @@ export class PersonalPage {
   }
 
   getInfo() {
-    this.http.doGet('boss/user/getuserinfo.do?userId=' + this.userId, res => {
+
+    let url = '';
+
+    switch (this.userType) {
+      case 0:
+        url = 'boss/user/getuserinfo.do';
+        break;
+      case 1:
+        url = 'financial/user/getuserinfo.do';
+        break;
+      case 2:
+        url = 'manager/user/getuserinfo.do';
+        break;
+      case 3:
+        url = 'uploader/user/getuserinfo.do';
+        break;
+    }
+
+    this.http.doGet(`${url}?userId=${this.userId}`, res => {
       this.user = res.data;
-      console.log(this.user);
     });
   }
 
-  alterName() {
-    let alert = this.alertCtrl.create({
-      title: '修改姓名',
-      inputs: [
-        {
-          name: 'name',
-          placeholder: '姓名'
-        },
-      ],
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: '确定',
-          handler: data => {
-
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  alterSex() {
-    let alert = this.alertCtrl.create({
-      title: '修改性别',
-      inputs: [
-        {
-          name: "sex",
-          type: 'radio',
-          label: '男',
-          value: 'male'
-        },
-        {
-          name: "sex",
-          type: 'radio',
-          label: '女',
-          value: 'female',
-        }
-      ],
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: '确定',
-          handler: data => {
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  alterTel() {
-    let alert = this.alertCtrl.create({
-      title: '修改电话',
-      inputs: [
-        {
-          name: 'tel',
-          placeholder: '电话'
-        },
-      ],
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: '确定',
-          handler: data => {
-            //return false;
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  alterDistrict() {
-    let alert = this.alertCtrl.create({
-      title: '修改地区',
-      inputs: [
-        {
-          name: 'district',
-          placeholder: '地区'
-        },
-      ],
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: '确定',
-          handler: data => {
-            //return false;
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  alterUsername() {
+  alterUserName() {
     let alert = this.alertCtrl.create({
       title: '修改用户名',
       inputs: [
         {
-          name: 'username',
-          placeholder: '用户名'
+          name: 'userName',
+          placeholder: '用户名',
+          value: this.user.userName
         },
       ],
       buttons: [
         {
           text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
+          role: 'cancel'
         },
         {
           text: '确定',
           handler: data => {
-            //return false;
+            this.user.userName = data.userName;
+            this.updateInfo();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  alterPhone() {
+    let alert = this.alertCtrl.create({
+      title: '修改联系电话',
+      inputs: [
+        {
+          name: 'phone',
+          placeholder: '联系电话',
+          value: this.user.phone
+        },
+      ],
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel'
+        },
+        {
+          text: '确定',
+          handler: data => {
+            this.user.phone = data.phone;
+            this.updateInfo();
           }
         }
       ]
@@ -190,20 +122,29 @@ export class PersonalPage {
         {
           name: 'password',
           type: 'password',
-          placeholder: '密码'
+          placeholder: '新密码',
+        },
+        {
+          name: 'repassword',
+          type: 'password',
+          placeholder: '确认新密码',
         },
       ],
       buttons: [
         {
           text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
+          role: 'cancel'
         },
         {
           text: '确定',
           handler: data => {
-            //return false;
+            if (data.repassword !== data.password) {
+              this.toaster.show("两次密码不一致！");
+              return false;
+            } else {
+              this.user.password = data.password;
+              this.updateInfo();
+            }
           }
         }
       ]
@@ -211,118 +152,35 @@ export class PersonalPage {
     alert.present();
   }
 
-  alterPro() {
-    let alert = this.alertCtrl.create({
-      title: '修改所属项目',
-      inputs: [
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目一',
-          value: '1'
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目二',
-          value: '2',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目三',
-          value: '3',
-        }
-      ],
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: '确定',
-          handler: data => {
-          }
-        }
-      ]
+  updateInfo() {
+
+    let url = '';
+
+    switch (this.userType) {
+      case 0:
+        url = 'boss/user/updatemyself.do';
+        break;
+      case 1:
+        url = 'financial/user/updatemyself.do';
+        break;
+      case 2:
+        url = 'manager/user/updatemyself.do';
+        break;
+      case 3:
+        url = 'uploader/user/updatemyself.do';
+        break;
+    }
+
+    let param = {
+      userName: this.user.userName,
+      password: this.user.password,
+      phone: this.user.phone
+    }
+
+    this.http.doUpload(url, this.http.toMultipart(param), res => {
+      this.toaster.show('更新个人资料成功！');
     });
-    alert.present();
   }
-
-
-  alterRole() {
-    let alert = this.alertCtrl.create({
-      title: '修改角色',
-      inputs: [
-        {
-          name: "role",
-          type: 'radio',
-          label: '总监',
-          value: '1'
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目经理',
-          value: '2',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '公司财务记录员',
-          value: '3',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目财务记账员',
-          value: '4',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目财务审核员',
-          value: '5',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目材料员',
-          value: '6',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '项目材料审核员',
-          value: '7',
-        },
-        {
-          name: "pro",
-          type: 'radio',
-          label: '公司普通员工',
-          value: '8',
-        }
-      ],
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel',
-          handler: data => {
-          }
-        },
-        {
-          text: '确定',
-          handler: data => {
-
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
 
   logout() {
     let alert = this.alertCtrl.create({
@@ -331,24 +189,18 @@ export class PersonalPage {
       buttons: [
         {
           text: '取消',
-          role: 'cancel',
-          handler: () => {
-          }
+          role: 'cancel'
         },
         {
           text: '确定',
           handler: () => {
-            this.doLogout();
+            this.http.doPost('boss/user/logout.do');
+            this.cookie.unset('user');
+            this.navCtrl.popToRoot();
           }
         }
       ]
     });
     alert.present();
-  }
-
-
-  doLogout() {
-    //this.navCtrl.popToRoot();
-    this.app.getRootNav().setRoot("LoginPage");
   }
 }

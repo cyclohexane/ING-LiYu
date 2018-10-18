@@ -1,0 +1,38 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>上传机械完工费开销</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-list>
+        <ion-item>
+            <ion-label color="primary" fixed>财务描述</ion-label>
+            <ion-input type="text" [(ngModel)]="recordDec"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" fixed>时价</ion-label>
+            <ion-input type="number" [(ngModel)]="unitPrice"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" fixed>工时</ion-label>
+            <ion-input type="number" [(ngModel)]="number"></ion-input>
+        </ion-item>
+        <ion-item-divider>
+            财务凭证
+            <input item-end class="choose-file" type="file" accept="image/*" (change)="addFile($event)">
+            <button class="upload-file" item-end outline ion-button>选择文件</button>
+        </ion-item-divider>
+        <ion-item *ngIf="!file.length">
+            （暂无凭证）
+        </ion-item>
+        <ion-item *ngFor="let i of file; let p = index">
+            {{i.name}}
+            <button class="download-file" (tap)="deleteFile(p)" item-end outline ion-button>删除</button>
+        </ion-item>
+        <div (tap)="uploadRec()" class="wide-btn">提交</div>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar>
+        <ion-searchbar (ionInput)="getSearchList()" [(ngModel)]="keywords" placeholder="输入项目名"></ion-searchbar>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <div class="tabel-header" *ngIf="list.length">
+        <span>项目名</span>
+        <span>项目经理</span>
+        <span>项目记录员</span>
+    </div>
+    <ul>
+        <li *ngFor="let i of list" class="item" (tap)="toProDet(i.itemId)">
+            <span>{{i.itemName}}</span>
+            <span>{{i.itemManagerName}}</span>
+            <span>{{i.itemUploaderName}}</span>
+        </li>
+    </ul>
+
+    <ion-infinite-scroll (ionInfinite)="doLoadMore($event)" *ngIf="hasMoreData">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

@@ -2,9 +2,6 @@
 
     <ion-navbar>
         <ion-title>项目详情</ion-title>
-        <span class="menu-icon" (tap)="toggleMenu()">
-                <ion-icon name="menu"></ion-icon>
-            </span>
     </ion-navbar>
 
 </ion-header>
@@ -14,162 +11,80 @@
     <div class="basic-info">
         <div class="name">
             <div class="label">项目名称</div>
-            <div class="name-input">xxx人防工程</div>
+            <input class="name-input" [(ngModel)]="itemName" placeholder="请输入项目名称">
         </div>
         <div class="time">
-            <div class="start">
-                <span class="start-time-label">开始时间</span>
-                <span class="datepicker-con">
+            <span class="end-time-label">截止日期</span>
+            <span class="datepicker-con">
                     <ion-datetime displayFormat="YYYY-MM-DD" 
-                    [(ngModel)]="startTime" 
+                    [(ngModel)]="endTimeString" 
                     placeholder="（请选择）" 
                     cancelText="取消" 
                     doneText="确定" 
+                    min="2018"
                     max="2200"></ion-datetime>
-                </span>
-            </div>
-            <div class="end">
-                <span class="end-time-label">结束时间</span>
-                <span class="datepicker-con">
-                    <ion-datetime displayFormat="YYYY-MM-DD" 
-                    [(ngModel)]="endTime" 
-                    placeholder="（请选择）" 
-                    cancelText="取消" 
-                    doneText="确定" 
-                    max="2200"></ion-datetime>
-                </span>
-            </div>
+            </span>
         </div>
     </div>
     <div class="stuff">
-        <ion-item class="responsible-stuff">
-            <ion-label>负责人</ion-label>
-            <ion-select [(ngModel)]="responsibleStuff" placeholder="（请选择）">
-                <ion-option value="wl">王磊</ion-option>
-                <ion-option value="lst">刘申通</ion-option>
-                <ion-option value="llc">李力持</ion-option>
+        <ion-item class="item-manager">
+            <ion-label>项目经理</ion-label>
+            <ion-select id="itemManager" [(ngModel)]="itemManager" placeholder="（请选择）" okText="确定" cancelText="取消">
+                <ion-option *ngFor="let i of manager" [value]="i.userId+'-'+i.userName">{{i.userName}}</ion-option>
+                <ion-option *ngIf="!manager.length" disabled>（暂无空闲职员）</ion-option>
             </ion-select>
         </ion-item>
-        <ion-item class="material-stuff">
-            <ion-label>材料员</ion-label>
-            <ion-select [(ngModel)]="materialStuff" placeholder="（请选择）">
-                <ion-option value="wl">王磊</ion-option>
-                <ion-option value="lst">刘申通</ion-option>
-                <ion-option value="llc">李力持</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item class="approval-stuff">
-            <ion-label>材料审核员</ion-label>
-            <ion-select [(ngModel)]="approvalStuff" placeholder="（请选择）">
-                <ion-option value="wl">王磊</ion-option>
-                <ion-option value="lst">刘申通</ion-option>
-                <ion-option value="llc">李力持</ion-option>
+        <ion-item class="item-uploader">
+            <ion-label>项目记录员</ion-label>
+            <ion-select id="itemUploader" [(ngModel)]="itemUploader" placeholder="（请选择）" okText="确定" cancelText="取消">
+                <ion-option *ngFor="let i of uploader" [value]="i.userId+'-'+i.userName">{{i.userName}}</ion-option>
+                <ion-option *ngIf="!uploader.length" disabled>（暂无空闲职员）</ion-option>
             </ion-select>
         </ion-item>
     </div>
     <div class="description">
         <div class="label">项目描述</div>
-        <textarea placeholder="添加项目描述">本项目是XXX人防工程，由王磊担任负责人，由xxx担任甲方巴拉巴拉巴拉巴拉巴拉巴拉
-        </textarea>
+        <textarea [(ngModel)]="itemDec" placeholder="添加项目描述"></textarea>
     </div>
-    <div class="wide-btn">确认修改</div>
+    <div class="wide-btn" (tap)="updatePro()">确认修改</div>
+    <ion-item-group>
+        <ion-item-divider>
+            项目附件
+            <input multiple item-end class="choose-file" type="file" (change)="addFile($event)">
+            <button class="upload-file" item-end outline ion-button>上传附件</button>
+        </ion-item-divider>
+        <ion-item *ngIf="!file.length">
+            （暂无附件）
+        </ion-item>
+        <ion-item *ngFor="let i of file">
+            {{i[0]}}
+            <a [href]="i[1]" [download]="i[0]" class="download-file" item-end outline ion-button>下载</a>
+            <button (tap)="deleteFile(i)" class="download-file" item-end outline ion-button>删除</button>
+        </ion-item>
+    </ion-item-group>
     <div class="pro-rec-det">
-        <div class="proof-divider">项目流水</div>
-        <div class="rec-label rec-label-lg">项目财务总览</div>
-        <div class="item-lg in">
-            <span class="label">收入</span>
-            <span class="contnet">1000</span>
-        </div>
-        <div class="item-lg out">
-            <span class="label">支出</span>
-            <span class="contnet">10000</span>
-        </div>
-        <div class="item-lg out">
-            <span class="label">差额</span>
-            <span class="contnet">9000</span>
-        </div>
-        <div class="rec-label">最新财务流水</div>
-        <div class="tabel-header">
-            <span>经办</span>
-            <span>审核</span>
-            <span class="type">类型</span>
-            <span>金额</span>
-            <span class="fnc">开支项</span>
-            <span class="time">时间</span>
+        <ion-item-divider>项目财务记录</ion-item-divider>
+        <ion-item *ngIf="!fnc.length">
+            （暂无财务记录）
+        </ion-item>
+        <div class="tabel-header" *ngIf="fnc.length">
+            <span>项目</span>
+            <span>类型</span>
+            <span>总价</span>
+            <span>审核状态</span>
         </div>
         <ul class="fnc-record">
-            <li (tap)="toFncRecDet()" class="item in">
-                <span>王市</span>
-                <span>刘申通</span>
-                <span class="type">收</span>
-                <span>500</span>
-                <span class="fnc">项目二期结算</span>
-                <span class="time">2017-1-1 5:00</span>
-            </li>
-            <li (tap)="toFncRecDet()" class="item out">
-                <span>王市</span>
-                <span>刘申通</span>
-                <span class="type">支</span>
-                <span>500</span>
-                <span class="fnc">项目二期结算</span>
-                <span class="time">2017-1-1 5:00</span>
-            </li>
-            <li (tap)="toFncRecDet()" class="item in">
-                <span>王市</span>
-                <span>刘申通</span>
-                <span class="type">收</span>
-                <span>500</span>
-                <span class="fnc">项目二期结算</span>
-                <span class="time">2017-1-1 5:00</span>
-            </li>
-            <li (tap)="toFncRecDet()" class="item out">
-                <span>王市</span>
-                <span>刘申通</span>
-                <span class="type">支</span>
-                <span>500</span>
-                <span class="fnc">项目二期结算</span>
-                <span class="time">2017-1-1 5:00</span>
-            </li>
-        </ul>
-
-
-
-        <div class="mat-stock-header">
-            <span>材料员</span>
-            <span class="type">类型</span>
-            <span>数量</span>
-            <span class="name">材料名</span>
-            <span class="time">时间</span>
-        </div>
-        <ul class="mat-stock">
-            <li class="item in" (tap)="toMatRecDet()">
-                <span>王市</span>
-                <span class="type">入</span>
-                <span>500</span>
-                <span class="name">石头</span>
-                <span class="time">2017-1-1 5:00</span>
-            </li>
-            <li class="item out" (tap)="toMatRecDet()">
-                <span>王市</span>
-                <span class="type">出</span>
-                <span>500</span>
-                <span class="name">沙子</span>
-                <span class="time">2017-1-1 5:00</span>
-            </li>
-            <li class="item in" (tap)="toMatRecDet()">
-                <span>王市</span>
-                <span class="type">入</span>
-                <span>500</span>
-                <span class="name">石头</span>
-                <span class="time">2017-1-1 5:00</span>
-            </li>
-            <li class="item out" (tap)="toMatRecDet()">
-                <span>王市</span>
-                <span class="type">出</span>
-                <span>500</span>
-                <span class="name">沙子</span>
-                <span class="time">2017-1-1 5:00</span>
+            <li *ngFor="let i of fnc" (tap)="toFncDet(i.recordId)" class="item">
+                <span>{{i.itemName}}</span>
+                <span>{{transformRecType(i.recordType)}}</span>
+                <span>{{i.sumPrice}}</span>
+                <span>{{transformState(i.state)}}</span>
             </li>
         </ul>
     </div>
+
+
+    <ion-infinite-scroll (ionInfinite)="doLoadMore($event)" *ngIf="hasMoreData">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

@@ -11,64 +11,40 @@
     <div class="basic-info">
         <div class="name">
             <div class="label">项目名称</div>
-            <div class="name-input">xxx人防工程</div>
+            <input class="name-input" [(ngModel)]="itemName" placeholder="请输入项目名称">
         </div>
         <div class="time">
-            <div class="start">
-                <span class="start-time-label">开始时间</span>
-                <span class="datepicker-con">
+            <span class="end-time-label">截止日期</span>
+            <span class="datepicker-con">
                     <ion-datetime displayFormat="YYYY-MM-DD" 
-                    [(ngModel)]="startTime" 
+                    [(ngModel)]="endTimeString" 
                     placeholder="（请选择）" 
                     cancelText="取消" 
                     doneText="确定" 
                     min="2018"
                     max="2200"></ion-datetime>
                 </span>
-            </div>
-            <div class="end">
-                <span class="end-time-label">结束时间</span>
-                <span class="datepicker-con">
-                    <ion-datetime displayFormat="YYYY-MM-DD" 
-                    [(ngModel)]="endTime" 
-                    placeholder="（请选择）" 
-                    cancelText="取消" 
-                    doneText="确定" 
-                    min="2018"
-                    max="2200"></ion-datetime>
-                </span>
-            </div>
         </div>
     </div>
     <div class="stuff">
-        <ion-item class="responsible-stuff">
-            <ion-label>负责人</ion-label>
-            <ion-select [(ngModel)]="responsibleStuff" placeholder="（请选择）">
-                <ion-option value="wl">王磊</ion-option>
-                <ion-option value="lst">刘申通</ion-option>
-                <ion-option value="llc">李力持</ion-option>
+        <ion-item class="item-manager">
+            <ion-label>项目经理</ion-label>
+            <ion-select id="itemManager" [(ngModel)]="itemManager" placeholder="（请选择）" okText="确定" cancelText="取消">
+                <ion-option *ngFor="let i of manager" [value]="i.userId+'-'+i.userName">{{i.userName}}</ion-option>
+                <ion-option *ngIf="!manager.length" disabled>（暂无空闲职员）</ion-option>
             </ion-select>
         </ion-item>
-        <ion-item class="material-stuff">
-            <ion-label>材料员</ion-label>
-            <ion-select [(ngModel)]="materialStuff" placeholder="（请选择）">
-                <ion-option value="wl">王磊</ion-option>
-                <ion-option value="lst">刘申通</ion-option>
-                <ion-option value="llc">李力持</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item class="approval-stuff">
-            <ion-label>材料审核员</ion-label>
-            <ion-select [(ngModel)]="approvalStuff" placeholder="（请选择）">
-                <ion-option value="wl">王磊</ion-option>
-                <ion-option value="lst">刘申通</ion-option>
-                <ion-option value="llc">李力持</ion-option>
+        <ion-item class="item-uploader">
+            <ion-label>项目记录员</ion-label>
+            <ion-select id="itemUploader" [(ngModel)]="itemUploader" placeholder="（请选择）" okText="确定" cancelText="取消">
+                <ion-option *ngFor="let i of uploader" [value]="i.userId+'-'+i.userName">{{i.userName}}</ion-option>
+                <ion-option *ngIf="!uploader.length" disabled>（暂无空闲职员）</ion-option>
             </ion-select>
         </ion-item>
     </div>
     <div class="description">
         <div class="label">项目描述</div>
-        <textarea placeholder="添加项目描述"></textarea>
+        <textarea [(ngModel)]="itemDec" placeholder="添加项目描述"></textarea>
     </div>
-    <div class="wide-btn">发布项目</div>
+    <div class="wide-btn" (tap)="addPro()">发布项目</div>
 </ion-content>

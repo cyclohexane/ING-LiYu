@@ -9,29 +9,47 @@ import { HttpUtilProvider } from '../../../providers/http-util/http-util';
 })
 export class PsnlPage {
 
+  page = 1
+  public hasMoreData = true
   user: string[] = []
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpUtilProvider) {
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
+    this.page = 1;
     this.getPsnl();
   }
 
-  getPsnl() {
-    this.http.doGet('boss/user/listableuser.do?pageSize=30&pageNum=1', res => {
+  getPsnl(scroll?) {
 
-      this.user = res.data.list;
-
+    this.http.doGet(`boss/user/listableuser.do?pageSize=30&pageNum=${this.page}`, res => {
+      if (this.page === 1) {
+        this.user = res.data.list;
+      } else {
+        this.user = this.user.concat(res.data.list);
+      }
+      if (scroll) {
+        scroll.complete();
+        if (res.data.list.length < 30) {
+          this.hasMoreData = false;
+        }
+      }
+      this.page++;
     });
   }
+
+  doLoadMore(scroll) {
+    this.getPsnl(scroll);
+  }
+
 
   transformType(i) {
     switch (i) {
       case 0:
         return "总监";
       case 1:
-        return "公司财务记录员";
+        return "公司财务";
       case 2:
         return "项目经理";
       case 3:
@@ -39,12 +57,14 @@ export class PsnlPage {
     }
   }
 
-  toPsnlDet() {
-    this.navCtrl.push("PsnlDetPage");
+  toPsnlDet(userId) {
+    this.navCtrl.push("PsnlDetPage", {
+      userId: userId
+    });
   }
 
-  toAddPsnl() {
-    this.navCtrl.push("AddPsnlPage");
+  toSearchPsnl() {
+    this.navCtrl.push("SearchPsnlPage");
   }
 
 }

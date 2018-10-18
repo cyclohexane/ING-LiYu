@@ -1,0 +1,30 @@
+page-search-provider {
+    .provider-main {
+        height: 11rem;
+        margin: 0 1rem;
+        background-color: #fff;
+        padding: .8rem;
+        margin-top: 1.6rem;
+        position: relative;
+        .row {
+            display: flex;
+            height: 3.2rem;
+            line-height: 3.2rem;
+        }
+        .label {
+            flex: 0 0 5rem;
+            font-weight: bold;
+            color: $deepGray;
+        }
+        .content {
+            flex: 1;
+            text-align: center;
+        }
+        .time {
+            position: absolute;
+            left: 1.1rem;
+            bottom: .4rem;
+            font-size: .9rem;
+        }
+    }
+}

@@ -9,35 +9,32 @@
 
 <ion-content>
     <ul class="new-psnl">
-        <li>(上传头像)</li>
+        <!-- <li>(上传头像)</li> -->
         <li>
             <span>用户名</span>
-            <span><input type="text"></span>
+            <span><input [(ngModel)]="psnl.userName" (keyup)="chineseLimit()" type="text" placeholder="（请输入姓名）"></span>
         </li>
         <li>
-            <span>密码</span>
-            <span><input type="password" placeholder="默认密码123456"></span>
+            <span>默认密码</span>
+            <span><input [(ngModel)]="psnl.password" readonly="true" type="text"></span>
         </li>
         <li>
             <span>手机号</span>
-            <span><input type="text"></span>
-        </li>
-        <li>
-            <span>银行卡号</span>
-            <span><input type="text" placeholder="报销卡号 默认为用户卡号"></span>
+            <span><input [(ngModel)]="psnl.phone" type="tel" placeholder="（请输入手机号，用于登录）"></span>
         </li>
         <li>
             <span>用户类型</span>
             <span>
-                  <ion-select [(ngModel)]="type" placeholder="（请选择）">
-                  <ion-option value="1">公司财务管理员</ion-option>
+                  <ion-select [(ngModel)]="psnl.userType" placeholder="（请选择）">
+                  <ion-option value="0">总监</ion-option> 
+                  <ion-option value="1">公司财务</ion-option>
                   <ion-option value="2">项目经理</ion-option>
                   <ion-option value="3">项目记录员</ion-option>
                 </ion-select>
             </span>
         </li>
     </ul>
-    <div class="wide-btn">创建职员</div>
+    <div class="wide-btn" (tap)="addPsnl()">创建职员</div>
 
 
 </ion-content>

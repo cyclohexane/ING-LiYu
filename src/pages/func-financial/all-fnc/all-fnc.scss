@@ -1,0 +1,11 @@
+page-all-fnc {
+    .tabel-header {
+        background: $bgGray;
+    }
+    .tabel-header,
+    .item {
+        span:nth-child(3) {
+            flex: 0 0 6rem;
+        }
+    }
+}
