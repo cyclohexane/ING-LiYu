@@ -1,4 +1,4 @@
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
@@ -11,13 +11,13 @@ export class HttpUtilProvider {
   constructor(public http: HttpClient) {
   }
 
-  doGet(url, callback) {
+  doGet(url, callback?) {
 
     this.http.get(this.base + url).subscribe(res => {
 
       if (0 === res['status']) {
 
-        callback(res);
+        if (callback) callback(res);
 
       } else {
         alert(res['msg']);
@@ -28,16 +28,16 @@ export class HttpUtilProvider {
     });
   }
 
-  doPost(url: string, param: object, callback: Function, type: string = 'application/x-www-form-urlencoded') {
+  doPost(url: string, param: object, callback?: Function, type?: string) {
 
     this.http.post(this.base + url, this.transformRequest(param), {
-      headers: { "Content-Type": type },
+      headers: { "Content-Type": type || 'application/x-www-form-urlencoded' },
       // withCredentials :true
     }).subscribe(res => {
 
       if (0 === res['status']) {
 
-        callback(res);
+        if (callback) callback(res);
 
       } else {
         alert(res['msg']);

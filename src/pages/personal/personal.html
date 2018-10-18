@@ -22,7 +22,7 @@
                 用户名
             </ion-label>
             <div item-content>
-                boss
+                {{user?.userName}}
             </div>
         </ion-item>
         <ion-item (tap)="alterRole()" detail-push>
@@ -30,7 +30,7 @@
                 用户类型
             </ion-label>
             <div item-content>
-                项目经理
+                {{transformType(user?.userType)}}
             </div>
         </ion-item>
         <ion-item (tap)="alterTel()" detail-push>
@@ -38,7 +38,7 @@
                 联系电话
             </ion-label>
             <div item-content>
-                123456789
+                {{user?.phone || "未填写"}}
             </div>
         </ion-item>
         <ion-item (tap)="alterAccount()">
@@ -46,12 +46,12 @@
                 银行卡号
             </ion-label>
             <div item-content>
-                123456789
+                {{user?.accountInfoCode || "未填写"}}
             </div>
         </ion-item>
     </ion-list>
     <ion-list inset>
-        <ion-item (tap)="alterPro()" detail-push>
+        <ion-item>
             <ion-label>
                 所属项目
             </ion-label>
@@ -61,7 +61,7 @@
         </ion-item>
     </ion-list>
     <ion-list inset>
-        <ion-item (tap)="alterRole()" detail-push>
+        <ion-item>
             <ion-label>
                 用户状态
             </ion-label>

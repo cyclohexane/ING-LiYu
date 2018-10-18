@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController,IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -47,7 +47,6 @@ export class PsnlDetPage {
         {
           text: '确定',
           handler: data => {
-            //console.log(data.myValue);
           }
         }
       ]
@@ -119,7 +118,6 @@ export class PsnlDetPage {
         {
           text: '确定',
           handler: data => {
-            //console.log(data.myValue);
           }
         }
       ]
@@ -136,13 +134,11 @@ export class PsnlDetPage {
           text: '取消',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         },
         {
           text: '确定',
           handler: () => {
-            console.log('Buy clicked');
           }
         }
       ]

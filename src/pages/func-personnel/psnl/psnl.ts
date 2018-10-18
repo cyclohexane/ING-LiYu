@@ -22,7 +22,7 @@ export class PsnlPage {
     this.http.doGet('boss/user/listableuser.do?pageSize=30&pageNum=1', res => {
 
       this.user = res.data.list;
-      console.log(this.user);
+
     });
   }
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController, IonicPage, NavController } from 'ionic-angular';
 import { HttpUtilProvider } from '../../providers/http-util/http-util';
 import { ToasterProvider } from '../../providers/toaster/toaster';
-
+import { CookieUtilProvider } from '../../providers/cookie-util/cookie-util';
 
 @IonicPage()
 @Component({
@@ -11,11 +11,25 @@ import { ToasterProvider } from '../../providers/toaster/toaster';
 })
 export class HomePage {
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public http: HttpUtilProvider, public toaster: ToasterProvider) {
+  public user
+
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public http: HttpUtilProvider, public toaster: ToasterProvider, public cookie: CookieUtilProvider) {
+    this.user = this.cookie.get('user');
+
   }
 
-  presentInfo(){
 
+  transformType(i) {
+    switch (i) {
+      case 0:
+        return "总监";
+      case 1:
+        return "公司财务记录员";
+      case 2:
+        return "项目经理";
+      case 3:
+        return "项目记录员";
+    }
   }
 
   addProvider() {
@@ -111,7 +125,9 @@ export class HomePage {
   }
 
   toPersonal(): void {
-    this.navCtrl.push("PersonalPage");
+    this.navCtrl.push("PersonalPage", {
+      userId: this.user.userId
+    });
   }
 
   toPersonalFnc(): void {

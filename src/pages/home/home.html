@@ -12,10 +12,10 @@
 
 <div class="identity">
     <div class="basic">
-        <div class="avater"></div>
+        <div class="avater" [ngStyle]="{'background-url':user.userImg}"></div>
         <div class="info">
-            <h1>罗文林</h1>
-            <i>总监</i>
+            <h1>{{user.userName}}</h1>
+            <i>{{transformType(user.userType)}}</i>
         </div>
     </div>
     <div class="link">

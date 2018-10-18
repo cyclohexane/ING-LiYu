@@ -6,10 +6,6 @@ export class CookieUtilProvider {
   constructor() {
   }
 
-  getType():number {
-    return this.get('user').userType;
-  }
-
   get(name) {
     var cookieName = encodeURIComponent(name) + "=",
       cookieStart = document.cookie.indexOf(cookieName),

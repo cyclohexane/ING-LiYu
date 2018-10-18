@@ -23,7 +23,7 @@ export class MatPage {
     this.http.doGet('boss/category/categorylist.do?pageSize=30&pageNum=1', res => {
 
       this.mat = res.data.list;
-      console.log(this.mat);
+
     });
   }
 

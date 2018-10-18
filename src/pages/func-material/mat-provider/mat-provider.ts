@@ -24,7 +24,7 @@ export class MatProviderPage {
       this.http.doGet('boss/offer/offererlist.do?pageSize=30&pageNum=1', res => {
   
         this.provider = res.data.list;
-        console.log(this.provider);
+
       });
   }
 

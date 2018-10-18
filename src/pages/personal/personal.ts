@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { HttpUtilProvider } from '../../providers/http-util/http-util';
+import { ToasterProvider } from '../../providers/toaster/toaster';
 
 @IonicPage()
 @Component({
@@ -8,10 +10,35 @@ import { AlertController, IonicPage, NavController, NavParams, App } from 'ionic
 })
 export class PersonalPage {
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private app: App) {
+  userId: number
+  user
+
+  constructor(public toaster: ToasterProvider, public http: HttpUtilProvider, private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private app: App) {
+    this.userId = navParams.get('userId');
   }
 
   ionViewDidLoad() {
+    this.getInfo();
+  }
+
+  transformType(i) {
+    switch (i) {
+      case 0:
+        return "总监";
+      case 1:
+        return "公司财务记录员";
+      case 2:
+        return "项目经理";
+      case 3:
+        return "项目记录员";
+    }
+  }
+
+  getInfo() {
+    this.http.doGet('boss/user/getuserinfo.do?userId=' + this.userId, res => {
+      this.user = res.data;
+      console.log(this.user);
+    });
   }
 
   alterName() {
@@ -33,7 +60,7 @@ export class PersonalPage {
         {
           text: '确定',
           handler: data => {
-            //return false;
+
           }
         }
       ]
@@ -68,7 +95,6 @@ export class PersonalPage {
         {
           text: '确定',
           handler: data => {
-            //console.log(data.myValue);
           }
         }
       ]
@@ -312,7 +338,7 @@ export class PersonalPage {
         {
           text: '确定',
           handler: () => {
-           this.doLogout();
+            this.doLogout();
           }
         }
       ]
