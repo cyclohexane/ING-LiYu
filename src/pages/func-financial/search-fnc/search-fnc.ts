@@ -14,7 +14,7 @@ export class SearchFncPage {
 
   public userType
 
-  public url = `boss/record/listbydec.do?`;
+  condition
 
   public keywords = '';
 
@@ -27,26 +27,26 @@ export class SearchFncPage {
 
   constructor(public cookie: CookieUtilProvider, public http: HttpUtilProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.userType = this.cookie.get('user')['userType'];
-    let str = '';
-    switch (this.userType) {
-      case 0:
-        str = 'boss/record/listbydec.do?';
-        break;
-      case 1:
-        str = 'financial/record/listbydec.do?';
-        break;
-      case 2:
-        str = 'manager/record/listbydec.do?';
-        break;
-      case 3:
-        str = 'uploader/record/listbydec.do?';
-        break;
-    }
-    str += this.navParams.get("state") !== -1 ? `state=${this.navParams.get("state")}&` : '';
-    this.url = str;
+    this.condition = this.navParams.get('condition');
   }
 
   getSearchList(scroll?) {
+    let url = '';
+    switch (this.userType) {
+      case 0:
+        url = 'boss/record/listbydec.do?';
+        break;
+      case 1:
+        url = 'financial/record/listbydec.do?';
+        break;
+      case 2:
+        url = 'manager/record/listbydec.do?';
+        break;
+      case 3:
+        url = 'uploader/record/listbydec.do?';
+        break;
+    }
+    url += this.condition ? this.condition + '&' : '';
 
     if (!scroll) {
       this.page = 1;
@@ -54,8 +54,7 @@ export class SearchFncPage {
       this.content.scrollToTop(0);
     }
 
-
-    this.http.doGet(this.url + `recordDec=${this.keywords}&pageSize=30&pageNum=${this.page} `, res => {
+    this.http.doGet(`${url}recordDec=${this.keywords}&pageSize=30&pageNum=${this.page}`, res => {
       if (this.page === 1) {
         this.list = res.data.list;
       } else {

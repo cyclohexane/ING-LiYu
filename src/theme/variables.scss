@@ -1,7 +1,7 @@
 $font-path: "../assets/fonts";
 $app-direction: ltr;
 @import "ionic.globals";
-$colors: ( primary: #32b16c, secondary: #ade9bc, danger: #fc5e5d, light: #787878, dark: #5e5e5e);
+$colors: ( primary: #32b16c, secondary: #e19726, danger: #fc5e5d, light: #787878, dark: #5e5e5e);
 @import "ionic.theme.default";
 @import "ionic.ionicons";
 @import "roboto";
@@ -10,12 +10,11 @@ $colors: ( primary: #32b16c, secondary: #ade9bc, danger: #fc5e5d, light: #787878
 /*常用颜色*/
 
 $green: #32b16c;
-$itemGreen:#72c8ab;
 $red: #fc5e5d;
-$itemRed: #f09c9c;
 $gray: #7e7e7e;
 $deepGray: #5e5e5e;
 $bgGray: #e7e7e7;
+$yellow:#e19726;
 
 /*常用数据*/
 
@@ -25,6 +24,9 @@ $bgGray: #e7e7e7;
 //导航条
 $toolbar-ios-background: $green;
 $toolbar-md-background: $green;
+//detail-push
+$item-md-detail-push-show :true;
+$item-wp-detail-push-show:true;
 
 /*混合器*/
 

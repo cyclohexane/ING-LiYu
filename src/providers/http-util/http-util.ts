@@ -16,15 +16,13 @@ export class HttpUtilProvider {
     this.http.get(this.base + url).subscribe(res => {
 
       if (0 === res['status']) {
-
         if (callback) callback(res);
-
       } else {
-        alert(res['msg']);
+        this.toaster.show(res['msg']);
       }
-
     }, err => {
       console.log(err);
+      this.toaster.show('网络错误');
     });
   }
 
@@ -78,6 +76,7 @@ export class HttpUtilProvider {
       }
     }, err => {
       console.log(err);
+      this.toaster.show('网络错误');
     });
 
   }

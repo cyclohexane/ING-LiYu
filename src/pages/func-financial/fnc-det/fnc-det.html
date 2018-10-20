@@ -66,7 +66,7 @@
                 {{i[0]}}
             </ion-label>
             <div item-content>
-                {{i[1]}}
+                {{i[1].slice(0,20)}}
             </div>
         </ion-item>
         <ion-item *ngIf="rec?.offerName">
@@ -142,8 +142,6 @@
     <ion-item-group>
         <ion-item-divider>
             财务凭证
-            <!--<input multiple item-end class="choose-file" type="file" (change)="addFile($event)">-->
-            <button class="upload-file" item-end outline ion-button>上传附件</button>
         </ion-item-divider>
         <ion-item *ngIf="!file.length">
             （暂无凭证）

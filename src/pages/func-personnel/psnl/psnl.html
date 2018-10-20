@@ -1,14 +1,12 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-toolbar>
-            <ion-title>人事管理</ion-title>
-            <ion-buttons end>
-                <button ion-button icon-only (tap)="toSearchPsnl()">
-                    <ion-icon name="search"></ion-icon>
-                </button>
-            </ion-buttons>
-        </ion-toolbar>
+        <ion-title>人事管理</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (tap)="toSearchPsnl()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 
 </ion-header>
@@ -20,8 +18,8 @@
         <span>手机号</span>
         <span>职位</span>
     </div>
-    <ul class="psnl-record">
-        <li *ngFor="let i of user" (tap)="toPsnlDet(i.userId)">
+    <ul>
+        <li class="item" *ngFor="let i of user" (tap)="toPsnlDet(i.userId)">
             <span>{{i.userName || "无"}}</span>
             <span>{{i.phone || "无"}}</span>
             <span>{{transformType(i.userType) || "无"}}</span>

@@ -15,14 +15,25 @@ export class AllFncPage {
   page = 1
   public hasMoreData = true
   fnc: string[] = []
+  pro = []
+  proCondition
+  typeCondition
+  stateCondition
 
   constructor(public cookie: CookieUtilProvider, public http: HttpUtilProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.userType = this.cookie.get('user')['userType'];
   }
 
   ionViewWillEnter() {
-    this.page = 1
+    this.page = 1;
     this.getFnc();
+    this.getPro();
+  }
+
+  reload() {
+    this.page = 1;
+    this.getFnc();
+    this.hasMoreData = true;
   }
 
   getFnc(scroll?) {
@@ -31,20 +42,24 @@ export class AllFncPage {
 
     switch (this.userType) {
       case 0:
-        url = 'boss/record/list.do';
+        url = 'boss/record/list.do?';
         break;
       case 1:
-        url = 'financial/record/list.do';
+        url = 'financial/record/list.do?';
         break;
       case 2:
-        url = 'manager/record/list.do';
+        url = 'manager/record/list.do?';
         break;
       case 3:
-        url = 'uploader/record/list.do';
+        url = 'uploader/record/list.do?';
         break;
     }
 
-    this.http.doGet(`${url}?pageSize=30&pageNum=${this.page}`, res => {
+    url += this.proCondition || "";
+    url += this.typeCondition || "";
+    url += this.stateCondition || "";
+
+    this.http.doGet(`${url}pageSize=30&pageNum=${this.page}`, res => {
       if (this.page === 1) {
         this.fnc = res.data.list;
       } else {
@@ -98,9 +113,33 @@ export class AllFncPage {
   }
 
   toSearchFnc() {
+    let condition = '';
+    // condition += this.proCondition || "";
+    // condition += this.typeCondition || "";
+    // condition += this.stateCondition || "";
     this.navCtrl.push("SearchFncPage", {
-      state: -1
+      condition: condition
     });
   }
+
+  getPro() {
+
+    let url = '';
+
+    switch (this.userType) {
+      case 0:
+        url = 'boss/item/listitem.do';
+        break;
+      case 1:
+        url = 'financial/item/listitem.do';
+        break;
+    }
+    this.http.doGet(`${url}?pageSize=100&pageNum=1`, res => {
+      this.pro = res.data.list;
+    });
+  }
+
+
+
 
 }

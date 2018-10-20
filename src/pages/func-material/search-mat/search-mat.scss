@@ -2,13 +2,16 @@ page-search-mat {
     .tabel-header,
     .item {
         span:last-child {
-            flex: 0 0 3rem;
-            text-align: center;
+            flex: 0 0 4rem;
+            text-align: left;
         }
     }
     .item {
         span:last-child {
             font-size: 1.4rem;
+            ion-icon:first-child {
+                margin-right: 1rem;
+            }
         }
     }
 }

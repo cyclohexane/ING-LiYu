@@ -1,20 +1,47 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-toolbar>
-            <ion-title>所有财务记录</ion-title>
-            <ion-buttons end>
-                <button ion-button icon-only (tap)="toSearchFnc()">
-                            <ion-icon name="search"></ion-icon>
-                        </button>
-            </ion-buttons>
-        </ion-toolbar>
+        <ion-title>所有财务记录</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (tap)="toSearchFnc()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col *ngIf="userType === 0 || userType ===1">
+                <ion-select [(ngModel)]="proCondition" (ngModelChange)="reload()" placeholder="按项目筛选" okText="确认" cancelText="取消">
+                    <ion-option *ngIf="pro.length" value="">全部</ion-option>
+                    <ion-option *ngFor="let i of pro" [value]="'itemId='+i.itemId+'&'">{{i.itemName}}</ion-option>
+                    <ion-option *ngIf="!pro.length" disabled>（暂无）</ion-option>
+                </ion-select>
+            </ion-col>
+            <ion-col>
+                <ion-select [(ngModel)]="typeCondition" (ngModelChange)="reload()" placeholder="按类型筛选" okText="确认" cancelText="取消">
+                    <ion-option value="">全部</ion-option>
+                    <ion-option value="type=0&">材料开销费</ion-option>
+                    <ion-option value="type=1&">机械完工费</ion-option>
+                    <ion-option value="type=2&">人工完工费</ion-option>
+                    <ion-option value="type=3&">其他费用</ion-option>
+                </ion-select>
+            </ion-col>
+            <ion-col>
+                <ion-select [(ngModel)]="stateCondition" (ngModelChange)="reload()" placeholder="按状态筛选" okText="确认" cancelText="取消">
+                    <ion-option value="">全部</ion-option>
+                    <ion-option value="state=2&">完全过审</ion-option>
+                    <ion-option value="state=1&">待财务审核</ion-option>
+                    <ion-option value="state=0&">待项目经理审核</ion-option>
+                    <ion-option value="state=10&">被驳回</ion-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
     <div class="tabel-header">
         <span>项目</span>
         <span>类型</span>
@@ -27,6 +54,9 @@
             <span>{{transformRecType(i.recordType)}}</span>
             <span>{{i.sumPrice}}</span>
             <span>{{transformState(i.state)}}</span>
+            <!-- <ion-badge *ngIf="i.state === 2">完全过审</ion-badge>
+            <ion-badge *ngIf="i.state === 1 || i.state === 0" color="secondary">{{transformState(i.state)}}</ion-badge>
+            <ion-badge *ngIf="i.state === 10" color="danger">该记录被拒绝</ion-badge> -->
         </li>
     </ul>
 

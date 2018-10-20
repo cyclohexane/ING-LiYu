@@ -37,16 +37,22 @@ input {
     border: none;
 }
 
-ion-content * {
+ion-buttons {
+    display: absolute;
+}
+
+// ion-content * {
+//     color: $gray;
+// }
+.item,
+ion-item-group {
     color: $gray;
 }
 
-// .item span,
-// .item-lg span,
-// .pro-item span,
-// .button-inner {
-//     color: #fff;
-// }
+ion-select {
+    max-width: 100%;
+}
+
 .toolbar {
     height: 4.8rem;
     font-weight: normal;
@@ -151,6 +157,7 @@ page-search-provider {
     padding: 0 1rem;
     height: 2.3rem;
     line-height: 2.6rem;
+    color: $deepGray;
     span {
         flex: 1;
         @include clip;

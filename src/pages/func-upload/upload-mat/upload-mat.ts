@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { HttpUtilProvider } from '../../../providers/http-util/http-util';
 import { ToasterProvider } from '../../../providers/toaster/toaster';
 import { CookieUtilProvider } from '../../../providers/cookie-util/cookie-util';
@@ -23,7 +23,7 @@ export class UploadMatPage {
   number
   file = []
 
-  constructor(public cookie: CookieUtilProvider, public loadingCtrl: LoadingController, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public alertCtrl: AlertController, public cookie: CookieUtilProvider, public loadingCtrl: LoadingController, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.userType = this.cookie.get('user')['userType'];
   }
 
@@ -55,11 +55,26 @@ export class UploadMatPage {
 
   addFile(event) {
     this.file.push(event.target['files'][0]);
-    console.log(this.file);
   }
 
   deleteFile(p) {
-    this.file.splice(p, 1);
+    let alert = this.alertCtrl.create({
+      title: '确认',
+      message: '确定删除本文件吗？',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel'
+        },
+        {
+          text: '确定',
+          handler: () => {
+            this.file.splice(p, 1);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   uploadRec() {

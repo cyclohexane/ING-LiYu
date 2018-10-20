@@ -125,31 +125,16 @@ export class HomePage {
     this.navCtrl.push("AllFncPage");
   }
 
-  toPassedFnc() {
-    this.navCtrl.push("PassedFncPage");
+  toPartialFnc(condition) {
+    this.navCtrl.push("PartialFncPage", {
+      condition: condition
+    });
   }
-
-  toPendingFinancialFnc() {
-    this.navCtrl.push("PendingFinancialFncPage");
-  }
-
-  toPendingManagerFnc() {
-    this.navCtrl.push("PendingManagerFncPage");
-  }
-
-  toRefusedFnc() {
-    this.navCtrl.push("RefusedFncPage");
-  }
-
 
   toPersonal(): void {
     this.navCtrl.push("PersonalPage", {
       userId: this.user.userId
     });
-  }
-
-  toPersonalFnc(): void {
-    this.navCtrl.push("PersonalFncPage");
   }
 
   toPro(): void {
@@ -177,7 +162,7 @@ export class HomePage {
     this.navCtrl.push("MatProviderPage");
   }
 
-  toMatStock(): void {
+  toMat(): void {
     this.navCtrl.push("MatPage");
   }
 
