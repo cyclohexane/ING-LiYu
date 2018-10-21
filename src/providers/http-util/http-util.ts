@@ -5,8 +5,8 @@ import { ToasterProvider } from '../toaster/toaster';
 @Injectable()
 export class HttpUtilProvider {
 
-  base: string = "/project/";
-  //base: string = "http://liyu.upupgogogo.cn/project/";
+  //base: string = "/project/";
+  base: string = "http://liyu.upupgogogo.cn/project/";
 
   constructor(public toaster: ToasterProvider, public http: HttpClient) {
   }
@@ -22,7 +22,7 @@ export class HttpUtilProvider {
       }
     }, err => {
       console.log(err);
-      this.toaster.show('网络错误');
+      this.toaster.show('未知错误');
     });
   }
 
@@ -39,7 +39,7 @@ export class HttpUtilProvider {
       }
     }, err => {
       console.log(err);
-      this.toaster.show('网络错误');
+      this.toaster.show('未知错误');
     });
 
     // let httpParam = new HttpParams();
@@ -76,7 +76,7 @@ export class HttpUtilProvider {
       }
     }, err => {
       console.log(err);
-      this.toaster.show('网络错误');
+      this.toaster.show('未知错误');
     });
 
   }

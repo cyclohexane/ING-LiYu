@@ -71,12 +71,14 @@
                         line-height: 6rem;
                         color: $deepGray;
                     }
-                    ion-icon {
+                    .home-icon {
                         text-align: center;
                         flex: 0 0 8rem;
                         font-size: 3rem;
                         line-height: 6rem;
                         color: $green;
+                        background: 2.4rem 1.2rem no-repeat;
+                        background-size: 40%;
                     }
                 }
             }

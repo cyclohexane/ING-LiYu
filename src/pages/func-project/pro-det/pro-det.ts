@@ -19,8 +19,10 @@ export class ProDetPage {
   manager = []
   uploader = []
 
-  itemManager = ''
-  itemUploader = ''
+  itemManager
+  itemUploader
+  curItemManager
+  curItemUploader
   itemName: string
   endTimeString: string
   itemDec: string
@@ -49,10 +51,8 @@ export class ProDetPage {
       this.itemName = res.data.itemName;
       this.endTimeString = this.dateFormat(res.data.endTime);
       this.itemDec = res.data.itemDec;
-      this.itemManager = res.data.itemManagerId + '-' + res.data.itemManagerName;
-      this.itemUploader = res.data.itemUploaderId + '-' + res.data.itemUploaderName;
-      if (this.itemManager) this.manager.push({ userId: res.data.itemManagerId, userName: res.data.itemManagerName });
-      if (this.itemUploader) this.uploader.push({ userId: res.data.itemUploaderId, userName: res.data.itemUploaderName });
+      this.itemManager = res.data.itemManagerName;
+      this.itemUploader = res.data.itemUploaderName;
       let filePath = res.data.itemFile ? res.data.itemFile.split(",") : [];
       let fileName = res.data.itemFileName ? res.data.itemFileName.split(",") : [];
       this.file = fileName.map((i, p) => [i, filePath[p]]);
@@ -61,13 +61,13 @@ export class ProDetPage {
 
   getManager(): void {
     this.http.doGet('boss/item/getuserforcheck.do?userType=2', res => {
-      this.manager = this.manager.concat(res.data);
+      this.manager = res.data;
     });
   }
 
   getuploader(): void {
     this.http.doGet('boss/item/getuserforcheck.do?userType=3', res => {
-      this.uploader = this.uploader.concat(res.data);
+      this.uploader = res.data;
     });
   }
 
@@ -93,26 +93,49 @@ export class ProDetPage {
     this.getFnc(scroll);
   }
 
-  updatePro(): void {
-    if (!this.itemName || !this.itemName.trim()) {
-      this.toaster.show('项目名称为必填项！');
-    } else if (!this.itemDec || !this.itemDec.trim()) {
-      this.toaster.show('项目描述为必填项！');
-    } else {
-      let param = {
-        itemName: this.itemName,
-        itemDec: this.itemDec,
-        endTimeString: this.endTimeString,
-        itemManagerId: this.itemManager.split("-")[0] || this.itemManager,
-        itemManagerName: this.itemManager.split("-")[1] || this.itemManager,
-        itemUploaderId: this.itemUploader.split("-")[0] || this.itemUploader,
-        itemUploaderName: this.itemUploader.split("-")[1] || this.itemUploader
-      };
-      this.http.doUpload('boss/item/updateitem.do', this.http.toMultipart(param), res => {
-        this.toaster.show('修改项目成功！');
-      });
+
+  changeManager() {
+    let param = {
+      itemId: this.itemId,
+      itemManagerId: this.curItemManager.split("-")[0],
+      itemManagerName: this.curItemManager.split("-")[1]
     }
+    this.http.doUpload('boss/item/updateitem.do', this.http.toMultipart(param), res => {
+      this.toaster.show('修改项目经理成功！');
+    });
   }
+
+  changeUploader() {
+    let param = {
+      itemId: this.itemId,
+      itemUploaderId: this.curItemUploader.split("-")[0],
+      itemUploaderName: this.curItemUploader.split("-")[1]
+    }
+    this.http.doUpload('boss/item/updateitem.do', this.http.toMultipart(param), res => {
+      this.toaster.show('修改记录员成功！');
+    });
+  }
+
+  // updatePro(): void {
+  //   if (!this.itemName || !this.itemName.trim()) {
+  //     this.toaster.show('项目名称为必填项！');
+  //   } else if (!this.itemDec || !this.itemDec.trim()) {
+  //     this.toaster.show('项目描述为必填项！');
+  //   } else {
+  //     let param = {
+  //       itemName: this.itemName,
+  //       itemDec: this.itemDec,
+  //       endTimeString: this.endTimeString,
+  //       itemManagerId: this.itemManager.split("-")[0] || this.itemManager,
+  //       itemManagerName: this.itemManager.split("-")[1] || this.itemManager,
+  //       itemUploaderId: this.itemUploader.split("-")[0] || this.itemUploader,
+  //       itemUploaderName: this.itemUploader.split("-")[1] || this.itemUploader
+  //     };
+  //     this.http.doUpload('boss/item/updateitem.do', this.http.toMultipart(param), res => {
+  //       this.toaster.show('修改项目成功！');
+  //     });
+  //   }
+  // }
 
   dateFormat(timestamp, formats?) {
     // formats格式包括

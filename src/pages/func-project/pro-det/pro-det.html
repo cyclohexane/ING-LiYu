@@ -11,7 +11,7 @@
     <div class="basic-info">
         <div class="name">
             <div class="label">项目名称</div>
-            <input class="name-input" [(ngModel)]="itemName" placeholder="请输入项目名称">
+            <input readonly class="name-input" [(ngModel)]="itemName" placeholder="请输入项目名称">
         </div>
         <div class="time">
             <span class="end-time-label">截止日期</span>
@@ -29,14 +29,14 @@
     <div class="stuff">
         <ion-item class="item-manager">
             <ion-label>项目经理</ion-label>
-            <ion-select id="itemManager" [(ngModel)]="itemManager" placeholder="（请选择）" okText="确定" cancelText="取消">
+            <ion-select id="itemManager" [(ngModel)]="curItemManager" [placeholder]="itemManager" (ngModelChange)="changeManager()" okText="确定" cancelText="取消">
                 <ion-option *ngFor="let i of manager" [value]="i.userId+'-'+i.userName">{{i.userName}}</ion-option>
                 <ion-option *ngIf="!manager.length" disabled>（暂无空闲职员）</ion-option>
             </ion-select>
         </ion-item>
         <ion-item class="item-uploader">
             <ion-label>项目记录员</ion-label>
-            <ion-select id="itemUploader" [(ngModel)]="itemUploader" placeholder="（请选择）" okText="确定" cancelText="取消">
+            <ion-select id="itemUploader" [(ngModel)]="curItemUploader" [placeholder]="itemUploader" (ngModelChange)="changeUploader()" okText="确定" cancelText="取消">
                 <ion-option *ngFor="let i of uploader" [value]="i.userId+'-'+i.userName">{{i.userName}}</ion-option>
                 <ion-option *ngIf="!uploader.length" disabled>（暂无空闲职员）</ion-option>
             </ion-select>
@@ -46,7 +46,7 @@
         <div class="label">项目描述</div>
         <textarea [(ngModel)]="itemDec" placeholder="添加项目描述"></textarea>
     </div>
-    <div class="wide-btn" (tap)="updatePro()">确认修改</div>
+    <!-- <div class="wide-btn" (tap)="updatePro()">确认修改</div> -->
     <ion-item-group>
         <ion-item-divider>
             项目附件
