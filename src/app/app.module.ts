@@ -12,8 +12,11 @@ import { StorageUtilProvider } from '../providers/storage-util/storage-util';
 import { CookieUtilProvider } from '../providers/cookie-util/cookie-util';
 import { ToasterProvider } from '../providers/toaster/toaster';
 import { TimeFormatterProvider } from '../providers/time-formatter/time-formatter';
-import { FileTransfer} from '@ionic-native/file-transfer';
+import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import { Chooser } from '@ionic-native/chooser';
+import { Camera } from '@ionic-native/camera';
+import { FileChooser } from '@ionic-native/file-chooser';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { File } from '@ionic-native/file';
     ToasterProvider,
     TimeFormatterProvider,
     FileTransfer,
-    File
+    File,
+    Chooser,
+    Camera,
+    FileChooser
   ]
 })
 export class AppModule { }

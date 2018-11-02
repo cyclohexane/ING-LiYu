@@ -119,6 +119,53 @@ export class MatProviderPage {
     alert.present();
   }
 
+  addProvider() {
+    let alert = this.alertCtrl.create({
+      title: '新增供货商',
+      inputs: [
+        {
+          name: 'offerCompany',
+          placeholder: '请输入供货商名'
+        },
+        {
+          name: 'offerPhone',
+          placeholder: '请输入供货商电话'
+        },
+        {
+          name: 'address',
+          placeholder: '请输入单位地址'
+        },
+      ],
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel'
+        },
+        {
+          text: '确定',
+          handler: data => {
+            if (!data.offerCompany) {
+              this.toaster.show('供货商名为必填项！');
+              return false;
+            }
+            let param = {
+              offerCompany: data.offerCompany,
+              offerPhone: data.offerPhone,
+              address: data.address
+            }
+            this.http.doPost('boss/offer/addofferer.do', this.http.toURL(param), res => {
+              this.toaster.show('添加供货商成功！');
+              this.page = 1;
+              this.getProvider();
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
   toSearchProvider() {
     this.navCtrl.push("SearchProviderPage");
   }

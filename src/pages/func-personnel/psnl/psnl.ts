@@ -63,6 +63,10 @@ export class PsnlPage {
     });
   }
 
+  toAddPsnl() {
+    this.navCtrl.push("AddPsnlPage");
+  }
+
   toSearchPsnl() {
     this.navCtrl.push("SearchPsnlPage");
   }

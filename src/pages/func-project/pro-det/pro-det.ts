@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { HttpUtilProvider } from '../../../providers/http-util/http-util';
 import { ToasterProvider } from '../../../providers/toaster/toaster';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { Chooser } from '@ionic-native/chooser';
+import { ActionSheetController } from 'ionic-angular'
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { FileChooser } from '@ionic-native/file-chooser';
 
 @IonicPage()
 @Component({
@@ -26,10 +32,12 @@ export class ProDetPage {
   itemName: string
   endTimeString: string
   itemDec: string
-  file = []
+  amount
+  fileList = []
   fnc = []
+  fileTransfer: FileTransferObject = this.transfer.create();
 
-  constructor(public alertCtrl: AlertController, public loadingCtrl: LoadingController, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private fileChooser: FileChooser, private camera: Camera, private transfer: FileTransfer, private file: File, public actionSheetCtrl: ActionSheetController, private chooser: Chooser, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.itemId = navParams.get('itemId');
   }
 
@@ -42,6 +50,7 @@ export class ProDetPage {
     this.getProInfo();
     this.getManager();
     this.getuploader();
+    this.getAmount();
     this.page = 1;
     this.getFnc();
   }
@@ -55,7 +64,7 @@ export class ProDetPage {
       this.itemUploader = res.data.itemUploaderName;
       let filePath = res.data.itemFile ? res.data.itemFile.split(",") : [];
       let fileName = res.data.itemFileName ? res.data.itemFileName.split(",") : [];
-      this.file = fileName.map((i, p) => [i, filePath[p]]);
+      this.fileList = fileName.map((i, p) => [i, filePath[p]]);
     });
   }
 
@@ -68,6 +77,18 @@ export class ProDetPage {
   getuploader(): void {
     this.http.doGet('boss/item/getuserforcheck.do?userType=3', res => {
       this.uploader = res.data;
+    });
+  }
+
+  getAmount(): void {
+    this.http.doGet('boss/record/getrecordamount.do?itemId=' + this.itemId, res => {
+      this.amount = res.data;
+      this.amount.list.forEach(i => {
+        let rec = i.recordDec.split("/").map(r => r.split("："));
+        i.categoryName = rec[1][1];
+        i.specifications = rec[2][1];
+        i.unit = rec[3][1];
+      });
     });
   }
 
@@ -201,19 +222,120 @@ export class ProDetPage {
     }
   }
 
-  addFile(event) {
-    let loading = this.loadingCtrl.create({
-      content: '上传中',
+
+  addFile() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '选择上传文件方式',
+      buttons: [
+        {
+          text: '拍照上传',
+          handler: () => {
+            this.takePhoto();
+          }
+        },
+        {
+          text: '选择文件',
+          handler: () => {
+            this.chooseFile();
+          }
+        },
+        {
+          text: '取消',
+          role: 'cancel'
+        }
+      ]
     });
-    loading.present();
-    let formData = new FormData();
-    formData.append("itemId", this.itemId);
-    formData.append('upload_file', event.target['files'][0], event.target['files'][0]['name']);
-    this.http.doUpload('boss/item/addfile.do', formData, res => {
-      loading.dismiss();
-      this.toaster.show("上传文件成功！");
-      this.getProInfo();
-    })
+    actionSheet.present();
+  }
+
+  takePhoto() {
+    const options: CameraOptions = {
+      quality: 40,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      saveToPhotoAlbum: true,
+      allowEdit: true
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      let loading = this.loadingCtrl.create({
+        content: '上传中',
+      });
+      loading.present();
+      let options: FileUploadOptions = {
+        fileKey: 'upload_file',
+        fileName: new Date().getTime().toString() + '.jpg',//用时间戳当照片的名字
+        params: { 'itemId': this.itemId }
+      }
+      this.fileTransfer.upload(imageData, this.http.base + 'boss/item/addfile.do', options)
+        .then((data) => {
+          loading.dismiss();
+          this.toaster.show("上传文件成功！");
+          this.getProInfo();
+        }, (err) => {
+          loading.dismiss();
+          this.toaster.show('上传文件失败！');
+          console.log(err);
+        });
+    }, (err) => {
+      this.toaster.show('上传文件失败！');
+      console.log(err);
+    });
+  }
+
+  chooseFile() {
+    this.fileChooser.open()
+      .then(uri => {
+        let loading = this.loadingCtrl.create({
+          content: '上传中',
+        });
+        loading.present();
+        let options: FileUploadOptions = {
+          fileKey: 'upload_file',
+          fileName: decodeURI(uri).substr(decodeURI(uri).lastIndexOf("/") + 1),
+          params: { 'itemId': this.itemId }
+        }
+        this.fileTransfer.upload(uri, this.http.base + 'boss/item/addfile.do', options)
+          .then((data) => {
+            loading.dismiss();
+            this.toaster.show("上传文件成功！");
+            this.getProInfo();
+          }, (err) => {
+            loading.dismiss();
+            this.toaster.show('上传文件失败！');
+            console.log(err);
+          });
+      })
+      .catch(e => {
+        this.toaster.show('上传文件失败！');
+        console.log(e);
+      });
+
+    // this.chooser.getFile('*')
+    //   .then(f => {
+    //     console.log(f);
+    //     this.toaster.show('then');
+    //     this.toaster.show(f.uri);
+    //     let loading = this.loadingCtrl.create({
+    //       content: '上传中',
+    //     });
+    //     loading.present();
+    //     let options: FileUploadOptions = {
+    //       fileKey: 'upload_file',
+    //       fileName: f.name,
+    //       params: { 'itemId': this.itemId }
+    //     }
+    //     this.fileTransfer.upload(f.uri, this.http.base + 'boss/item/addfile.do', options)
+    //       .then((data) => {
+    //         loading.dismiss();
+    //         this.toaster.show("上传文件成功！");
+    //         this.getProInfo();
+    //       }, (err) => {
+    //         loading.dismiss();
+    //         this.toaster.show(err);
+    //       });
+    //   })
+    //   .catch((error: any) => console.log(error));
   }
 
   deleteFile(f) {

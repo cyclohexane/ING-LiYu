@@ -31,13 +31,13 @@ export class PartialFncPage {
   setTitle(i) {
     switch (i) {
       case 'state=0':
-        return "待项目经理审核财务记录";
+        return "待项目经理审核财务";
       case 'state=1':
-        return "待财务审核员审核财务记录";
+        return "待公司财务审核财务";
       case 'state=2':
-        return "完全过审财务记录";
+        return "审核通过财务";
       case 'state=10':
-        return "被驳回财务记录";
+        return "被驳回财务";
     }
   }
 

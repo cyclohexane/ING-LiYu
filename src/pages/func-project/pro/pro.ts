@@ -76,4 +76,8 @@ export class ProPage {
   toSearchPro() {
     this.navCtrl.push("SearchProPage");
   }
+
+  toAddPro(){
+    this.navCtrl.push("AddProPage"); 
+  }
 }

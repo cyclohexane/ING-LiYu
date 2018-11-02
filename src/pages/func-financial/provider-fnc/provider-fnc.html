@@ -8,8 +8,41 @@
 
 </ion-header>
 
-
 <ion-content>
+
+    <ion-item-divider>项目财务汇总</ion-item-divider>
+    <ion-item>
+        <ion-label>
+            项目总开销
+        </ion-label>
+        <div item-content>
+            {{amount?.sumPrice || 0}}
+        </div>
+    </ion-item>
+    <ion-item>
+        <ion-label>
+            项目材料总开销
+        </ion-label>
+        <div item-content>
+            {{amount?.materailSumPrice || 0}}
+        </div>
+    </ion-item>
+    <div class="tabel-header" *ngIf="amount?.list.length">
+        <span>材料名</span>
+        <span>规格</span>
+        <span>单位</span>
+        <span>使用数量</span>
+        <span>开销费用</span>
+    </div>
+    <ul class="fnc-record">
+        <li *ngFor="let i of amount?.list" class="item">
+            <span>{{i.categoryName}}</span>
+            <span>{{i.specifications || "无"}}</span>
+            <span>{{i.unit || "无"}}</span>
+            <span>{{i.number}}</span>
+            <span>{{i.totalPrice}}</span>
+        </li>
+    </ul>
     <div class="tabel-header">
         <span>项目</span>
         <span>类型</span>
@@ -17,6 +50,9 @@
         <span>审核状态</span>
     </div>
     <ul class="fnc-record">
+        <ion-item *ngIf="!fnc.length">
+            （暂无财务记录）
+        </ion-item>
         <li *ngFor="let i of fnc" (tap)="toFncDet(i.recordId)" class="item">
             <span>{{i.itemName}}</span>
             <span>{{transformRecType(i.recordType)}}</span>

@@ -15,6 +15,7 @@ export class ProviderFncPage {
   page = 1
   public hasMoreData = true
   fnc: string[] = []
+  amount
 
   constructor(public cookie: CookieUtilProvider, public http: HttpUtilProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.userType = this.cookie.get('user')['userType'];
@@ -24,7 +25,21 @@ export class ProviderFncPage {
   ionViewWillEnter() {
     this.page = 1;
     this.getFnc();
+    this.getAmount();
   }
+
+  getAmount(): void {
+    this.http.doGet('boss/record/getrecordamount.do?offerId=' + this.offerId, res => {
+      this.amount = res.data;
+      this.amount.list.forEach(i => {
+        let rec = i.recordDec.split("/").map(r => r.split("："));
+        i.categoryName = rec[1][1];
+        i.specifications = rec[2][1];
+        i.unit = rec[3][1];
+      });
+    });
+  }
+
 
   transformRecType(i) {
     switch (i) {
