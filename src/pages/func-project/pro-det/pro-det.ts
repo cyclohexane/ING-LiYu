@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, ActionSheetController } from 'ionic-angular';
 import { HttpUtilProvider } from '../../../providers/http-util/http-util';
 import { ToasterProvider } from '../../../providers/toaster/toaster';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-import { Chooser } from '@ionic-native/chooser';
-import { ActionSheetController } from 'ionic-angular'
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileChooser } from '@ionic-native/file-chooser';
+import { FileOpener } from '@ionic-native/file-opener';
+
 
 @IonicPage()
 @Component({
@@ -33,18 +33,19 @@ export class ProDetPage {
   endTimeString: string
   itemDec: string
   amount
-  fileList = []
   fnc = []
-  fileTransfer: FileTransferObject = this.transfer.create();
+  fileList = []
+  fileTransfer: FileTransferObject = this.transfer.create()
 
-  constructor(private fileChooser: FileChooser, private camera: Camera, private transfer: FileTransfer, private file: File, public actionSheetCtrl: ActionSheetController, private chooser: Chooser, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private fileChooser: FileChooser,private fileOpener: FileOpener, private camera: Camera, private transfer: FileTransfer, private file: File, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.itemId = navParams.get('itemId');
   }
 
   ionViewWillEnter() {
     let loading = this.loadingCtrl.create({
       content: '加载中',
-      duration: 200
+      duration: 200,
+      enableBackdropDismiss: true
     });
     loading.present();
     this.getProInfo();
@@ -250,10 +251,9 @@ export class ProDetPage {
 
   takePhoto() {
     const options: CameraOptions = {
-      quality: 40,
+      quality: 50,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
       saveToPhotoAlbum: true,
       allowEdit: true
     }
@@ -278,7 +278,7 @@ export class ProDetPage {
           console.log(err);
         });
     }, (err) => {
-      this.toaster.show('上传文件失败！');
+      this.toaster.show('选择文件失败或取消选择！');
       console.log(err);
     });
   }
@@ -298,16 +298,16 @@ export class ProDetPage {
         this.fileTransfer.upload(uri, this.http.base + 'boss/item/addfile.do', options)
           .then((data) => {
             loading.dismiss();
-            this.toaster.show("上传文件成功！");
+            this.toaster.show("上传成功！");
             this.getProInfo();
           }, (err) => {
             loading.dismiss();
-            this.toaster.show('上传文件失败！');
+            this.toaster.show('上传失败！');
             console.log(err);
           });
       })
       .catch(e => {
-        this.toaster.show('上传文件失败！');
+        this.toaster.show('上传失败！');
         console.log(e);
       });
 
@@ -336,6 +336,20 @@ export class ProDetPage {
     //       });
     //   })
     //   .catch((error: any) => console.log(error));
+  }
+
+  downloadFile(f) {
+    let loading = this.loadingCtrl.create({
+      content: '下载中',
+    });
+    this.fileTransfer.download(f[1], this.file.dataDirectory + f[0]).then((entry) => {
+      loading.dismiss();
+      this.toaster.show("下载成功！");
+    }, (error) => {
+      loading.dismiss();
+      this.toaster.show('下载失败！');
+      console.log(error);
+    });
   }
 
   deleteFile(f) {
@@ -372,5 +386,81 @@ export class ProDetPage {
     });
   }
 
+  fileExist(f) {
+    // var path = this.file.dataDirectory;
+    // //var directory = "MostafaFolder";
+    // //var fullpath = path + directory + "/"
+    // let existance: boolean;
+    // try {
+    //   this.file.checkFile(path, f[0]).then(
+    //     res => true,
+    //     err => false
+    //   ).then(isExists => {
+    //     existance = isExists;
+    //   });
+    // } catch (x) {
+    //   console.log(JSON.stringify(x));
+    // }
+    // return existance;
+  }
+
+  // openFile(f) {
+  //   this.fileOpener.open(this.file.dataDirectory, this.getFileMimeType(this.getFileType(f[0])))
+  //     .then(() => { })
+  //     .catch(() => {
+  //       this.toaster.show('打开文件失败！');
+  //     });
+  // }
+
+  // getFileMimeType(fileType: string): string {
+  //   let mimeType: string = '';
+
+  //   switch (fileType) {
+  //     case 'txt':
+  //       mimeType = 'text/plain';
+  //       break;
+  //     case 'docx':
+  //       mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+  //       break;
+  //     case 'doc':
+  //       mimeType = 'application/msword';
+  //       break;
+  //     case 'pptx':
+  //       mimeType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+  //       break;
+  //     case 'ppt':
+  //       mimeType = 'application/vnd.ms-powerpoint';
+  //       break;
+  //     case 'xlsx':
+  //       mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+  //       break;
+  //     case 'xls':
+  //       mimeType = 'application/vnd.ms-excel';
+  //       break;
+  //     case 'zip':
+  //       mimeType = 'application/x-zip-compressed';
+  //       break;
+  //     case 'rar':
+  //       mimeType = 'application/octet-stream';
+  //       break;
+  //     case 'pdf':
+  //       mimeType = 'application/pdf';
+  //       break;
+  //     case 'jpg':
+  //       mimeType = 'image/jpeg';
+  //       break;
+  //     case 'png':
+  //       mimeType = 'image/png';
+  //       break;
+  //     default:
+  //       mimeType = 'application/' + fileType;
+  //       break;
+  //   }
+  //   return mimeType;
+  // }
+
+  // getFileType(fileName: string): string {
+  //   return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length).toLowerCase();
+  // }
 
 }

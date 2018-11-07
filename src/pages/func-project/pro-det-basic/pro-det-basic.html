@@ -11,10 +11,10 @@
     <div class="basic-info">
         <div class="name">
             <div class="label">项目名称</div>
-            <input class="name-input" readonly [value]="itemName">
+            <input readonly class="name-input" [value]="itemName">
         </div>
         <div class="time">
-            <span class="end-time-label">截止日期</span>
+            <span class="end-time-label">开工日期</span>
             <span class="end-time-content">{{endTimeString}}</span>
         </div>
     </div>
@@ -35,14 +35,13 @@
     <ion-item-group>
         <ion-item-divider>
             项目附件
-            <input multiple item-end class="choose-file" type="file" (change)="addFile($event)">
         </ion-item-divider>
-        <ion-item *ngIf="!file.length">
+        <ion-item *ngIf="!fileList.length">
             （暂无附件）
         </ion-item>
-        <ion-item *ngFor="let i of file">
+        <ion-item *ngFor="let i of fileList">
             {{i[0]}}
-            <a [href]="i[1]" [download]="i[0]" class="download-file" item-end outline ion-button>下载</a>
+            <button (tap)="downloadFile(i)" class="download-file" item-end outline ion-button>下载</button>
         </ion-item>
     </ion-item-group>
     <div class="pro-rec-det">
@@ -51,14 +50,12 @@
             （暂无财务记录）
         </ion-item>
         <div class="tabel-header" *ngIf="fnc.length">
-            <span>项目</span>
             <span>类型</span>
             <span>总价</span>
             <span>审核状态</span>
         </div>
         <ul class="fnc-record">
             <li *ngFor="let i of fnc" (tap)="toFncDet(i.recordId)" class="item">
-                <span>{{i.itemName}}</span>
                 <span>{{transformRecType(i.recordType)}}</span>
                 <span>{{i.sumPrice}}</span>
                 <span>{{transformState(i.state)}}</span>

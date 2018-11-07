@@ -46,7 +46,7 @@ export class MatPage {
 
 
 
-  alterMat(categoryId,categoryName, specifications, unit) {
+  alterMat(categoryId, categoryName, specifications, unit) {
     let alert = this.alertCtrl.create({
       title: '更新材料',
       inputs: [
@@ -74,12 +74,12 @@ export class MatPage {
         {
           text: '确定',
           handler: data => {
-            if (!data.categoryName || !data.categoryName.trim() ) {
+            if (!data.categoryName || !data.categoryName.trim()) {
               this.toaster.show('材料名为必填项！');
               return false;
             }
             let param = {
-              categoryId:categoryId,
+              categoryId: categoryId,
               categoryName: data.categoryName,
               specifications: data.specifications,
               unit: data.unit
@@ -121,6 +121,49 @@ export class MatPage {
     alert.present();
   }
 
+  addMat() {
+    let alert = this.alertCtrl.create({
+      title: '创建新材料',
+      inputs: [
+        {
+          name: 'categoryName',
+          placeholder: '请输入材料名'
+        },
+        {
+          name: 'specifications',
+          placeholder: '请输入材料型号规格'
+        },
+        {
+          name: 'unit',
+          placeholder: '请输入材料单位'
+        },
+      ],
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel'
+        },
+        {
+          text: '确定',
+          handler: data => {
+            if (!data.categoryName || !data.categoryName.trim()) {
+              this.toaster.show('材料名为必填项！');
+              return false;
+            }
+            let param = {
+              categoryName: data.categoryName,
+              specifications: data.specifications,
+              unit: data.unit
+            }
+            this.http.doPost('boss/category/addcategory.do', this.http.toURL(param), res => {
+              this.toaster.show('添加材料成功！');
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
   toMatDet(): void {
     this.navCtrl.push("MatDetPage");

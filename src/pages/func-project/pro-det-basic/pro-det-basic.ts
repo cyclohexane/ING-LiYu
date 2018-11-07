@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ActionSheetController } from 'ionic-angular';
 import { HttpUtilProvider } from '../../../providers/http-util/http-util';
 import { ToasterProvider } from '../../../providers/toaster/toaster';
 import { CookieUtilProvider } from '../../../providers/cookie-util/cookie-util';
+import { File } from '@ionic-native/file';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { FileOpener } from '@ionic-native/file-opener';
 
 @IonicPage()
 @Component({
@@ -22,10 +27,11 @@ export class ProDetBasicPage {
   itemName: string
   endTimeString: string
   itemDec: string
-  file = []
   fnc = []
+  fileList = []
+  fileTransfer: FileTransferObject = this.transfer.create()
 
-  constructor(public loadingCtrl: LoadingController, public cookie: CookieUtilProvider, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private fileChooser: FileChooser, private fileOpener: FileOpener, private camera: Camera, private transfer: FileTransfer, private file: File, public actionSheetCtrl: ActionSheetController, public loadingCtrl: LoadingController, public cookie: CookieUtilProvider, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.userType = this.cookie.get('user')['userType'];
     this.itemId = navParams.get('itemId') || this.cookie.get('user')['itemId'];
   }
@@ -33,7 +39,8 @@ export class ProDetBasicPage {
   ionViewWillEnter() {
     let loading = this.loadingCtrl.create({
       content: '加载中',
-      duration: 200
+      duration: 200,
+      enableBackdropDismiss: true
     });
     loading.present();
     this.getProInfo();
@@ -42,7 +49,6 @@ export class ProDetBasicPage {
   }
 
   getProInfo() {
-
     let url = '';
     switch (this.userType) {
       case 1:
@@ -63,7 +69,7 @@ export class ProDetBasicPage {
       this.itemUploader = res.data.itemUploaderName;
       let filePath = res.data.itemFile ? res.data.itemFile.split(",") : [];
       let fileName = res.data.itemFileName ? res.data.itemFileName.split(",") : [];
-      this.file = fileName.map((i, p) => [i, filePath[p]]);
+      this.fileList = fileName.map((i, p) => [i, filePath[p]]);
     });
   }
 
@@ -103,6 +109,19 @@ export class ProDetBasicPage {
     this.getFnc(scroll);
   }
 
+  downloadFile(f) {
+    let loading = this.loadingCtrl.create({
+      content: '下载中',
+    });
+    this.fileTransfer.download(f[1], this.file.dataDirectory + f[0]).then((entry) => {
+      loading.dismiss();
+      this.toaster.show("下载成功！");
+    }, (error) => {
+      loading.dismiss();
+      this.toaster.show('下载失败！');
+      console.log(error);
+    });
+  }
 
   dateFormat(timestamp, formats?) {
     // formats格式包括
@@ -167,7 +186,6 @@ export class ProDetBasicPage {
         return "该记录被拒绝";
     }
   }
-
 
   toFncDet(recordId) {
     this.navCtrl.push("FncDetPage", {

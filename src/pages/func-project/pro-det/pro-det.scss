@@ -28,16 +28,9 @@ page-pro-det {
             .end-time-label {
                 flex: 0 0 7.7rem;
             }
-            .datepicker-con {
+            .end-time-content {
                 flex: 1;
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            ion-datetime {
-                padding: 0;
-                color: $deepGray;
+                text-align: center;
             }
         }
     }
