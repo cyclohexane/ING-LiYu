@@ -37,7 +37,7 @@ export class ProDetPage {
   fileList = []
   fileTransfer: FileTransferObject = this.transfer.create()
 
-  constructor(private fileChooser: FileChooser,private fileOpener: FileOpener, private camera: Camera, private transfer: FileTransfer, private file: File, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private fileChooser: FileChooser, private fileOpener: FileOpener, private camera: Camera, private transfer: FileTransfer, private file: File, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.itemId = navParams.get('itemId');
   }
 
@@ -339,17 +339,20 @@ export class ProDetPage {
   }
 
   downloadFile(f) {
-    let loading = this.loadingCtrl.create({
-      content: '下载中',
-    });
-    this.fileTransfer.download(f[1], this.file.dataDirectory + f[0]).then((entry) => {
-      loading.dismiss();
-      this.toaster.show("下载成功！");
-    }, (error) => {
-      loading.dismiss();
-      this.toaster.show('下载失败！');
-      console.log(error);
-    });
+    if (!this.fileExist(f)) {
+      let loading = this.loadingCtrl.create({
+        content: '下载中',
+      });
+      this.fileTransfer.download(f[1], this.file.dataDirectory + f[0]).then((entry) => {
+        loading.dismiss();
+        this.toaster.show("下载成功！");
+      }, (error) => {
+        loading.dismiss();
+        this.toaster.show('下载失败！');
+        console.log(error);
+      });
+    }
+    this.openFile(f);
   }
 
   deleteFile(f) {
@@ -387,80 +390,78 @@ export class ProDetPage {
   }
 
   fileExist(f) {
-    // var path = this.file.dataDirectory;
-    // //var directory = "MostafaFolder";
-    // //var fullpath = path + directory + "/"
-    // let existance: boolean;
-    // try {
-    //   this.file.checkFile(path, f[0]).then(
-    //     res => true,
-    //     err => false
-    //   ).then(isExists => {
-    //     existance = isExists;
-    //   });
-    // } catch (x) {
-    //   console.log(JSON.stringify(x));
-    // }
-    // return existance;
+    var path = this.file.dataDirectory;
+    let existance: boolean;
+    try {
+      this.file.checkFile(path, f[0]).then(
+        res => true,
+        err => false
+      ).then(isExists => {
+        existance = isExists;
+      });
+    } catch (x) {
+      console.log(JSON.stringify(x));
+    }
+    return existance;
   }
 
-  // openFile(f) {
-  //   this.fileOpener.open(this.file.dataDirectory, this.getFileMimeType(this.getFileType(f[0])))
-  //     .then(() => { })
-  //     .catch(() => {
-  //       this.toaster.show('打开文件失败！');
-  //     });
-  // }
+  openFile(f) {
+    this.fileOpener.open(this.file.dataDirectory, this.getFileMimeType(this.getFileType(f[0])))
+      .then(() => { })
+      .catch(() => {
+        this.toaster.show('请手动打开文件');
+      });
+  }
 
-  // getFileMimeType(fileType: string): string {
-  //   let mimeType: string = '';
+  getFileMimeType(fileType: string): string {
+    let mimeType: string = '';
 
-  //   switch (fileType) {
-  //     case 'txt':
-  //       mimeType = 'text/plain';
-  //       break;
-  //     case 'docx':
-  //       mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-  //       break;
-  //     case 'doc':
-  //       mimeType = 'application/msword';
-  //       break;
-  //     case 'pptx':
-  //       mimeType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
-  //       break;
-  //     case 'ppt':
-  //       mimeType = 'application/vnd.ms-powerpoint';
-  //       break;
-  //     case 'xlsx':
-  //       mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-  //       break;
-  //     case 'xls':
-  //       mimeType = 'application/vnd.ms-excel';
-  //       break;
-  //     case 'zip':
-  //       mimeType = 'application/x-zip-compressed';
-  //       break;
-  //     case 'rar':
-  //       mimeType = 'application/octet-stream';
-  //       break;
-  //     case 'pdf':
-  //       mimeType = 'application/pdf';
-  //       break;
-  //     case 'jpg':
-  //       mimeType = 'image/jpeg';
-  //       break;
-  //     case 'png':
-  //       mimeType = 'image/png';
-  //       break;
-  //     default:
-  //       mimeType = 'application/' + fileType;
-  //       break;
-  //   }
-  //   return mimeType;
-  // }
+    switch (fileType) {
+      case 'txt':
+        mimeType = 'text/plain';
+        break;
+      case 'docx':
+        mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+        break;
+      case 'doc':
+        mimeType = 'application/msword';
+        break;
+      case 'pptx':
+        mimeType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+        break;
+      case 'ppt':
+        mimeType = 'application/vnd.ms-powerpoint';
+        break;
+      case 'xlsx':
+        mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        break;
+      case 'xls':
+        mimeType = 'application/vnd.ms-excel';
+        break;
+      case 'zip':
+        mimeType = 'application/x-zip-compressed';
+        break;
+      case 'rar':
+        mimeType = 'application/octet-stream';
+        break;
+      case 'pdf':
+        mimeType = 'application/pdf';
+        break;
+      case 'jpg':
+        mimeType = 'image/jpeg';
+        break;
+      case 'png':
+        mimeType = 'image/png';
+        break;
+      default:
+        mimeType = 'application/' + fileType;
+        break;
+    }
+    return mimeType;
+  }
 
-  // getFileType(fileName: string): string {
-  //   return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length).toLowerCase();
-  // }
+  getFileType(fileName: string): string {
+    return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length).toLowerCase();
+  }
 
 }

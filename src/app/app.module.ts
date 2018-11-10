@@ -14,11 +14,9 @@ import { ToasterProvider } from '../providers/toaster/toaster';
 import { TimeFormatterProvider } from '../providers/time-formatter/time-formatter';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-import { Chooser } from '@ionic-native/chooser';
 import { Camera } from '@ionic-native/camera';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FileOpener } from '@ionic-native/file-opener';
-import { ImagePicker } from '@ionic-native/image-picker';
 import { FilePath } from '@ionic-native/file-path';
 
 @NgModule({
@@ -47,11 +45,9 @@ import { FilePath } from '@ionic-native/file-path';
     TimeFormatterProvider,
     FileTransfer,
     File,
-    Chooser,
     Camera,
     FileChooser,
     FileOpener,
-    ImagePicker,
     FilePath
   ]
 })
