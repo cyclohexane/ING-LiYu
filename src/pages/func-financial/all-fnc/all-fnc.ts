@@ -27,7 +27,7 @@ export class AllFncPage {
   ionViewWillEnter() {
     this.page = 1;
     this.getFnc();
-    this.getPro();
+    if (this.userType === 0 || this.userType === 1) this.getPro();
   }
 
   reload() {

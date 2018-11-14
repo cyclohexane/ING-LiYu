@@ -29,10 +29,7 @@
         <ion-item class="item-uploader">
             <ion-label>项目记录员</ion-label>
             <ion-select id="itemUploader" [(ngModel)]="curItemUploader" [placeholder]="itemUploader" (ngModelChange)="changeUploader()" okText="确定" cancelText="取消">
-                <ion-option *ngFor="let i of uploader" [value]="i.userId+'-'+i.userName">
-                    {{i.userName}}
-                    <button (tap)="downloadFile(i)" *ngIf="! fileExist(i)" class="download-file" item-end outline ion-button>下载</button>
-                </ion-option>
+                <ion-option *ngFor="let i of uploader" [value]="i.userId+'-'+i.userName">{{i.userName}}</ion-option>
                 <ion-option *ngIf="!uploader.length" disabled>（暂无空闲职员）</ion-option>
             </ion-select>
         </ion-item>
@@ -52,7 +49,7 @@
         </ion-item>
         <ion-item *ngFor="let i of fileList">
             {{i[0]}}
-            <button (tap)="downloadFile(i)" class="download-file" item-end outline ion-button>查看</button>
+            <button (tap)="downloadFile(i)" class="download-file" item-end outline ion-button>下载</button>
             <button (tap)="deleteFile(i)" class="download-file" item-end outline ion-button>删除</button>
         </ion-item>
     </ion-item-group>

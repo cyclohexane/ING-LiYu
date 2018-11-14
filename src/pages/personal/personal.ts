@@ -58,6 +58,7 @@ export class PersonalPage {
 
     this.http.doGet(`${url}?userId=${this.userId}`, res => {
       this.user = res.data;
+      this.user.itemName = this.user.list.map(i => i.itemName).join("，");
     });
   }
 

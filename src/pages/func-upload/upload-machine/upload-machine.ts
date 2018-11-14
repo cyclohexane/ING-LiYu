@@ -16,6 +16,8 @@ import { FilePath } from '@ionic-native/file-path';
 export class UploadMachinePage {
 
   userType
+  item
+  curItemId
   recordDec
   unitPrice
   number
@@ -24,6 +26,16 @@ export class UploadMachinePage {
 
   constructor(private filePath: FilePath, private fileChooser: FileChooser, private camera: Camera, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private cookie: CookieUtilProvider, private loadingCtrl: LoadingController, private http: HttpUtilProvider, private toaster: ToasterProvider, private navCtrl: NavController, private navParams: NavParams) {
     this.userType = this.cookie.get('user')['userType'];
+    this.getItem();
+  }
+
+  getItem() {
+    this.http.doGet('boss/user/getuserinfo.do?userId=' + this.cookie.get('user')['userId'], res => {
+      this.item = res.data.list;
+      if (this.userType === 3) {
+        this.curItemId = this.item[0].itemId;
+      }
+    });
   }
 
   decode(f) {
@@ -100,7 +112,10 @@ export class UploadMachinePage {
   }
 
   uploadRec() {
-    if (!this.recordDec || !this.recordDec.trim()) {
+    if (!this.curItemId) {
+      this.toaster.show('所属项目为必填项！');
+      return;
+    } else if (!this.recordDec || !this.recordDec.trim()) {
       this.toaster.show('财务描述为必填项！');
       return;
     } else if (!this.unitPrice) {
@@ -111,6 +126,7 @@ export class UploadMachinePage {
       return;
     }
     let param = {
+      itemId: this.curItemId,
       recordType: 1,
       recordDec: this.recordDec,
       unitPrice: this.unitPrice,

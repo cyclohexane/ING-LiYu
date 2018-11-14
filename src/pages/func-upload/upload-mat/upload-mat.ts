@@ -15,6 +15,8 @@ import { FilePath } from '@ionic-native/file-path';
 })
 export class UploadMatPage {
   userType
+  item
+  curItemId
 
   provider = []
   mat = []
@@ -30,11 +32,21 @@ export class UploadMatPage {
 
   constructor(private filePath: FilePath, private fileChooser: FileChooser, private camera: Camera, private actionSheetCtrl: ActionSheetController, private alertCtrl: AlertController, private cookie: CookieUtilProvider, private loadingCtrl: LoadingController, private http: HttpUtilProvider, private toaster: ToasterProvider, private navCtrl: NavController, private navParams: NavParams) {
     this.userType = this.cookie.get('user')['userType'];
+    this.getItem();
   }
 
   ionViewWillEnter() {
     this.getProvider();
     this.getMat();
+  }
+
+  getItem() {
+    this.http.doGet('boss/user/getuserinfo.do?userId=' + this.cookie.get('user')['userId'], res => {
+      this.item = res.data.list;
+      if (this.userType === 3) {
+        this.curItemId = this.item[0].itemId;
+      }
+    });
   }
 
   getProvider() {
@@ -132,7 +144,10 @@ export class UploadMatPage {
   }
 
   uploadRec() {
-    if (!this.offerId) {
+    if (!this.curItemId) {
+      this.toaster.show('所属项目为必填项！');
+      return;
+    } else if (!this.offerId) {
       this.toaster.show('供货商为必填项！');
     } else if (!this.recordDec) {
       this.toaster.show('材料为必填项！');
@@ -151,6 +166,7 @@ export class UploadMatPage {
       return;
     }
     let param = {
+      itemId: this.curItemId,
       recordType: '0',//字符串防过滤
       offerId: this.offerId,
       recordCarOffer: this.recordCarOffer,

@@ -9,6 +9,12 @@
 
 <ion-content>
     <ion-list>
+        <ion-item *ngIf="userType === 2">
+            <ion-label color="primary" fixed>所属项目</ion-label>
+            <ion-select [(ngModel)]="curItemId" placeholder="（请选择）" okText="确定" cancelText="取消">
+                <ion-option *ngFor="let i of item" [value]="i.itemId">{{i.itemName}}</ion-option>
+            </ion-select>
+        </ion-item>
         <ion-item>
             <ion-label color="primary" fixed>供货商</ion-label>
             <ion-select [(ngModel)]="offerId" placeholder="（请选择）" okText="确定" cancelText="取消">

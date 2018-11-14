@@ -5,8 +5,6 @@ import { ToasterProvider } from '../../../providers/toaster/toaster';
 import { CookieUtilProvider } from '../../../providers/cookie-util/cookie-util';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { FileChooser } from '@ionic-native/file-chooser';
 import { FileOpener } from '@ionic-native/file-opener';
 
 @IonicPage()
@@ -31,9 +29,9 @@ export class ProDetBasicPage {
   fileList = []
   fileTransfer: FileTransferObject = this.transfer.create()
 
-  constructor(private fileChooser: FileChooser, private fileOpener: FileOpener, private camera: Camera, private transfer: FileTransfer, private file: File, public actionSheetCtrl: ActionSheetController, public loadingCtrl: LoadingController, public cookie: CookieUtilProvider, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private fileOpener: FileOpener, private transfer: FileTransfer, private file: File, public actionSheetCtrl: ActionSheetController, public loadingCtrl: LoadingController, public cookie: CookieUtilProvider, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.userType = this.cookie.get('user')['userType'];
-    this.itemId = navParams.get('itemId') || this.cookie.get('user')['itemId'];
+    this.itemId = navParams.get('itemId');
   }
 
   ionViewWillEnter() {
@@ -67,9 +65,9 @@ export class ProDetBasicPage {
       this.itemDec = res.data.itemDec;
       this.itemManager = res.data.itemManagerName;
       this.itemUploader = res.data.itemUploaderName;
-      let filePath = res.data.itemFile ? res.data.itemFile.split(",") : [];
-      let fileName = res.data.itemFileName ? res.data.itemFileName.split(",") : [];
-      this.fileList = fileName.map((i, p) => [i, filePath[p]]);
+      let filePathArray = res.data.itemFile ? res.data.itemFile.split(",") : [];
+      let fileNameArray = res.data.itemFileName ? res.data.itemFileName.split(",") : [];
+      this.fileList = fileNameArray.map((i, p) => [i, filePathArray[p]]);
     });
   }
 
@@ -110,17 +108,34 @@ export class ProDetBasicPage {
   }
 
   downloadFile(f) {
-    let loading = this.loadingCtrl.create({
-      content: '下载中',
-    });
-    this.fileTransfer.download(f[1], this.file.dataDirectory + f[0]).then((entry) => {
-      loading.dismiss();
-      this.toaster.show("下载成功！");
-    }, (error) => {
-      loading.dismiss();
-      this.toaster.show('下载失败！');
-      console.log(error);
-    });
+    try {
+      this.file.checkFile(this.file.externalRootDirectory, f[0]).then(
+        res => {
+          this.openFile(f);
+        },
+        err => {
+          if (err.code === 1) {
+            let loading = this.loadingCtrl.create({
+              content: '下载中',
+            });
+            loading.present();
+            this.fileTransfer.download(f[1], this.file.externalRootDirectory + f[0]).then((entry) => {
+              loading.dismiss();
+              this.toaster.show("下载成功！");
+              this.openFile(f);
+            }, (error) => {
+              loading.dismiss();
+              this.toaster.show('下载失败！');
+              console.log(error);
+            });
+          } else {
+            console.log(err);
+          }
+        }
+      );
+    } catch (x) {
+      console.log(JSON.stringify(x));
+    }
   }
 
   dateFormat(timestamp, formats?) {
@@ -191,6 +206,65 @@ export class ProDetBasicPage {
     this.navCtrl.push("FncDetPage", {
       recordId: recordId
     });
+  }
+
+  openFile(f) {
+    this.fileOpener.open(this.file.externalRootDirectory + f[0], this.getFileMimeType(this.getFileType(f[0])))
+      .then(() => { })
+      .catch(() => {
+        this.toaster.show('后缀无法识别，请手动打开文件');
+      });
+  }
+
+  getFileMimeType(fileType: string): string {
+    let mimeType: string = '';
+
+    switch (fileType) {
+      case 'txt':
+        mimeType = 'text/plain';
+        break;
+      case 'docx':
+        mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+        break;
+      case 'doc':
+        mimeType = 'application/msword';
+        break;
+      case 'pptx':
+        mimeType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+        break;
+      case 'ppt':
+        mimeType = 'application/vnd.ms-powerpoint';
+        break;
+      case 'xlsx':
+        mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        break;
+      case 'xls':
+        mimeType = 'application/vnd.ms-excel';
+        break;
+      case 'zip':
+        mimeType = 'application/x-zip-compressed';
+        break;
+      case 'rar':
+        mimeType = 'application/octet-stream';
+        break;
+      case 'pdf':
+        mimeType = 'application/pdf';
+        break;
+      case 'jpg':
+        mimeType = 'image/jpeg';
+        break;
+      case 'png':
+        mimeType = 'image/png';
+        break;
+      default:
+        mimeType = 'application/' + fileType;
+        break;
+    }
+    return mimeType;
+  }
+
+  getFileType(fileName: string): string {
+    return fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length).toLowerCase();
   }
 
 }

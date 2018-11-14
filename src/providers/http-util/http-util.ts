@@ -22,7 +22,11 @@ export class HttpUtilProvider {
       }
     }, err => {
       console.log(err);
-      this.toaster.show('未知错误');
+      if (err.name === "HttpErrorResponse"){
+        this.toaster.show("网络错误");
+      }else{
+        this.toaster.show('未知错误');
+      }
     });
   }
 
@@ -39,7 +43,11 @@ export class HttpUtilProvider {
       }
     }, err => {
       console.log(err);
-      this.toaster.show('未知错误');
+      if (err.name === "HttpErrorResponse"){
+        this.toaster.show("网络错误");
+      }else{
+        this.toaster.show('未知错误');
+      }
     });
 
     // let httpParam = new HttpParams();
@@ -76,7 +84,11 @@ export class HttpUtilProvider {
       }
     }, err => {
       console.log(err);
-      this.toaster.show('未知错误');
+      if (err.name === "HttpErrorResponse"){
+        this.toaster.show("网络错误");
+      }else{
+        this.toaster.show('未知错误');
+      }
     });
 
   }

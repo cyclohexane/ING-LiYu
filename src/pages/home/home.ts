@@ -13,12 +13,19 @@ export class HomePage {
 
   public user
   public type
+  public item
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public http: HttpUtilProvider, public toaster: ToasterProvider, public cookie: CookieUtilProvider) {
     this.user = this.cookie.get('user');
     this.type = this.user.userType;
+    this.getItem();
   }
 
+  getItem() {
+    this.http.doGet('boss/user/getuserinfo.do?userId=' + this.user.userId, res => {
+      this.item = res.data.list;
+    });
+  }
 
   transformType(i) {
     switch (i) {
@@ -145,43 +152,45 @@ export class HomePage {
     this.navCtrl.push("AddProPage");
   }
 
-  toProDetBasic(): void {
-    this.navCtrl.push("ProDetBasicPage");
-  }
+  toProDetBasic(itemId): void {
+    this.navCtrl.push("ProDetBasicPage", {
+      itemId: itemId
+    });
+}
 
-  toPsnl(): void {
-    this.navCtrl.push("PsnlPage");
+toPsnl(): void {
+  this.navCtrl.push("PsnlPage");
 
-  }
+}
 
-  toAddPsnl(): void {
-    this.navCtrl.push("AddPsnlPage");
-  }
+toAddPsnl(): void {
+  this.navCtrl.push("AddPsnlPage");
+}
 
-  toMatProvider(): void {
-    this.navCtrl.push("MatProviderPage");
-  }
+toMatProvider(): void {
+  this.navCtrl.push("MatProviderPage");
+}
 
-  toMat(): void {
-    this.navCtrl.push("MatPage");
-  }
+toMat(): void {
+  this.navCtrl.push("MatPage");
+}
 
-  toUploadMat() {
-    this.navCtrl.push("UploadMatPage");
-  }
+toUploadMat() {
+  this.navCtrl.push("UploadMatPage");
+}
 
-  toUploadMachine() {
-    this.navCtrl.push("UploadMachinePage");
-  }
+toUploadMachine() {
+  this.navCtrl.push("UploadMachinePage");
+}
 
-  toUploadLabor() {
-    this.navCtrl.push("UploadLaborPage");
-  }
+toUploadLabor() {
+  this.navCtrl.push("UploadLaborPage");
+}
 
 
-  toUploadOther() {
-    this.navCtrl.push("UploadOtherPage");
-  }
+toUploadOther() {
+  this.navCtrl.push("UploadOtherPage");
+}
 
 
 }

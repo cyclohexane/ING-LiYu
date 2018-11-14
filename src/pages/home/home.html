@@ -59,7 +59,14 @@
             </div>
             <span>创建项目</span>
         </li>
-        <li *ngIf="(type === 2 && user.itemId) || (type === 3 && user.itemId)" (tap)="toProDetBasic()">
+        <ng-container *ngIf="type === 2">
+            <li *ngFor="let i of item" (tap)="toProDetBasic(i.itemId)">
+                <div style="background-image:url('./assets/imgs/my-pro.png');" class="home-icon">
+                </div>
+                <span>我的项目-{{i.itemName}}</span>
+            </li>
+        </ng-container>
+        <li *ngIf="type === 3" (tap)="toProDetBasic(item[0].itemId)">
             <div style="background-image:url('./assets/imgs/my-pro.png');" class="home-icon">
             </div>
             <span>我的项目</span>

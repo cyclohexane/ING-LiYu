@@ -7,7 +7,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FileOpener } from '@ionic-native/file-opener';
-
+import { FilePath } from '@ionic-native/file-path';
 
 @IonicPage()
 @Component({
@@ -37,7 +37,7 @@ export class ProDetPage {
   fileList = []
   fileTransfer: FileTransferObject = this.transfer.create()
 
-  constructor(private fileChooser: FileChooser, private fileOpener: FileOpener, private camera: Camera, private transfer: FileTransfer, private file: File, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private filePath: FilePath, private fileChooser: FileChooser, private fileOpener: FileOpener, private camera: Camera, private transfer: FileTransfer, private file: File, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public http: HttpUtilProvider, public toaster: ToasterProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.itemId = navParams.get('itemId');
   }
 
@@ -63,9 +63,9 @@ export class ProDetPage {
       this.itemDec = res.data.itemDec;
       this.itemManager = res.data.itemManagerName;
       this.itemUploader = res.data.itemUploaderName;
-      let filePath = res.data.itemFile ? res.data.itemFile.split(",") : [];
-      let fileName = res.data.itemFileName ? res.data.itemFileName.split(",") : [];
-      this.fileList = fileName.map((i, p) => [i, filePath[p]]);
+      let filePathArray = res.data.itemFile ? res.data.itemFile.split(",") : [];
+      let fileNameArray = res.data.itemFileName ? res.data.itemFileName.split(",") : [];
+      this.fileList = fileNameArray.map((i, p) => [i, filePathArray[p]]);
     });
   }
 
@@ -290,21 +290,25 @@ export class ProDetPage {
           content: '上传中',
         });
         loading.present();
-        let options: FileUploadOptions = {
-          fileKey: 'upload_file',
-          fileName: decodeURI(uri).substr(decodeURI(uri).lastIndexOf("/") + 1),
-          params: { 'itemId': this.itemId }
-        }
-        this.fileTransfer.upload(uri, this.http.base + 'boss/item/addfile.do', options)
-          .then((data) => {
-            loading.dismiss();
-            this.toaster.show("上传成功！");
-            this.getProInfo();
-          }, (err) => {
-            loading.dismiss();
-            this.toaster.show('上传失败！');
-            console.log(err);
+        if (uri.startsWith("content://")) {
+          this.filePath.resolveNativePath(uri).then((path) => {
+            let options: FileUploadOptions = {
+              fileKey: 'upload_file',
+              fileName: decodeURI(path).substr(decodeURI(path).lastIndexOf("/") + 1),
+              params: { 'itemId': this.itemId }
+            }
+            this.fileTransfer.upload(path, this.http.base + 'boss/item/addfile.do', options)
+              .then((data) => {
+                loading.dismiss();
+                this.toaster.show("上传成功！");
+                this.getProInfo();
+              }, (err) => {
+                loading.dismiss();
+                this.toaster.show('上传失败！');
+                console.log(err);
+              });
           });
+        }
       })
       .catch(e => {
         this.toaster.show('上传失败！');
@@ -339,20 +343,34 @@ export class ProDetPage {
   }
 
   downloadFile(f) {
-    if (!this.fileExist(f)) {
-      let loading = this.loadingCtrl.create({
-        content: '下载中',
-      });
-      this.fileTransfer.download(f[1], this.file.dataDirectory + f[0]).then((entry) => {
-        loading.dismiss();
-        this.toaster.show("下载成功！");
-      }, (error) => {
-        loading.dismiss();
-        this.toaster.show('下载失败！');
-        console.log(error);
-      });
+    try {
+      this.file.checkFile(this.file.externalRootDirectory, f[0]).then(
+        res => {
+          this.openFile(f);
+        },
+        err => {
+          if (err.code === 1) {
+            let loading = this.loadingCtrl.create({
+              content: '下载中',
+            });
+            loading.present();
+            this.fileTransfer.download(f[1], this.file.externalRootDirectory + f[0]).then((entry) => {
+              loading.dismiss();
+              this.toaster.show("下载成功！");
+              this.openFile(f);
+            }, (error) => {
+              loading.dismiss();
+              this.toaster.show('下载失败！');
+              console.log(error);
+            });
+          } else {
+            console.log(err);
+          }
+        }
+      );
+    } catch (x) {
+      console.log(JSON.stringify(x));
     }
-    this.openFile(f);
   }
 
   deleteFile(f) {
@@ -389,27 +407,11 @@ export class ProDetPage {
     });
   }
 
-  fileExist(f) {
-    var path = this.file.dataDirectory;
-    let existance: boolean;
-    try {
-      this.file.checkFile(path, f[0]).then(
-        res => true,
-        err => false
-      ).then(isExists => {
-        existance = isExists;
-      });
-    } catch (x) {
-      console.log(JSON.stringify(x));
-    }
-    return existance;
-  }
-
   openFile(f) {
-    this.fileOpener.open(this.file.dataDirectory, this.getFileMimeType(this.getFileType(f[0])))
+    this.fileOpener.open(this.file.externalRootDirectory + f[0], this.getFileMimeType(this.getFileType(f[0])))
       .then(() => { })
       .catch(() => {
-        this.toaster.show('请手动打开文件');
+        this.toaster.show('后缀无法识别，请手动打开文件');
       });
   }
 

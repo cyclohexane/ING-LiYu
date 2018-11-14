@@ -37,6 +37,7 @@ export class PsnlDetPage {
   getInfo() {
     this.http.doGet('boss/user/getuserinfo.do?userId=' + this.userId, res => {
       this.user = res.data;
+      this.user.itemName = this.user.list.map(i => i.itemName).join("，");
     });
   }
 
@@ -74,12 +75,12 @@ export class PsnlDetPage {
           text: '确定',
           handler: data => {
             let param = {
-              userId:this.userId,
-              userType:data
+              userId: this.userId,
+              userType: data
             };
-            this.http.doPost('boss/user/updateuser.do',this.http.toURL(param), res => {
-                this.toaster.show('更新职员成功！');
-              });
+            this.http.doPost('boss/user/updateuser.do', this.http.toURL(param), res => {
+              this.toaster.show('更新职员成功！');
+            });
           }
         }
       ]
@@ -100,13 +101,13 @@ export class PsnlDetPage {
           text: '确定',
           handler: () => {
             let param = {
-              userId:this.userId,
+              userId: this.userId,
               state: '0'
             };
-            this.http.doPost('boss/user/updateuser.do',this.http.toURL(param), res => {
-                this.toaster.show('删除职员成功！');
-                this.navCtrl.pop();
-              });
+            this.http.doPost('boss/user/updateuser.do', this.http.toURL(param), res => {
+              this.toaster.show('删除职员成功！');
+              this.navCtrl.pop();
+            });
           }
         }
       ]
