@@ -49,12 +49,12 @@ export class FncDetPage {
 
     this.http.doGet(`${url}?recordId=${this.recordId}`, res => {
       this.rec = res.data;
-      if (this.rec.recordType === 0) {
+      if (this.rec.recordType === 0 || this.rec.recordType === 4) {
         this.rec.recordDec = this.rec.recordDec.split("/").map(i => i.split("："));
       } else {
         this.rec.recordDec = [['描述', this.rec.recordDec]];
       }
-      if(this.rec.recordRefuse){
+      if (this.rec.recordRefuse) {
         this.rec.recordRefuse = this.rec.recordRefuse.split("br/");
       }
       let filePath = res.data.recordImgs ? res.data.recordImgs.split(",") : [];
@@ -74,6 +74,8 @@ export class FncDetPage {
         return "人工完工费";
       case 3:
         return "其他费用";
+      case 4:
+        return "运输费用";
     }
   }
 

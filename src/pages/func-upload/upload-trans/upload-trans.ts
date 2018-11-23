@@ -7,24 +7,19 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 
-
 @IonicPage()
 @Component({
-  selector: 'page-upload-mat',
-  templateUrl: 'upload-mat.html',
+  selector: 'page-upload-trans',
+  templateUrl: 'upload-trans.html',
 })
-export class UploadMatPage {
+export class UploadTransPage {
   userType
   item
   curItemId
 
-  mat = []
-  provider = []
   trans = []
-
-  offerId
-  transportId
   recordDec
+  transUnit
   unitPrice
   number
   fileList = []
@@ -36,8 +31,6 @@ export class UploadMatPage {
   }
 
   ionViewWillEnter() {
-    this.getMat();
-    this.getProvider();
     this.getTrans();
   }
 
@@ -47,27 +40,6 @@ export class UploadMatPage {
       if (this.userType === 3) {
         this.curItemId = this.item[0].itemId;
       }
-    });
-  }
-
-  getMat() {
-    this.http.doGet(`boss/category/categorylist.do?pageSize=100&pageNum=1`, res => {
-      if (res.data.list.length) {
-        this.mat = res.data.list;
-        this.mat.forEach(i => {
-          let str = `材料名：${i.categoryName}`;
-          if (i.specifications) str += `/材料规格：${i.specifications}`;
-          if (i.unit) str += `/材料单位：${i.unit}`;
-          i.shortDec = str;
-          i.longDec = `材料编号：${i.categoryId}/${i.shortDec}`;
-        });
-      }
-    });
-  }
-
-  getProvider() {
-    this.http.doGet(`boss/offer/offererlist.do?pageSize=100&pageNum=1`, res => {
-      this.provider = res.data.list;
     });
   }
 
@@ -164,27 +136,22 @@ export class UploadMatPage {
       this.toaster.show('所属项目为必填项！');
       return;
     } else if (!this.recordDec) {
-      this.toaster.show('材料为必填项！');
-      return;
-    } else if (!this.offerId) {
-      this.toaster.show('供货商为必填项！');
-      return;
-    } else if (!this.transportId) {
       this.toaster.show('运输单位为必填项！');
+      return;
+    } else if (!this.transUnit) {
+      this.toaster.show('单位为必填项！');
       return;
     } else if (!this.unitPrice) {
       this.toaster.show('单价为必填项！');
       return;
     } else if (!this.number) {
-      this.toaster.show('数量为必填项！');
+      this.toaster.show('重量为必填项！');
       return;
     }
     let param = {
       itemId: this.curItemId,
-      recordType: '0',//字符串防过滤
-      offerId: this.offerId,
-      transportId: this.transportId,
-      recordDec: this.recordDec,
+      recordType: 4,//字符串防过滤
+      recordDec: this.recordDec + `/数量：${this.number}${this.transUnit}`,
       unitPrice: this.unitPrice,
       number: this.number
     }
@@ -238,5 +205,6 @@ export class UploadMatPage {
     });
     alert.present();
   }
+
 
 }

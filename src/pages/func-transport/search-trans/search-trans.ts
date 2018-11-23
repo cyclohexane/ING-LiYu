@@ -1,34 +1,43 @@
-import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { AlertController, IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { HttpUtilProvider } from '../../../providers/http-util/http-util';
 import { ToasterProvider } from '../../../providers/toaster/toaster';
 
 @IonicPage()
 @Component({
-  selector: 'page-trans',
-  templateUrl: 'trans.html',
+  selector: 'page-search-trans',
+  templateUrl: 'search-trans.html',
 })
-export class TransPage {
+export class SearchTransPage {
 
-  page = 1
-  public hasMoreData = true
-  trans: string[] = []
+  @ViewChild(Content) content: Content;
 
-  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public http: HttpUtilProvider, public toaster: ToasterProvider) {
+  public keywords = '';
+
+  public list = [];
+
+  public page = 1;
+
+  public hasMoreData = true;  /*是否有超过一页的数据*/
+
+
+  constructor(public toaster: ToasterProvider, private alertCtrl: AlertController, public http: HttpUtilProvider, public navCtrl: NavController, public navParams: NavParams) {
+
   }
 
-  ionViewWillEnter() {
-    this.page = 1;
-    this.getTrans();
-  }
+  getSearchList(scroll?) {
 
-  getTrans(scroll?) {
+    if (!scroll) {//键入
+      this.page = 1;
+      this.hasMoreData = true;
+      this.content.scrollToTop(0); /*回到顶部*/
+    }
 
-    this.http.doGet(`boss/transport/transportlist.do?pageSize=30&pageNum=${this.page}`, res => {
+    this.http.doGet(`boss/transport/gettransportbyname.do?transportName=${this.keywords}&pageSize=30&pageNum=${this.page}`, res => {
       if (this.page === 1) {
-        this.trans = res.data.list;
+        this.list = res.data.list;
       } else {
-        this.trans = this.trans.concat(res.data.list);
+        this.list = this.list.concat(res.data.list);
       }
       if (scroll) {
         scroll.complete();
@@ -41,7 +50,7 @@ export class TransPage {
   }
 
   doLoadMore(scroll) {
-    this.getTrans(scroll);
+    this.getSearchList(scroll)
   }
 
   alterTrans(transportId, transportName, transportNumber, transportPhone) {
@@ -92,7 +101,7 @@ export class TransPage {
             }
             this.http.doPost('boss/transport/updatetransport.do', this.http.toURL(param), res => {
               this.toaster.show('更新运输单位成功！');
-              this.getTrans();
+              this.getSearchList();
             });
           }
         }
@@ -118,69 +127,13 @@ export class TransPage {
             }
             this.http.doPost('boss/transport/deletetransport.do', this.http.toURL(param), res => {
               this.toaster.show('删除运输单位成功！');
-              this.getTrans();
+              this.getSearchList();
             });
           }
         }
       ]
     });
     alert.present();
-  }
-
-  addTrans() {
-    let alert = this.alertCtrl.create({
-      title: '创建新运输单位',
-      inputs: [
-        {
-          name: 'transportName',
-          placeholder: '请输入单位名'
-        },
-        {
-          name: 'transportNumber',
-          placeholder: '请输入车牌号'
-        },
-        {
-          name: 'transportPhone',
-          placeholder: '请输入电话号码'
-        },
-      ],
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel'
-        },
-        {
-          text: '确定',
-          handler: data => {
-            if (!data.transportName || !data.transportName.trim()) {
-              this.toaster.show('单位名为必填项！');
-              return false;
-            }
-            if (!data.transportNumber || !data.transportNumber.trim()) {
-              this.toaster.show('车牌号为必填项！');
-              return false;
-            }
-            if (!data.transportPhone || !data.transportPhone.trim()) {
-              this.toaster.show('电话号码为必填项！');
-              return false;
-            }
-            let param = {
-              transportName: data.transportName,
-              transportNumber: data.transportNumber,
-              transportPhone: data.transportPhone
-            }
-            this.http.doPost('boss/transport/addtransport.do', this.http.toURL(param), res => {
-              this.toaster.show('添加运输单位成功！');
-            });
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  toSearchTrans() {
-    this.navCtrl.push("SearchTransPage");
   }
 
 }

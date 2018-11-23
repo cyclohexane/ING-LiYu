@@ -1,0 +1,33 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-searchbar (ionInput)="getSearchList()" [(ngModel)]="keywords" placeholder="输入运输单位名"></ion-searchbar>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <div class="tabel-header" *ngIf="list.length">
+        <span>单位名</span>
+        <span>车牌号</span>
+        <span>电话号码</span>
+        <span>操作</span>
+    </div>
+
+    <ul class="trans-stock">
+        <li *ngFor="let i of list" class="item">
+            <span>{{i.transportName || "无"}}</span>
+            <span>{{i.transportNumber || "无"}}</span>
+            <span>{{i.transportPhone || "无"}}</span>
+            <span>
+            <ion-icon (tap)="alterTrans(i.transportName,i.transportNumber,i.transportPhone)" ios="md-build" md="md-build"></ion-icon>
+            <ion-icon (tap)="removeTrans(i.transportId)" ios="md-close" md="md-close"></ion-icon>
+        </span>
+        </li>
+    </ul>
+
+    <ion-infinite-scroll (ionInfinite)="doLoadMore($event)" *ngIf="hasMoreData">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

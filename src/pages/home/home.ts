@@ -128,6 +128,58 @@ export class HomePage {
     alert.present();
   }
 
+  addTrans() {
+    let alert = this.alertCtrl.create({
+      title: '创建新运输单位',
+      inputs: [
+        {
+          name: 'transportName',
+          placeholder: '请输入单位名'
+        },
+        {
+          name: 'transportNumber',
+          placeholder: '请输入车牌号'
+        },
+        {
+          name: 'transportPhone',
+          placeholder: '请输入电话号码'
+        },
+      ],
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel'
+        },
+        {
+          text: '确定',
+          handler: data => {
+            if (!data.transportName || !data.transportName.trim()) {
+              this.toaster.show('单位名为必填项！');
+              return false;
+            }
+            if (!data.transportNumber || !data.transportNumber.trim()) {
+              this.toaster.show('车牌号为必填项！');
+              return false;
+            }
+            if (!data.transportPhone || !data.transportPhone.trim()) {
+              this.toaster.show('电话号码为必填项！');
+              return false;
+            }
+            let param = {
+              transportName: data.transportName,
+              transportNumber: data.transportNumber,
+              transportPhone: data.transportPhone
+            }
+            this.http.doPost('boss/transport/addtransport.do', this.http.toURL(param), res => {
+              this.toaster.show('添加运输单位成功！');
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   toAllFnc() {
     this.navCtrl.push("AllFncPage");
   }
@@ -156,41 +208,48 @@ export class HomePage {
     this.navCtrl.push("ProDetBasicPage", {
       itemId: itemId
     });
-}
+  }
 
-toPsnl(): void {
-  this.navCtrl.push("PsnlPage");
+  toPsnl(): void {
+    this.navCtrl.push("PsnlPage");
 
-}
+  }
 
-toAddPsnl(): void {
-  this.navCtrl.push("AddPsnlPage");
-}
+  toAddPsnl(): void {
+    this.navCtrl.push("AddPsnlPage");
+  }
 
-toMatProvider(): void {
-  this.navCtrl.push("MatProviderPage");
-}
+  toMatProvider(): void {
+    this.navCtrl.push("MatProviderPage");
+  }
 
-toMat(): void {
-  this.navCtrl.push("MatPage");
-}
+  toMat(): void {
+    this.navCtrl.push("MatPage");
+  }
 
-toUploadMat() {
-  this.navCtrl.push("UploadMatPage");
-}
+  toTrans(): void {
+    this.navCtrl.push("TransPage");
+  }
 
-toUploadMachine() {
-  this.navCtrl.push("UploadMachinePage");
-}
+  toUploadMat() {
+    this.navCtrl.push("UploadMatPage");
+  }
 
-toUploadLabor() {
-  this.navCtrl.push("UploadLaborPage");
-}
+  toUploadMachine() {
+    this.navCtrl.push("UploadMachinePage");
+  }
 
+  toUploadLabor() {
+    this.navCtrl.push("UploadLaborPage");
+  }
 
-toUploadOther() {
-  this.navCtrl.push("UploadOtherPage");
-}
+  toUploadTrans() {
+    this.navCtrl.push("UploadTransPage");
+  }
+
+  toUploadOther() {
+    this.navCtrl.push("UploadOtherPage");
+  }
 
 
 }

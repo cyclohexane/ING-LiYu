@@ -1,7 +1,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>上传材料开销</ion-title>
+        <ion-title>上传运输费开销</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -16,24 +16,18 @@
             </ion-select>
         </ion-item>
         <ion-item>
-            <ion-label color="primary" fixed>材料</ion-label>
-            <ion-select [(ngModel)]="recordDec" placeholder="（请选择）" okText="确定" cancelText="取消">
-                <ion-option *ngFor="let i of mat" [value]="i.longDec">{{i.shortDec}}</ion-option>
-                <ion-option *ngIf="!mat?.length" disabled>（暂无）</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
             <ion-label color="primary" fixed>运输单位</ion-label>
-            <ion-select [(ngModel)]="transportId" placeholder="（请选择）" okText="确定" cancelText="取消">
+            <ion-select [(ngModel)]="recordDec" placeholder="（请选择）" okText="确定" cancelText="取消">
                 <ion-option *ngFor="let i of trans" [value]="i.longDec">{{i.shortDec}}</ion-option>
                 <ion-option *ngIf="!trans?.length" disabled>（暂无）</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
-            <ion-label color="primary" fixed>供货商</ion-label>
-            <ion-select [(ngModel)]="offerId" placeholder="（请选择）" okText="确定" cancelText="取消">
-                <ion-option *ngFor="let i of provider" [value]="i.offerId">{{i.offerCompany}}</ion-option>
-                <ion-option *ngIf="!provider?.length" disabled>（暂无）</ion-option>
+            <ion-label color="primary" fixed>单位</ion-label>
+            <ion-select [(ngModel)]="transUnit" placeholder="（请选择）" okText="确定" cancelText="取消">
+                <ion-option value="吨">吨</ion-option>
+                <ion-option value="车">车</ion-option>
+                <ion-option value="方">方</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
@@ -41,7 +35,7 @@
             <ion-input type="number" [(ngModel)]="unitPrice"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label color="primary" fixed>数量</ion-label>
+            <ion-label color="primary" fixed>重量</ion-label>
             <ion-input type="number" [(ngModel)]="number"></ion-input>
         </ion-item>
         <ion-item-divider>

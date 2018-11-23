@@ -186,6 +186,8 @@ export class ProDetBasicPage {
         return "人工完工费";
       case 3:
         return "其他费用";
+      case 4:
+        return "运输费用";
     }
   }
 

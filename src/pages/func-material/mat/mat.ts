@@ -165,10 +165,6 @@ export class MatPage {
     alert.present();
   }
 
-  toMatDet(): void {
-    this.navCtrl.push("MatDetPage");
-  }
-
   toSearchMat() {
     this.navCtrl.push("SearchMatPage");
   }

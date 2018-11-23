@@ -101,6 +101,16 @@
             </div>
             <span>创建材料</span>
         </li>
+        <li *ngIf="type === 0" (tap)="toTrans()">
+            <div style="background-image:url('./assets/imgs/mat.png');" class="home-icon">
+            </div>
+            <span>运输管理</span>
+        </li>
+        <li *ngIf="type === 0" (tap)="addTrans()">
+            <div style="background-image:url('./assets/imgs/add-mat.png');" class="home-icon">
+            </div>
+            <span>创建运输单位</span>
+        </li>
         <li *ngIf="type === 2 || type === 3" (tap)="toUploadMat()">
             <div style="background-image:url('./assets/imgs/upload-mat.png');" class="home-icon">
             </div>
@@ -109,12 +119,17 @@
         <li *ngIf="type === 2 || type === 3" (tap)="toUploadMachine()">
             <div style="background-image:url('./assets/imgs/upload-machine.png');" class="home-icon">
             </div>
-            <span>上传机械完工费开销</span>
+            <span>上传机械完工费</span>
         </li>
         <li *ngIf="type == 2 || type === 3" (tap)="toUploadLabor()">
             <div style="background-image:url('./assets/imgs/upload-labor.png');" class="home-icon">
             </div>
-            <span>上传人工完工费开销</span>
+            <span>上传人工完工费</span>
+        </li>
+        <li *ngIf="type === 2 || type === 3" (tap)="toUploadTrans()">
+            <div style="background-image:url('./assets/imgs/upload-mat.png');" class="home-icon">
+            </div>
+            <span>上传运输费</span>
         </li>
         <li *ngIf="type === 2 || type === 3" (tap)="toUploadOther()">
             <div style="background-image:url('./assets/imgs/upload-other.png');" class="home-icon">
